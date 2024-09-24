@@ -23,6 +23,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+        // "i18next/no-literal-string": ['error', {markupOnly: true}]
     },
   },
 )
