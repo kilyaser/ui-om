@@ -1,4 +1,10 @@
 {
   "Начало": "Start",
-  "Перевод": "Translate"
+  "Перевод": "Translate",
+  "Язык": "En",
+  "Войти": "Login",
+  "Введите email": "Enter your email",
+  "Введите пароль": "Enter your password",
+  "Вы ввели не верный логин или пароль": "Wrong password or login",
+  "Форма авторизации": "Login form"
 }

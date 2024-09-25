@@ -1,0 +1,1 @@
+export const OM_USER_LOCAL_STORAGE_KEY = 'om-user';
