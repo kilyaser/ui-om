@@ -5,9 +5,10 @@ import {memo, useCallback} from "react";
 import {Input} from "../../../../shared/ui/Input/Input";
 import {Button} from "../../../../shared/ui/Button/Button";
 import {ButtonOutlineStyle} from "../../../../shared/ui/Button/ButtonStyleType";
-import {useDispatch, useSelector} from "react-redux";
 import {getLoginState} from "../../model/selectors/getLoginState/getLoginState";
 import {loginByEmail} from "../../model/services/loginByEmail/loginByEmail";
+import {useAppDispatch} from "../../../../shared/lib/hooks/useAppDipatch/useAppDispatch.ts";
+import {useSelector} from "react-redux";
 
 interface LoginFormProps {
     className?: string;
@@ -15,7 +16,7 @@ interface LoginFormProps {
 
 export const LoginForm = memo(({className = ""}: LoginFormProps) => {
     const {t} = useTranslation();
-    const dispatch = useDispatch<any>();
+    const dispatch = useAppDispatch();
     const {
         email,
         password,
