@@ -1,8 +1,10 @@
 import {useTranslation} from "react-i18next";
 import {Suspense} from "react";
 import {classNames} from "../shared/lib/classNames";
-import {LangSwitcher} from "../shared/ui/LangSwitcher";
 import {Navbar} from "../widgets/Navbar";
+import {Sidebar} from "../widgets/Sidebar";
+import {AppRouter} from "./providers/router";
+
 
 function App() {
     const {t} = useTranslation();
@@ -11,8 +13,11 @@ function App() {
       <div className={classNames("app", {}, [])}>
           <Suspense fallback="">
               <Navbar/>
+              <div className={"content-page"}>
+                  <Sidebar/>
+                  <AppRouter/>
+              </div>
               {t("Начало")}
-              <LangSwitcher/>
           </Suspense>
       </div>
   )

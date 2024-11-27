@@ -2,3 +2,12 @@
 @import "varibales/globals";
 @import "themes/dark";
 @import "themes/normal";
+
+.content-page {
+  display: flex;
+}
+
+.page-wrapper {
+  flex-grow: 1;
+  padding: 20px;
+}

@@ -6,5 +6,8 @@
   "Введите email": "Enter your email",
   "Введите пароль": "Enter your password",
   "Вы ввели не верный логин или пароль": "Wrong password or login",
-  "Форма авторизации": "Login form"
+  "Форма авторизации": "Login form",
+  "Заказы": "Orders",
+  "Дашборд": "Dashboard",
+  "Страница не найдена": "Page not found"
 }

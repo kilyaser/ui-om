@@ -1,0 +1,1 @@
+export {WorkSpacePageAsync as WorkSpacePage} from "./ui/WorkSpacePage.async";
