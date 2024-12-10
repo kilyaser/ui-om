@@ -19,5 +19,24 @@ export default defineConfig({
                 }
             }
         }
+    },
+    "api": {
+        input: "./src/clients/schemas/ui-common-api.json",
+        output: {
+            target: "./src/clients/generated/commonApi",
+            schemas: "./src/clients/generated/commonApi/models",
+            prettier: this,
+            client: "react-query" ,
+            mode: "tags",
+            override: {
+                query: {
+                    useSuspenseQuery: true,
+                },
+                mutator: {
+                    path: "./src/shared/api/instance.ts",
+                    name: "apiInstance",
+                }
+            }
+        }
     }
 });
