@@ -39,7 +39,7 @@ export const LoginForm = memo(({className, onSuccess}: LoginFormProps) => {
         if (result.meta.requestStatus === "fulfilled") {
             onSuccess();
         }
-    }, [onSuccess, dispatch, email, password])
+    }, [onSuccess, dispatch, email, password]);
 
     return (
         <div

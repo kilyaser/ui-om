@@ -1,6 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {OmUser} from "../../../../../entities/OmUser";
-import {OM_USER_LOCAL_STORAGE_KEY} from "../../../../../shared/const/localStorage";
+import {ACCESS_TOKEN, OM_USER_LOCAL_STORAGE_KEY, REFRESH_TOKEN} from "../../../../../shared/const/localStorage";
 import {omUserActions} from "../../../../../entities/OmUser/model/slice/OmUserSlice";
 import i18n from "i18next";
 import {AuthRequest, AuthResponse} from "../../../../../clients/generated/authClient/models";
@@ -20,6 +20,8 @@ export const loginByEmail = createAsyncThunk<AuthResponse, LoginByEmailProps, {r
              const response = transformAuthResponseToOmUser(await authApi.authenticate(authRequest));
 
              localStorage.setItem(OM_USER_LOCAL_STORAGE_KEY, JSON.stringify(response));
+             localStorage.setItem(REFRESH_TOKEN, response.refreshToken)
+             localStorage.setItem(ACCESS_TOKEN, response.refreshToken)
              thunkAPI.dispatch(omUserActions.setAuthData(response));
 
              return response;
