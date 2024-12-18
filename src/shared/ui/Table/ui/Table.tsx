@@ -1,22 +1,24 @@
-import type {UiOrderShort} from "../../../../clients/generated/commonApi/models";
-import {classNames} from "../../../lib/classNames.ts";
 
-interface TableProps {
+import {classNames} from "../../../lib/classNames";
+
+interface TableProps<T> {
     className?: string;
     columns: Array<string>;
-    ordersShort: UiOrderShort[];
+    data: T[];
+    renderRow: (item: T, index: number) => React.ReactNode;
 }
 
-export const Table = (props: TableProps) => {
+export const Table = <T,>(props: TableProps<T>) => {
 
     const {
         className,
         columns,
-        ordersShort,
+        data,
+        renderRow,
     } = props;
 
     return (
-        <table className={classNames("table", {}, [className])}>
+        <table className={classNames("", {}, [className])}>
             <thead>
                 <tr>
                     {columns.map((column) => (
@@ -25,24 +27,19 @@ export const Table = (props: TableProps) => {
                 </tr>
             </thead>
             <tbody>
-            {ordersShort.length > 0 ? (
-                ordersShort.map((order, index) => (
-                    <tr key={order.orderId}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{order.orderNumber}</td>
-                        <td>{order.counterpartyName}</td>
-                        <td>{order.currentSum}</td>
-                        <td>{order.orderState}</td>
-                        <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
-                        <td>{order.completionDate}</td>
+                {data.length > 0 ? (
+                    data.map((item, index) => (
+                        <tr key={index}>
+                            {renderRow(item, index)}
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan={columns.length}>Нет данных для отображения</td>
                     </tr>
-                ))
-            ) : (
-                <tr>
-                    <td colSpan={columns.length}>Нет данных для отображения</td>
-                </tr>
-            )}
+                )}
             </tbody>
         </table>
     );
 };
+//TODO: Перевести наименование колонок и сделать маппинг статусов заказа.

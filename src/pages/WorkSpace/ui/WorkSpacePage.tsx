@@ -3,9 +3,11 @@ import {orderService} from "../../../services";
 import {PageRequest, PageUiOrderShort, UiOrderShort} from "../../../clients/generated/commonApi/models";
 import {Table} from "../../../shared/ui/Table";
 import {useEffect, useMemo, useState} from "react";
+import {Link} from "react-router-dom";
+import {RoutePath} from "../../../shared/config/routeConfig/routeConfig.tsx";
 
-const WorkSpacePage  = () => {
-    const {t} = useTranslation();
+const WorkSpacePage = () => {
+    const {t} = useTranslation("order");
     const [orders, setOrders] = useState<UiOrderShort[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,7 @@ const WorkSpacePage  = () => {
         t("Сумма"),
         t("Статус"),
         t("ГОЗ"),
-        t("Дата завершеня.")
+        t("Дата завершеня")
     ]
 
     useEffect(() => {
@@ -45,8 +47,22 @@ const WorkSpacePage  = () => {
 
     return (
         <Table
+            className={"table table-striped"}
             columns={columns}
-            ordersShort={orders}
+            data={orders}
+            renderRow={(order, index) => (
+                <>
+                    {/*<Link to={RoutePath.order.replace(":orderId", `/${order.orderId}`)}></Link>*/}
+                    <th scope="row">{index + 1}</th>
+                    <td>{order.orderNumber}</td>
+                    <td>{order.counterpartyName}</td>
+                    <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
+                    <td>{order.orderState}</td>
+                    <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
+                    <td>{order.completionDate}</td>
+                </>
+
+            )}
         />
     );
 };
