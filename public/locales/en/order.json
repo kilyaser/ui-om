@@ -4,5 +4,13 @@
   "Сумма": "Sum",
   "Статус": "Status",
   "ГОЗ": "SDO",
-  "Дата завершеня": "Completion date"
+  "Дата завершеня": "Completion date",
+  "Контрагент": "Counterparty",
+  "ИНН": "inn",
+  "Оплачено": "Paid",
+  "руб": "rub",
+  "Задолженность": "Debt",
+  "НДС": "VAT",
+  "Дата завершения": "Completion date",
+  "от": "from"
 }

@@ -19,7 +19,7 @@ export const Table = <T,>(props: TableProps<T>) => {
 
     return (
         <table className={classNames("", {}, [className])}>
-            <thead>
+            <thead className="table-light">
                 <tr>
                     {columns.map((column) => (
                         <th key={column}>{column}</th>

@@ -4,17 +4,20 @@ import {PageRequest, PageUiOrderShort, UiOrderShort} from "../../../clients/gene
 import {Table} from "../../../shared/ui/Table";
 import {useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
-import {RoutePath} from "../../../shared/config/routeConfig/routeConfig.tsx";
+import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
+import {Pagination} from "../../../shared/ui/Pagination";
 
 const WorkSpacePage = () => {
     const {t} = useTranslation("order");
     const [orders, setOrders] = useState<UiOrderShort[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(0); // Текущая страница
+    const [totalPages, setTotalPages] = useState<number>(0); // Общее количество страниц
     const pageRequest: PageRequest = useMemo(() => ({
-        page: 0,
+        page: currentPage,
         size: 20,
-    }), []);
+    }), [currentPage]);
 
     const columns = [
         "#",
@@ -29,10 +32,11 @@ const WorkSpacePage = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const data: PageUiOrderShort = await orderService.getOrderPage(pageRequest);
-                setOrders(data.content || []); // Устанавливаем содержимое заказов
+                const data: PageUiOrderShort = await orderService.getOrdersPage(pageRequest);
+                setOrders(data.content || []);
+                setTotalPages(data.totalPages || 0);
             } catch (error) {
-                setError('Ошибка при загрузке заказов');
+                setError('Ошибка при загрузке заказов:');
                 console.error(error);
             } finally {
                 setLoading(false);
@@ -46,24 +50,34 @@ const WorkSpacePage = () => {
     if (error) return <div>{error}</div>;
 
     return (
-        <Table
-            className={"table table-striped"}
-            columns={columns}
-            data={orders}
-            renderRow={(order, index) => (
-                <>
-                    {/*<Link to={RoutePath.order.replace(":orderId", `/${order.orderId}`)}></Link>*/}
-                    <th scope="row">{index + 1}</th>
-                    <td>{order.orderNumber}</td>
-                    <td>{order.counterpartyName}</td>
-                    <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
-                    <td>{order.orderState}</td>
-                    <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
-                    <td>{order.completionDate}</td>
-                </>
-
-            )}
-        />
+        <div>
+            <Table
+                className={"table"}
+                columns={columns}
+                data={orders}
+                renderRow={(order, index) => (
+                    <>
+                        <th scope="row">{index + 1 + currentPage * 20}</th>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.orderNumber}
+                            </Link>
+                        </td>
+                        <td>{order.counterpartyName}</td>
+                        <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
+                        <td>{order.orderState}</td>
+                        <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
+                        <td>{order.completionDate}</td>
+                    </>
+                )}
+            />
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
+        </div>
     );
 };
 export default WorkSpacePage;

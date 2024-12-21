@@ -6,7 +6,8 @@ export const DashBoardPage = () => {
 
     return (
         <div>
-            {t("Дашборд")}
+            <p className="fs-1 fw-semibold">{t("В разработке")}</p>
+
         </div>
     );
 };

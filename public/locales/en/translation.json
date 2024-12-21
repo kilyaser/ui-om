@@ -1,5 +1,4 @@
 {
-  "Начало": "Start",
   "Перевод": "Translate",
   "Язык": "En",
   "Войти": "Login",
@@ -9,5 +8,6 @@
   "Форма авторизации": "Login form",
   "Заказы": "Orders",
   "Дашборд": "Dashboard",
-  "Страница не найдена": "Page not found"
+  "Страница не найдена": "Page not found",
+  "В разработке": "The module is under development"
 }
