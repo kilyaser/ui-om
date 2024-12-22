@@ -30,7 +30,7 @@ export const TaskInfo = (props: TaskInfoProps) => {
                         notComplecte.map((task, index) => (
                             <div className="row border-bottom" key={task.id}>
                                 <div className="col-1 text-center">{index + 1}</div>
-                                <div className="col-6">{task.description}</div>
+                                <div className="col-8">{task.description}</div>
                             </div>
                         ))
                     ) : (
@@ -42,7 +42,7 @@ export const TaskInfo = (props: TaskInfoProps) => {
                         completed.map((task, index) => (
                             <div className="row border-bottom" key={task.id}>
                                 <div className="col-1 text-center">{index + 1}</div>
-                                <div className="col-6">{task.description}</div>
+                                <div className="col-8">{task.description}</div>
                             </div>
                         ))
                     ) : (
