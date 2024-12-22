@@ -6,6 +6,7 @@ import {useEffect, useMemo, useState} from "react";
 import {Link} from "react-router-dom";
 import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Pagination} from "../../../shared/ui/Pagination";
+import {OrderState} from "../../type";
 
 const WorkSpacePage = () => {
     const {t} = useTranslation("order");
@@ -66,7 +67,9 @@ const WorkSpacePage = () => {
                         </td>
                         <td>{order.counterpartyName}</td>
                         <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
-                        <td>{order.orderState}</td>
+                        <td>{order.orderState && OrderState[order.orderState]
+                            ? OrderState[order.orderState] : ''}
+                        </td>
                         <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
                         <td>{order.completionDate}</td>
                     </>
