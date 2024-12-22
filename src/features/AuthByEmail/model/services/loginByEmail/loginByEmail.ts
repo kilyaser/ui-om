@@ -15,7 +15,6 @@ export const loginByEmail = createAsyncThunk<AuthResponse, LoginByEmailProps, {r
     "login/loginByEmail",
      async (authData, thunkAPI) => {
          try {
-             console.log("authData", authData);
              const authRequest: AuthRequest = { email: authData.email, password: authData.password };
              const response = transformAuthResponseToOmUser(await authApi.authenticate(authRequest));
 
@@ -26,7 +25,6 @@ export const loginByEmail = createAsyncThunk<AuthResponse, LoginByEmailProps, {r
 
              return response;
          } catch (e) {
-             console.log(e);
              return thunkAPI.rejectWithValue(i18n.t("Вы ввели не верный логин или пароль"));
          }
      },

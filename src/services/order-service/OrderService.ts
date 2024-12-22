@@ -1,11 +1,20 @@
-import {PageRequest, type PageUiOrderShort} from "../../clients/generated/commonApi/models";
+import {PageRequest, type PageUiOrderShort, type UiOrder} from "../../clients/generated/commonApi/models";
 import {ordersApi} from "../../clients/generated";
 
 class OrderService {
 
-    async getOrderPage(req: PageRequest): Promise<PageUiOrderShort> {
+    async getOrdersPage(req: PageRequest): Promise<PageUiOrderShort> {
         try {
             return await ordersApi.getOrdersPage(req);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async getOrderById(id: string): Promise<UiOrder> {
+        try {
+            return await ordersApi.getOrderById(id);
         } catch (error) {
             console.error(error);
             throw error;

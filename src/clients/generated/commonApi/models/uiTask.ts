@@ -8,10 +8,8 @@
 
 /**
  * UiTask
- * @maxLength 500
  */
 export interface UiTask {
-  completed?: boolean;
   /**
    * Описание задачи.
    * @maxLength 255
@@ -19,5 +17,6 @@ export interface UiTask {
   description?: string;
   /** Идентификатор задачи. */
   id?: string;
+  /** Признак завершения задачи. */
   isCompleted?: boolean;
 }
