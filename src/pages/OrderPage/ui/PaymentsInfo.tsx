@@ -3,7 +3,7 @@ import {useTranslation} from "react-i18next";
 import {classNames} from "../../../shared/lib/classNames";
 import {manyFormat} from "../../../shared/lib/manyFormat";
 import {PaymentForm} from "../../../shared/ui/PaymentForm";
-import {UiPaymentShort} from "../../../clients/generated/commonApi/models";
+import {UiPaymentShort, UpdatePaymentRequest} from "../../../clients/generated/commonApi/models";
 import {paymentService} from "../../../services";
 import {useState} from "react";
 
@@ -16,7 +16,7 @@ interface PaymentsInfoProps {
 }
 
 export const PaymentsInfo = (props: PaymentsInfoProps) => {
-    const {t} = useTranslation("order");
+    const { t } = useTranslation("order");
 
     const {
         className,
@@ -27,6 +27,9 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
     } = props;
 
     const [isPaymentFormVisible, setPaymentFormVisible] = useState(false);
+    const [editablePaymentId, setEditablePaymentId] = useState<string | null>(null);
+    const [editedPaymentDate, setEditedPaymentDate] = useState<string>('');
+    const [editedPaymentSum, setEditedPaymentSum] = useState<number | ''>('');
 
     const totalPayments = payments.reduce((sum, payment) => sum + (payment.paymentSum || 0), 0) || 0;
 
@@ -36,6 +39,30 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
             onPaymentChanged(); // Вызываем обработчик удаления
         } catch (err) {
             console.error("Ошибка при удалении платежа", err);
+        }
+    };
+
+    const handleEditPayment = (payment: UiPaymentShort) => {
+        setEditablePaymentId(payment.paymentId || '');
+        setEditedPaymentDate(payment.paymentDate || '');
+        setEditedPaymentSum(payment.paymentSum || '');
+    };
+
+    const handleUpdatePayment = async (paymentId: string) => {
+        try {
+            const request: UpdatePaymentRequest = {
+                patch: {
+                    paymentDate: editedPaymentDate,
+                    paymentSum: editedPaymentSum !== '' ? editedPaymentSum : undefined,
+                },
+                paymentId,
+            };
+            console.log("request", request);
+            await paymentService.updatePayment(request); // Обновляем платеж
+            onPaymentChanged(); // Вызываем обработчик обновления
+            setEditablePaymentId(null); // Сбрасываем редактируемый платеж
+        } catch (err) {
+            console.error("Ошибка при обновлении платежа", err);
         }
     };
 
@@ -57,15 +84,42 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                         <div className="row" key={payment.paymentId}>
                             <div className="col-1 border">{index + 1}</div>
                             <div className="col-4 border">
-                                {payment.paymentDate || t("Дата платежа не задана")}
+                                {editablePaymentId === payment.paymentId ? (
+                                    <input
+                                        className="form-control mt-1"
+                                        type="date"
+                                        value={editedPaymentDate}
+                                        onChange={(e) => setEditedPaymentDate(e.target.value)}
+                                        onBlur={() => handleUpdatePayment(payment.paymentId || '')}
+                                    />
+                                ) : (
+                                    <span onClick={() => handleEditPayment(payment)} style={{ cursor: 'pointer' }}>
+                                        {payment.paymentDate || t("Дата платежа не задана")}
+                                    </span>
+                                )}
                             </div>
-                            <div className="col-2 border">{manyFormat(payment.paymentSum)}</div>
+                            <div className="col-2 border">
+                                {editablePaymentId === payment.paymentId ? (
+                                    <input
+                                        className="form-control mt-1"
+                                        type="number"
+                                        value={editedPaymentSum}
+                                        onChange={(e) => setEditedPaymentSum(Number(e.target.value))}
+                                        onBlur={() => handleUpdatePayment(payment.paymentId || '')}
+                                    />
+                                ) : (
+                                    <span onClick={() => handleEditPayment(payment)}>
+                                        {manyFormat(payment.paymentSum)}
+                                    </span>
+                                )}
+                            </div>
                             <div className="col-1 text-start">
                                 <button
                                     type="button"
                                     className="btn text-danger p-0"
                                     onClick={() => handleDeletePayment(payment.paymentId || "")} // Обработчик нажатия
-                                >Х
+                                >
+                                    Х
                                 </button>
                             </div>
                         </div>
