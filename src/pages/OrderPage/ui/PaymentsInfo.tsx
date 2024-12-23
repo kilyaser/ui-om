@@ -5,6 +5,7 @@ import {manyFormat} from "../../../shared/lib/manyFormat";
 import {PaymentForm} from "../../../shared/ui/PaymentForm";
 import {UiPaymentShort} from "../../../clients/generated/commonApi/models";
 import {paymentService} from "../../../services";
+import {useState} from "react";
 
 interface PaymentsInfoProps {
     className?: string;
@@ -23,8 +24,9 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
         orderId,
         counterpartyId,
         onPaymentChanged,
-
     } = props;
+
+    const [isPaymentFormVisible, setPaymentFormVisible] = useState(false);
 
     const totalPayments = payments.reduce((sum, payment) => sum + (payment.paymentSum || 0), 0) || 0;
 
@@ -37,10 +39,14 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
         }
     };
 
+    const togglePaymentForm = () => {
+        setPaymentFormVisible(prev => !prev); // Переключаем видимость формы
+    };
+
     return (
         <div className={classNames(cls.PaymentsInfo, {}, [className])}>
             {payments && payments.length > 0 ? (
-                <div className="text-center">
+                <div className="text-center mb-3">
                     <div className="row">
                         <div className="col-1 border bg-light">№</div>
                         <div className="col-4 border bg-light">{t("Дата")}</div>
@@ -57,10 +63,10 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                             <div className="col-1 text-start">
                                 <button
                                     type="button"
-                                    className="btn-close"
-                                    aria-label="Close"
+                                    className="btn text-danger p-0"
                                     onClick={() => handleDeletePayment(payment.paymentId || "")} // Обработчик нажатия
-                                ></button>
+                                >Х
+                                </button>
                             </div>
                         </div>
                     ))}
@@ -77,11 +83,21 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
             ) : (
                 <p className="text-muted">{t("Нет доступных платежей")}</p>
             )}
-            <PaymentForm
-                orderId={orderId}
-                counterpartyId={counterpartyId}
-                onPaymentChanged={onPaymentChanged}
-            />
+
+            <button
+                type="button"
+                className="btn btn-light mt-1"
+                onClick={togglePaymentForm}
+            >
+                <strong>{isPaymentFormVisible ? '-' : '+'}</strong>
+            </button>
+            {isPaymentFormVisible && (
+                <PaymentForm
+                    orderId={orderId}
+                    counterpartyId={counterpartyId}
+                    onPaymentChanged={onPaymentChanged}
+                />
+            )}
         </div>
     );
 };

@@ -30,5 +30,8 @@
   "Нет не выполненных задач": "There are no uncompleted tasks",
   "Выполнены": "Completed",
   "Список Задач": "Task List",
-  "Не выполнены": "Not fulfilled"
+  "Не выполнены": "Not fulfilled",
+  "Дата платежа": "Payment date",
+  "Сумма платежа": "Payment amount",
+  "Добавить": "Add"
 }

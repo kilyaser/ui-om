@@ -1,5 +1,5 @@
 import {paymentApi} from "../../clients/generated";
-import {type CreatePaymentRequest, UiPayment} from "../../clients/generated/commonApi/models";
+import {type CreatePaymentRequest, UiPayment, UpdatePaymentRequest} from "../../clients/generated/commonApi/models";
 
 class PaymentService {
 
@@ -15,6 +15,15 @@ class PaymentService {
     async deletePayment(id: string) {
         try {
             await paymentApi.deletePayment(id);
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
+    }
+
+    async updatePayment(req: UpdatePaymentRequest): Promise<UiPayment> {
+        try {
+            return await paymentApi.updatePayment(req);
         } catch (error) {
             console.log(error);
             throw error

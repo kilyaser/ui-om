@@ -44,30 +44,37 @@ export const PaymentForm = (props: PaymentFormProps) => {
     return (
         <div className={classNames("", {}, [className])}>
             <div className="mt-4">
-                <h5>{t("Добавить платеж")}</h5>
                 {error &&
                     <p className="text-danger">{error}</p>
                 }
-                <div className="mb-3">
-                    <label>{t("Дата платежа")}</label>
-                    <input
-                        type="date"
-                        value={paymentDate}
-                        onChange={(e) => setPaymentDate(e.target.value)}
-                        className="form-control"
-                    />
+                <div className="row">
+                    <div className="col-2">
+                        <div className="mb-3">
+                            <label>{t("Дата платежа")}</label>
+                            <input
+                                type="date"
+                                value={paymentDate}
+                                onChange={(e) => setPaymentDate(e.target.value)}
+                                className="form-control mt-1"
+                            />
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="mb-3">
+                            <label className="mb1">{t("Сумма платежа")}</label>
+                            <input
+                                type="number"
+                                value={paymentSum}
+                                onChange={(e) => setPaymentSum(Number(e.target.value))}
+                                className="form-control mt-1"
+                            />
+                        </div>
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label>{t("Сумма платежа")}</label>
-                    <input
-                        type="number"
-                        value={paymentSum}
-                        onChange={(e) => setPaymentSum(Number(e.target.value))}
-                        className="form-control"
-                    />
-                </div>
+
+
                 <button onClick={handleAddPayment} className="btn btn-primary">
-                    {t("Добавить платеж")}
+                    {t("Добавить")}
                 </button>
             </div>
         </div>
