@@ -1,7 +1,7 @@
 export const OrderState = {
     NEW: 'Новый',
     IN_WORK: 'В работе',
-    READY: 'Готов',
+    READY: 'Произведен',
     SHIPPED: 'Отгружен',
     COMPLETED: 'Завершён',
     CANCELLED: 'Отменён',

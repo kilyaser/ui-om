@@ -1,0 +1,35 @@
+.order-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.progress-step {
+  position: relative;
+  flex: 1;
+  text-align: center;
+}
+
+.step-label {
+  font-weight: bold;
+}
+
+.progress-line {
+  height: 4px;
+  background: #e0e0e0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.progress-line.completed {
+  background: #4caf50; /* Цвет для завершенных этапов */
+}
+
+.progress-step.active .step-label {
+  color: #4caf50; /* Цвет для активного этапа */
+}

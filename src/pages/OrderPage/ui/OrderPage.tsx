@@ -11,6 +11,9 @@ import {PaymentsInfo} from "./PaymentsInfo";
 import {TaskInfo} from "./TaskInfo";
 import {ItemInfoFooter} from "./ItemInfoFooter";
 import {NavTab} from "./NavTab.tsx";
+import {Alert} from "../../../shared/ui/Alert/ui/Alert";
+import OrderProgressBar from "./OrderProgressBar";
+import {OrderState} from "../../type";
 
 interface OrderPageProps {
     className?: string;
@@ -26,6 +29,11 @@ export const OrderPage = ({className}: OrderPageProps) => {
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<ActiveTab>('info');
     const [payments, setPayments] = useState<UiPaymentShort[]>(order?.payments || []);
+    const isAlertVisible = order && payments.length > 0;
+    const totalPayments = payments.reduce((sum, payment) => sum + (payment.paymentSum || 0), 0) || 0;
+    const totalOrderAmount = order?.currentSum || 0;
+    const iaWarning = isAlertVisible && totalPayments > totalOrderAmount && totalPayments > 0;// Сумма платежей
+    const stateKey = order?.orderState;
 
     const fetchOrderData = async () => {
         try {
@@ -41,7 +49,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
     };
 
     useEffect(() => {
-       fetchOrderData() // Вызываем функцию для получения данных о заказе
+        fetchOrderData() // Вызываем функцию для получения данных о заказе
     }, [orderId]);
 
     const handleChangePayment = async () => {
@@ -53,6 +61,20 @@ export const OrderPage = ({className}: OrderPageProps) => {
 
     return (
         <div className={classNames(cls.OrderPage, {}, [className])}>
+            {stateKey && <OrderProgressBar
+                className={"mb-3"}
+                currentState={OrderState[stateKey]}
+            />}
+            {iaWarning && (
+                <div className="row">
+                    <div className="col-6">
+                        <Alert
+                            additional={["alert-warning"]}
+                            message={"Сумма введенных платеже превышает общую сумму заказа"}/>
+                    </div>
+                </div>
+
+            )}
             <NavTab
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}
@@ -65,6 +87,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
                                 className={cls.OrderPage}
                                 order={order}
                             />
+
                             <ItemInfo
                                 className={cls.OrderPage}
                                 orderItems={order.orderItems || []}

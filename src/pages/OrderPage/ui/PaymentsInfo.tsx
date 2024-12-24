@@ -30,9 +30,10 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
     const [editablePaymentId, setEditablePaymentId] = useState<string | null>(null);
     const [editedPaymentDate, setEditedPaymentDate] = useState<string>('');
     const [editedPaymentSum, setEditedPaymentSum] = useState<number | ''>('');
+    const [originalPaymentDate, setOriginalPaymentDate] = useState<string>('');
+    const [originalPaymentSum, setOriginalPaymentSum] = useState<number | ''>('');
 
     const totalPayments = payments.reduce((sum, payment) => sum + (payment.paymentSum || 0), 0) || 0;
-
     const handleDeletePayment = async (paymentId: string) => {
         try {
             await paymentService.deletePayment(paymentId); // Удаляем платеж
@@ -46,29 +47,36 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
         setEditablePaymentId(payment.paymentId || '');
         setEditedPaymentDate(payment.paymentDate || '');
         setEditedPaymentSum(payment.paymentSum || '');
+        setOriginalPaymentDate(payment.paymentDate || '');
+        setOriginalPaymentSum(payment.paymentSum || '');
     };
 
     const handleUpdatePayment = async (paymentId: string) => {
-        try {
-            const request: UpdatePaymentRequest = {
-                patch: {
-                    paymentDate: editedPaymentDate,
-                    paymentSum: editedPaymentSum !== '' ? editedPaymentSum : undefined,
-                },
-                paymentId,
-            };
-            console.log("request", request);
-            await paymentService.updatePayment(request); // Обновляем платеж
-            onPaymentChanged(); // Вызываем обработчик обновления
-            setEditablePaymentId(null); // Сбрасываем редактируемый платеж
-        } catch (err) {
-            console.error("Ошибка при обновлении платежа", err);
+        if (editedPaymentDate !== originalPaymentDate || editedPaymentSum !== originalPaymentSum) {
+            try {
+                const request: UpdatePaymentRequest = {
+                    patch: {
+                        paymentDate: editedPaymentDate,
+                        paymentSum: editedPaymentSum !== '' ? editedPaymentSum : undefined,
+                    },
+                    paymentId,
+                };
+                console.log("request", request);
+                await paymentService.updatePayment(request);
+                onPaymentChanged();
+            } catch (err) {
+                console.error("Ошибка при обновлении платежа", err);
+            }
         }
+        setEditablePaymentId(null);
     };
 
     const togglePaymentForm = () => {
         setPaymentFormVisible(prev => !prev); // Переключаем видимость формы
     };
+
+
+
 
     return (
         <div className={classNames(cls.PaymentsInfo, {}, [className])}>
