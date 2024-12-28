@@ -1,7 +1,7 @@
 import './OrderProgressBar.scss';
 import {OrderState} from "../../type";
 import PropTypes from "prop-types";
-import {classNames} from "../../../shared/lib/classNames"; // Подключите стили для прогресс-бара
+import {Box, Step, StepLabel, Stepper} from "@mui/material"; // Подключите стили для прогресс-бара
 
 const orderStates = [
     OrderState.NEW,
@@ -17,27 +17,42 @@ interface OrderProgressBarProps {
     currentState: string;
 }
 
-
 const OrderProgressBar = (props: OrderProgressBarProps) => {
-    const {
-        className,
-        currentState
-    } = props;
+    const {className, currentState} = props;
     const currentIndex = orderStates.indexOf(currentState);
+    const isCancelled = currentState == OrderState.CANCELLED;
 
     return (
-        <div className={classNames("", {}, [className])}>
-            <div className="order-progress-bar">
-                {orderStates.map((state, index) => (
-                    <div key={state} className={`progress-step ${index <= currentIndex ? 'active' : ''}`}>
-                        <div className="step-label">{state}</div>
-                        {index < orderStates.length - 1 &&
-                            <div className={`progress-line ${index < currentIndex ? 'completed' : ''}`}></div>}
-                    </div>
+        <Box sx={{width: '100%'}} className={`${className} d-flex`}>
+            <Stepper activeStep={isCancelled ? -1 : currentIndex} alternativeLabel className={"flex-grow-1"}>
+                {orderStates.filter((state) => state !== OrderState.CANCELLED).map((state) => (
+                    <Step key={state}>
+                        <StepLabel>{state}</StepLabel>
+                    </Step>
                 ))}
-            </div>
-        </div>
+            </Stepper>
+            <Stepper activeStep={isCancelled ? currentIndex : -1} alternativeLabel>
+                <Step
+                    sx={{
+                        '& .Mui-completed': {
+                            color: 'red',
+                        }
+                    }}
 
+                >
+                    <StepLabel
+                        sx={{
+                            color: isCancelled ? 'red' : 'lightgray',
+                            '& .MuiStepLabel-label': {
+                                color: isCancelled ? 'red' : 'lightgray',
+                            }
+                        }}
+                    >
+                        {OrderState.CANCELLED}
+                    </StepLabel>
+                </Step>
+            </Stepper>
+        </Box>
     );
 };
 

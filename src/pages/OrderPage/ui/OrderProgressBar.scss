@@ -1,7 +1,5 @@
 .order-progress-bar {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: relative;
 }
 
@@ -11,25 +9,47 @@
   text-align: center;
 }
 
-.step-label {
-  font-weight: bold;
+.circle {
+  width: 30px; /* Размер круга */
+  height: 30px; /* Размер круга */
+  border-radius: 50%; /* Круглая форма */
+  background: #fff; /* Цвет фона по умолчанию */
+  border: 2px solid #e0e0e0; /* Цвет обводки по умолчанию */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; /* Центрирование круга */
+}
+
+.circle.active {
+  background: #4caf50; /* Цвет для активного этапа */
+  border-color: #4caf50; /* Цвет обводки для активного этапа */
+}
+
+.checkmark {
+  color: white; /* Цвет галочки */
+  font-size: 18px; /* Размер галочки */
 }
 
 .progress-line {
-  height: 4px;
-  background: #e0e0e0;
+  height: 2px;
+  background: #e0e0e0; /* Цвет линии по умолчанию */
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100%;
   transform: translateX(-50%);
-  z-index: -1;
 }
 
 .progress-line.completed {
   background: #4caf50; /* Цвет для завершенных этапов */
 }
 
-.progress-step.active .step-label {
-  color: #4caf50; /* Цвет для активного этапа */
+.progress-line.active {
+  background: black; /* Цвет линии для активного этапа */
+}
+
+.step-label {
+  font-weight: bold;
+  margin-top: 10px; /* Отступ для названия этапа */
 }

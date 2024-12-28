@@ -24,7 +24,6 @@ export const OrderInfo = (props: OrderInfoProps) => {
         <div className={classNames(cls.OrderInfo, {}, [className])}>
             <div className="order-items">
                 <div className="text-start mb-3">
-                    <p className="fw-semibold fs-5">{order.orderNumber} {t("от")} {order.createdDate}</p>
                     <div className="row mb-1">
                         <div className="col-2 order-first">
                             <strong>{t("Контрагент")}:</strong>

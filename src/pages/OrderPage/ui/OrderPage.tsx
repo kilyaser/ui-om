@@ -14,6 +14,7 @@ import {NavTab} from "./NavTab.tsx";
 import {Alert} from "../../../shared/ui/Alert/ui/Alert";
 import OrderProgressBar from "./OrderProgressBar";
 import {OrderState} from "../../type";
+import {useTranslation} from "react-i18next";
 
 interface OrderPageProps {
     className?: string;
@@ -34,6 +35,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
     const totalOrderAmount = order?.currentSum || 0;
     const iaWarning = isAlertVisible && totalPayments > totalOrderAmount && totalPayments > 0;// Сумма платежей
     const stateKey = order?.orderState;
+    const {t} = useTranslation("order");
 
     const fetchOrderData = async () => {
         try {
@@ -61,6 +63,9 @@ export const OrderPage = ({className}: OrderPageProps) => {
 
     return (
         <div className={classNames(cls.OrderPage, {}, [className])}>
+            <div className="shadow-none p-3 mb-3 bg-light rounded">
+                <p className="text-start mt-1 mb-1 fs-3">{order?.orderNumber} {t("от")} {order?.createdDate}</p>
+            </div>
             {stateKey && <OrderProgressBar
                 className={"mb-3"}
                 currentState={OrderState[stateKey]}
