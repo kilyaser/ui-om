@@ -6,6 +6,7 @@ import {PaymentForm} from "../../../shared/ui/PaymentForm";
 import {UiPaymentShort, UpdatePaymentRequest} from "../../../clients/generated/commonApi/models";
 import {paymentService} from "../../../services";
 import {useState} from "react";
+import {Tooltip} from "@mui/material";
 
 interface PaymentsInfoProps {
     className?: string;
@@ -75,9 +76,6 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
         setPaymentFormVisible(prev => !prev); // Переключаем видимость формы
     };
 
-
-
-
     return (
         <div className={classNames(cls.PaymentsInfo, {}, [className])}>
             {payments && payments.length > 0 ? (
@@ -121,15 +119,18 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                                     </span>
                                 )}
                             </div>
-                            <div className="col-1 text-start">
-                                <button
-                                    type="button"
-                                    className="btn text-danger p-0"
-                                    onClick={() => handleDeletePayment(payment.paymentId || "")} // Обработчик нажатия
-                                >
-                                    Х
-                                </button>
-                            </div>
+                            <Tooltip title={t("Удалить")}>
+                                <div className="col-1 text-start">
+                                    <button
+                                        type="button"
+                                        className="btn text-danger p-0"
+                                        onClick={() => handleDeletePayment(payment.paymentId || "")} // Обработчик нажатия
+                                    >
+                                        Х
+                                    </button>
+                                </div>
+                            </Tooltip>
+
                         </div>
                     ))}
                     <div className="row mt-1">
@@ -145,14 +146,16 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
             ) : (
                 <p className="text-muted">{t("Нет доступных платежей")}</p>
             )}
+            <Tooltip title={t("Добавить платеж")}>
+                <button
+                    type="button"
+                    className="btn btn-light mt-1"
+                    onClick={togglePaymentForm}
+                >
+                    <strong>{isPaymentFormVisible ? '-' : '+'}</strong>
+                </button>
+            </Tooltip>
 
-            <button
-                type="button"
-                className="btn btn-light mt-1"
-                onClick={togglePaymentForm}
-            >
-                <strong>{isPaymentFormVisible ? '-' : '+'}</strong>
-            </button>
             {isPaymentFormVisible && (
                 <PaymentForm
                     orderId={orderId}

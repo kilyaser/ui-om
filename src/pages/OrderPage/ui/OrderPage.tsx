@@ -1,5 +1,5 @@
 import {classNames} from "../../../shared/lib/classNames";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {orderService} from "../../../services";
 import {UiOrder, UiPaymentShort} from "../../../clients/generated/commonApi/models";
@@ -37,7 +37,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
     const stateKey = order?.orderState;
     const {t} = useTranslation("order");
 
-    const fetchOrderData = async () => {
+    const fetchOrderData = useCallback(async () => {
         try {
             const data: UiOrder = await orderService.getOrderById(orderId);
             setOrder(data); // Устанавливаем данные о заказе в состояние
@@ -48,11 +48,16 @@ export const OrderPage = ({className}: OrderPageProps) => {
         } finally {
             setLoading(false); // Завершаем состояние загрузки
         }
-    };
+    }, [orderId]);
 
     useEffect(() => {
-        fetchOrderData() // Вызываем функцию для получения данных о заказе
-    }, [orderId]);
+        const loadOrder = async () => {
+            await fetchOrderData()
+        };
+        loadOrder().catch(error => {
+            console.error(error);
+        })
+    }, [fetchOrderData, orderId]);
 
     const handleChangePayment = async () => {
         await fetchOrderData()
@@ -110,6 +115,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
                     )}
                     {activeTab === 'tasks' && (
                         <TaskInfo
+                            orderId={orderId}
                             tasks={order.tasks || []}
                         />
                     )}

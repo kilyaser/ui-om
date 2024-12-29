@@ -6,3 +6,4 @@ export * as ordersApi from "./commonApi/order-ui-api";
 export * as ordersItemApi from "./commonApi/order-item-api";
 export * as paymentApi from "./commonApi/payment-ui-api";
 export * as productApi from "./commonApi/product-ui-api";
+export * as taskApi from "./commonApi/task-ui-api";

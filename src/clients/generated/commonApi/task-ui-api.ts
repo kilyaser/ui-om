@@ -40,7 +40,7 @@ import type { BodyType } from '../../../shared/api/instance';
 /**
  * Изменить признак завершения задачи
  */
-export const updateTask = (
+export const complectedTask = (
     taskCompletedRequest: BodyType<TaskCompletedRequest>,
  ) => {
       
@@ -55,18 +55,18 @@ export const updateTask = (
   
 
 
-export const getUpdateTaskMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext> => {
+export const getComplectedTaskMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof complectedTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof complectedTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext> => {
 const {mutation: mutationOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateTask>>, {data: BodyType<TaskCompletedRequest>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof complectedTask>>, {data: BodyType<TaskCompletedRequest>}> = (props) => {
           const {data} = props ?? {};
 
-          return  updateTask(data,)
+          return  complectedTask(data,)
         }
 
         
@@ -74,20 +74,20 @@ const {mutation: mutationOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UpdateTaskMutationResult = NonNullable<Awaited<ReturnType<typeof updateTask>>>
-    export type UpdateTaskMutationBody = BodyType<TaskCompletedRequest>
-    export type UpdateTaskMutationError = unknown
+    export type ComplectedTaskMutationResult = NonNullable<Awaited<ReturnType<typeof complectedTask>>>
+    export type ComplectedTaskMutationBody = BodyType<TaskCompletedRequest>
+    export type ComplectedTaskMutationError = unknown
 
-    export const useUpdateTask = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext>, }
+    export const useComplectedTask = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof complectedTask>>, TError,{data: BodyType<TaskCompletedRequest>}, TContext>, }
 ): UseMutationResult<
-        Awaited<ReturnType<typeof updateTask>>,
+        Awaited<ReturnType<typeof complectedTask>>,
         TError,
         {data: BodyType<TaskCompletedRequest>},
         TContext
       > => {
 
-      const mutationOptions = getUpdateTaskMutationOptions(options);
+      const mutationOptions = getComplectedTaskMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -149,7 +149,7 @@ const {mutation: mutationOptions} = options ?? {};
     /**
  * Изменить опесание заказа
  */
-export const updateTask1 = (
+export const updateTask = (
     updateTaskRequest: BodyType<UpdateTaskRequest>,
  ) => {
       
@@ -164,18 +164,18 @@ export const updateTask1 = (
   
 
 
-export const getUpdateTask1MutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask1>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof updateTask1>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext> => {
+export const getUpdateTaskMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext> => {
 const {mutation: mutationOptions} = options ?? {};
 
       
 
 
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateTask1>>, {data: BodyType<UpdateTaskRequest>}> = (props) => {
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateTask>>, {data: BodyType<UpdateTaskRequest>}> = (props) => {
           const {data} = props ?? {};
 
-          return  updateTask1(data,)
+          return  updateTask(data,)
         }
 
         
@@ -183,20 +183,20 @@ const {mutation: mutationOptions} = options ?? {};
 
   return  { mutationFn, ...mutationOptions }}
 
-    export type UpdateTask1MutationResult = NonNullable<Awaited<ReturnType<typeof updateTask1>>>
-    export type UpdateTask1MutationBody = BodyType<UpdateTaskRequest>
-    export type UpdateTask1MutationError = unknown
+    export type UpdateTaskMutationResult = NonNullable<Awaited<ReturnType<typeof updateTask>>>
+    export type UpdateTaskMutationBody = BodyType<UpdateTaskRequest>
+    export type UpdateTaskMutationError = unknown
 
-    export const useUpdateTask1 = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask1>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext>, }
+    export const useUpdateTask = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateTask>>, TError,{data: BodyType<UpdateTaskRequest>}, TContext>, }
 ): UseMutationResult<
-        Awaited<ReturnType<typeof updateTask1>>,
+        Awaited<ReturnType<typeof updateTask>>,
         TError,
         {data: BodyType<UpdateTaskRequest>},
         TContext
       > => {
 
-      const mutationOptions = getUpdateTask1MutationOptions(options);
+      const mutationOptions = getUpdateTaskMutationOptions(options);
 
       return useMutation(mutationOptions);
     }

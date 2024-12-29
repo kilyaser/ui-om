@@ -33,5 +33,10 @@
   "Не выполнены": "Not fulfilled",
   "Дата платежа": "Payment date",
   "Сумма платежа": "Payment amount",
-  "Добавить": "Add"
+  "Добавить": "Add",
+  "Удалить": "Delete",
+  "Добавить платеж": "Add payment",
+  "Выполнить": "To complete",
+  "Добавить задачу": "Add task",
+  "Вернуть в работу": "Return to work"
 }

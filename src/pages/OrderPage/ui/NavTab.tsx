@@ -18,27 +18,27 @@ export const NavTab = (props: NavTabProps) => {
     } = props
 
     return (
-        <div className={classNames("", {}, [className])}>
-            <ul className="nav nav-tabs">
-                <li className="nav-item">
-                    <a
-                        className={classNames("nav-link", {active: activeTab === 'info'})}
-                        onClick={() => setActiveTab('info')}
-                        href="#">{t("О заказе")}</a>
-                </li>
-                <li className="nav-item">
-                    <a
-                        className={classNames("nav-link", {active: activeTab === 'payments'})}
-                        onClick={() => setActiveTab('payments')}
-                        href="#">{t("Платежи")}
-                    </a>
-                </li>
-                <li className="nav-item">
-                    <a className={classNames("nav-link", {active: activeTab === 'tasks'})}
-                       onClick={() => setActiveTab('tasks')}
-                       href="#">{t("Задачи")}</a>
-                </li>
-            </ul>
-        </div>
+            <div className={classNames("mb-5", {}, [className])}>
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <a
+                            className={classNames("nav-link fs-5", {active: activeTab === 'info'})}
+                            onClick={() => setActiveTab('info')}
+                            href="#">{t("О заказе")}</a>
+                    </li>
+                    <li className="nav-item">
+                        <a
+                            className={classNames("nav-link fs-5", {active: activeTab === 'payments'})}
+                            onClick={() => setActiveTab('payments')}
+                            href="#">{t("Платежи")}
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a className={classNames("nav-link fs-5", {active: activeTab === 'tasks'})}
+                           onClick={() => setActiveTab('tasks')}
+                           href="#">{t("Задачи")}</a>
+                    </li>
+                </ul>
+            </div>
     );
 };
