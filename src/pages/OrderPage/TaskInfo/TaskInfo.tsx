@@ -17,6 +17,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
 import {TaskForm} from "../../../shared/ui/TaskForm";
 import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
+import {Loader} from "../../../shared/ui/Loader";
 
 interface TaskInfoProps {
     className?: string;
@@ -130,38 +131,38 @@ export const TaskInfo = (props: TaskInfoProps) => {
         setTaskFormVisible(prev => !prev);
     }
 
-    if (loading) return <div>Загрузка...</div>;
+    if (loading) return <Loader/>
+
     if (error) return <div>{error}</div>;
 
     return (
-        <div className="container">
+        <div className="container-lg">
             <Accordion defaultExpanded>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
                     aria-controls="panel1-content"
                     id="panel1-header"
                 >
-                    <Typography className="text-muted" variant="h5" gutterBottom>{t("Не выполнены")}</Typography>
+                    <Typography className="text-muted" variant="h6" gutterBottom>{t("Не выполнены")}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <div>
                         {notComplecte.length > 0 ? (
                             notComplecte.map((task, index) => (
-                                <div className="row" key={task.id}>
+                                <div className="row d-flex align-items-center" key={task.id}>
                                     <Typography variant="subtitle1" gutterBottom
-                                                className="col-1 text-start fs-5">
-                                        <Checkbox
-                                            checked={selectedTasks.includes(task.id!)}
-                                            onChange={() => handleCheckboxChange(task.id!)}
-                                            color="primary"
-                                        />
-                                        {index + 1}
+                                                className="col-1 text-start fs-6 d-flex align-items-center">
+                                            <Checkbox
+                                                checked={selectedTasks.includes(task.id!)}
+                                                onChange={() => handleCheckboxChange(task.id!)}
+                                                color="primary"
+                                            />
+                                        <div>{index + 1}</div>
                                     </Typography>
                                     <Typography
                                         variant="subtitle1"
                                         gutterBottom
-
-                                        className="col-10 font-monospace fs-5"
+                                        className="col-10 font-monospace fs-6"
                                     >{task.description}
                                     </Typography>
                                 </div>
@@ -213,24 +214,24 @@ export const TaskInfo = (props: TaskInfoProps) => {
                     aria-controls="panel2-content"
                     id="panel2-header"
                 >
-                    <Typography className="text-muted" variant="h5" gutterBottom>{t("Выполнены")}</Typography>
+                    <Typography className="text-muted" variant="h6" gutterBottom>{t("Выполнены")}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <div>
                         {completed.length > 0 ? (
                             completed.map((task, index) => (
-                                <div className="row" key={task.id}>
+                                <div className="row d-flex align-items-center" key={task.id}>
                                     <Typography variant="subtitle1" gutterBottom
-                                                className="col-1 text-center fs-5">
+                                                className="col-1 text-center fs-6 d-flex align-items-center">
                                         <Checkbox
                                             checked={selectedDoneTasks.includes(task.id!)}
                                             onChange={() => handleDoneCheckboxChange(task.id!)}
                                             color="primary"
                                         />
-                                        {index + 1}
+                                        <div>{index + 1}</div>
                                     </Typography>
                                     <Typography variant="subtitle1" gutterBottom
-                                                className="col-8 font-monospace fs-5">{task.description}</Typography>
+                                                className="col-6 font-monospace fs-6 text-decoration-line-through">{task.description}</Typography>
                                 </div>
                             ))
                         ) : (

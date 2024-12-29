@@ -7,6 +7,16 @@ import {Link} from "react-router-dom";
 import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Pagination} from "../../../shared/ui/Pagination";
 import {OrderState} from "../../type";
+import cls from "./WorkSpagePage.module.scss";
+
+const orderStateColors = {
+    NEW: cls.blue,
+    IN_WORK: cls.blue,
+    READY: cls.blue,
+    SHIPPED: cls.blue,
+    COMPLETED: cls.green,
+    CANCELLED: cls.red,
+};
 
 const WorkSpacePage = () => {
     const {t} = useTranslation("order");
@@ -67,8 +77,11 @@ const WorkSpacePage = () => {
                         </td>
                         <td>{order.counterpartyName}</td>
                         <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
-                        <td>{order.orderState && OrderState[order.orderState]
-                            ? OrderState[order.orderState] : ''}
+                        <td>
+                            <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState || "NEW"]}`}>
+                                {order.orderState && OrderState[order.orderState]
+                                    ? OrderState[order.orderState] : ''}
+                            </span>
                         </td>
                         <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
                         <td>{order.completionDate}</td>

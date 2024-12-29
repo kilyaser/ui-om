@@ -23,7 +23,7 @@ const OrderProgressBar = (props: OrderProgressBarProps) => {
     const isCancelled = currentState == OrderState.CANCELLED;
 
     return (
-        <Box sx={{width: '100%'}} className={`${className} d-flex`}>
+        <Box sx={{width: '100%'}} className={`${className} d-flex mt-3`}>
             <Stepper activeStep={isCancelled ? -1 : currentIndex} alternativeLabel className={"flex-grow-1"}>
                 {orderStates.filter((state) => state !== OrderState.CANCELLED).map((state) => (
                     <Step key={state}>

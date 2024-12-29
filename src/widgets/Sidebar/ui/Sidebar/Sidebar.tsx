@@ -25,7 +25,7 @@ export const Sidebar = memo(({className}: SidebarProps) => {
         >
             <Button
                 onClick={onToggle}
-                className={cls.collapseBtn}
+                className={`${cls.collapseBtn} border p-2`}
                 square={true}
             >
                 {collapsed ? ">" : "<"}

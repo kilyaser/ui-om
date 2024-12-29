@@ -6,7 +6,7 @@ import {PaymentForm} from "../../../shared/ui/PaymentForm";
 import {UiPaymentShort, UpdatePaymentRequest} from "../../../clients/generated/commonApi/models";
 import {paymentService} from "../../../services";
 import {useState} from "react";
-import {Tooltip} from "@mui/material";
+import {Tooltip, Typography} from "@mui/material";
 
 interface PaymentsInfoProps {
     className?: string;
@@ -77,19 +77,19 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
     };
 
     return (
-        <div className={classNames(cls.PaymentsInfo, {}, [className])}>
+        <div className={classNames(cls.PaymentsInfo, {}, [className, "container-fluid"])}>
+            <Typography className="font-monospace fs-5 mb-2">{t("Реестр платежей")}</Typography>
             {payments && payments.length > 0 ? (
                 <div className="text-center mb-3">
                     <div className="row">
-                        <div className="col-1 border bg-light">№</div>
-                        <div className="col-4 border bg-light">{t("Дата")}</div>
-                        <div className="col-2 border bg-light">{t("Сумма")}, ₽</div>
-                        <div className="col-1"></div>
+                        <Typography gutterBottom className="col-1 p-1 border bg-light font-monospace fs-6">№</Typography>
+                        <Typography gutterBottom className="col-4 p-1 border bg-light font-monospace fs-6">{t("Дата")}</Typography>
+                        <Typography gutterBottom className="col-2 p-1 border bg-light font-monospace fs-6">{t("Сумма")}, ₽</Typography>
                     </div>
                     {payments.map((payment, index) => (
                         <div className="row" key={payment.paymentId}>
-                            <div className="col-1 border">{index + 1}</div>
-                            <div className="col-4 border">
+                            <Typography gutterBottom className="col-1 p-1 border font-monospace fs-6">{index + 1}</Typography>
+                            <Typography gutterBottom className="col-4 p-1 border font-monospace fs-6">
                                 {editablePaymentId === payment.paymentId ? (
                                     <input
                                         className="form-control mt-1"
@@ -103,8 +103,8 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                                         {payment.paymentDate || t("Дата платежа не задана")}
                                     </span>
                                 )}
-                            </div>
-                            <div className="col-2 border">
+                            </Typography>
+                            <Typography gutterBottom className="col-2 p-1 border font-monospace fs-6">
                                 {editablePaymentId === payment.paymentId ? (
                                     <input
                                         className="form-control mt-1"
@@ -118,7 +118,7 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                                         {manyFormat(payment.paymentSum)}
                                     </span>
                                 )}
-                            </div>
+                            </Typography>
                             <Tooltip title={t("Удалить")}>
                                 <div className="col-1 text-start">
                                     <button
@@ -134,11 +134,11 @@ export const PaymentsInfo = (props: PaymentsInfoProps) => {
                         </div>
                     ))}
                     <div className="row mt-1">
-                        <div className="col-1">
+                        <div className="col-1 font-monospace fs-6">
                             <strong>{t("Всего")}:</strong>
                         </div>
                         <div className="col-4"></div>
-                        <div className="col-2 text-center">
+                        <div className="col-2 text-center font-monospace fs-6">
                             <strong>{manyFormat(totalPayments)}</strong>
                         </div>
                     </div>

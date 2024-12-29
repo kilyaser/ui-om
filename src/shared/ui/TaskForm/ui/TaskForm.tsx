@@ -54,6 +54,7 @@ export const TaskForm = (props: TaskFormProps) => {
                 </div>
             </div>
             <Button
+                variant="contained"
                 onClick={handleAddTask}
             >
                 {t("Добавить")}

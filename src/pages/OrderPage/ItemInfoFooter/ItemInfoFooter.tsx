@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
-import {classNames} from "../../../shared/lib/classNames.ts";
+import {classNames} from "../../../shared/lib/classNames";
 import {UiOrder} from "../../../clients/generated/commonApi/models";
-import {manyFormat} from "../../../shared/lib/manyFormat.ts";
+import {manyFormat} from "../../../shared/lib/manyFormat";
 
 interface ItemInfoFooterProps {
     className?: string;
@@ -17,43 +17,30 @@ export const ItemInfoFooter = (props: ItemInfoFooterProps) => {
 
     return (
         <div className={classNames("", {}, [props.className])}>
-            <div className="text-start container">
+            <div className="text-start mt-4">
                 <div className="row">
-                    <div className="col-1 order-first text-center"></div>
-                    <div className="col-3"></div>
-                    <div className="col-1"></div>
-                    <div className="col-3">
+                    <div className="col-2 p-1 font-monospace fs-5 border-bottom">
                         {t("Сумма без НДС")}
                     </div>
-                    <div className="col-2 text-center">
+                    <div className="col-1 p-1 text-center font-monospace fs-5 border-bottom">
                         {manyFormat(currentSum ? (currentSum - (vat || 0)) : 0)}
                     </div>
-                    <div className="col-3"></div>
                 </div>
                 <div className="row">
-                    <div className="col-1 order-first text-center"></div>
-                    <div className="col-3"></div>
-                    <div className="col-1"></div>
-                    <div className="col-3">
+                    <div className="col-2 p-1 font-monospace fs-5 border-bottom">
                         {t("НДС")}
                     </div>
-                    <div className="col-2 text-center">
+                    <div className="col-1 p-1 text-center font-monospace fs-5 border-bottom">
                         {manyFormat(vat)}
                     </div>
-                    <div className="col-3"></div>
-
                 </div>
                 <div className="row">
-                    <div className="col-1 order-first text-center"></div>
-                    <div className="col-3"></div>
-                    <div className="col-1"></div>
-                    <div className="col-3">
+                    <div className="col-2 p-1 font-monospace fs-5 border-bottom">
                         <strong>{t("Итого с НДС")}</strong>
                     </div>
-                    <div className="col-2 text-center">
+                    <div className="col-1 p-1 text-center font-monospace fs-5 border-bottom">
                         <strong>{manyFormat(currentSum)}</strong>
                     </div>
-                    <div className="col-3"></div>
                  </div>
             </div>
         </div>
