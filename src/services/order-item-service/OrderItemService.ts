@@ -1,8 +1,8 @@
 import {ordersItemApi} from "../../clients/generated";
 import {
     AddOrderItemsRequest,
-    DeleteOrderItemRequest,
-    type UiOrderItems
+    DeleteOrderItemRequest, OrderItemFieldsPatch,
+    type UiOrderItems, UpdateOrderItemRequest,
 } from "../../clients/generated/commonApi/models";
 
 
@@ -26,6 +26,18 @@ class OrderItemService {
         }
     }
 
+    async updateOrderItems(patch: OrderItemFieldsPatch, orderId: string) {
+        try {
+            const req: UpdateOrderItemRequest = {
+                orderId: orderId,
+                patch: [patch],
+            }
+            return await ordersItemApi.updateOrderItems(req);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 const orderItemService = new OrderItemService();

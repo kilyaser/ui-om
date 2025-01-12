@@ -1,17 +1,17 @@
 // import {useTranslation} from "react-i18next";
 import {classNames} from "../../../shared/lib/classNames";
 import {
+    OrderItemFieldsPatch,
     type SearchRequest,
     UiOrderItem,
-    UiOrderItemPreparationState,
     UiProducts
 } from "../../../clients/generated/commonApi/models";
-import {Autocomplete, Button, Grid2, InputAdornment, TextField, Typography} from "@mui/material";
+import {Autocomplete, Button, Grid2, InputAdornment, TextField} from "@mui/material";
 import productService from "../../../services/product-service/ProductService";
-import {useState} from "react";
-import {ItemPreparationState} from "../../type";
+import orderItemService from "../../../services/order-item-service/OrderItemService";
+import {useEffect, useState} from "react";
 import {CustomSnackbar} from "../../../shared/ui/Snackbar/ui/CustomSnackbar";
-import cls from "./IteamPage.module.scss";
+import {ItemPositionInfo} from "../ItemPositionInfo/ItemPositionInfo";
 
 interface OptionType {
     label: string;
@@ -22,17 +22,20 @@ interface OptionType {
 interface ItemPageProps {
     className?: string;
     item: UiOrderItem;
+    orderId: string;
+    onItemChanged: () => void;
 }
 
-const ItemStateColor: Record<UiOrderItemPreparationState, string> = {
-    NOT_STARTED: cls.yellow,
-    IN_PROCESS: cls.blue,
-    DONE: cls.green,
-}
+type FieldValue = string | number | undefined;
 
 export const ItemPage = (props: ItemPageProps) => {
     // const {t} = useTranslation();
-    const {className, item} = props;
+    const {
+        className,
+        item,
+        orderId,
+        onItemChanged,
+    } = props;
 
     // Состояние для хранения опций
     const [options, setOptions] = useState<OptionType[]>([
@@ -41,6 +44,36 @@ export const ItemPage = (props: ItemPageProps) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
+
+    // Состояние для отслеживания изменений
+    const [totalPrice, setTotalPrice] = useState(item.totalPrice);
+    const [isChanged, setIsChanged] = useState(false);
+    const [formData, setFormData] = useState<OrderItemFieldsPatch>({
+        itemId: item.id || "",
+        pricePerProduct: item.pricePerProduct,
+        quantity: item.quantity ,
+        quantityShipped: item.quantityShipped,
+        productId: item.product?.productId,
+    });
+
+    // useEffect для обновления состояния при изменении item
+    useEffect(() => {
+        setOptions([{label: item.product?.productName || "", id: item.product?.productId}]);
+        setFormData({
+            itemId: item.id || "",
+            pricePerProduct: item.pricePerProduct,
+            quantity: item.quantity,
+            quantityShipped: item.quantityShipped,
+            productId: item.product?.productId,
+        });
+        setTotalPrice(item.totalPrice);
+    }, [item]);
+
+    // useEffect для вычисления totalPrice
+    useEffect(() => {
+        const calculatedTotalPrice = (formData.pricePerProduct || 0) * (formData.quantity || 0);
+        setTotalPrice(calculatedTotalPrice);
+    }, [formData.pricePerProduct, formData.quantity])
 
     const handleSnackbarOpen = (message: string, severity: 'success' | 'error') => {
         setSnackbarMessage(message);
@@ -51,6 +84,7 @@ export const ItemPage = (props: ItemPageProps) => {
     const handleSnackbarClose = () => {
         setSnackbarOpen(false);
     };
+
     const handleSearchProduct = async (search: string) => {
         if (search.length < 3) {
             return;
@@ -109,6 +143,49 @@ export const ItemPage = (props: ItemPageProps) => {
         }
     };
 
+    const handleFieldChange = (field: keyof OrderItemFieldsPatch, value: FieldValue) => {
+        setFormData(prevData => ({
+            ...prevData,
+            [field]: value
+        }));
+        setIsChanged(true); // Устанавливаем флаг изменения
+    };
+
+    const handleSave = async () => {
+        try {
+            const updatedItems = await orderItemService.updateOrderItems({
+                itemId: formData.itemId,
+                pricePerProduct: formData.pricePerProduct,
+                quantity: formData.quantity,
+                quantityShipped: formData.quantityShipped,
+                productId: formData.productId,
+            }, orderId);
+            const items = updatedItems.orderItems || [];
+            // Предполагаем, что updatedItems - это массив обновленных элементов
+            const updatedItem = items.find(item => item.id === formData.itemId);
+            if (updatedItem) {
+                onItemChanged();
+            }
+            handleSnackbarOpen('Данные успешно сохранены.', 'success');
+            setIsChanged(false); // Сбрасываем флаг изменения
+        } catch (error) {
+            console.error("Error updating order items:", error);
+            handleSnackbarOpen('Ошибка при сохранении данных.', 'error');
+        }
+    };
+
+    const handleCancel = () => {
+        setFormData({
+            itemId: item.id || "",
+            pricePerProduct: item.pricePerProduct,
+            quantity: item.quantity,
+            quantityShipped: item.quantityShipped,
+            productId: item.product?.productId,
+        });
+        setIsChanged(false); // Сбрасываем флаг изменения
+        setTotalPrice(item.totalPrice);
+    };
+
     // Метод для фильтрации опций
     const filterOptions = (options: OptionType[], {inputValue}: { inputValue: string }) => {
         const filtered = options.filter(option => option.label.toLowerCase().includes(inputValue.toLowerCase()));
@@ -140,53 +217,17 @@ export const ItemPage = (props: ItemPageProps) => {
         );
     };
 
+    const handleTotalPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number(event.target.value);
+        setTotalPrice(value);
+        // Здесь можно добавить логику для обновления formData, если необходимо
+    };
+
     return (
         <div className={classNames("", {}, [className])}>
-            <div className={`mb-5 ${cls.info}`}>
-                <div className="row">
-                    <Typography className="col-3 p-2 border bg-light" variant="body1" gutterBottom>
-                        Статус готовности:
-                    </Typography>
-                    <Typography className={`col-2 p-2 border text-center`} variant="body1" gutterBottom>
-                        <span className={`${cls.badge} ${ItemStateColor[item.preparationState || "NOT_STARTED"]}`}>
-                            {ItemPreparationState[item.preparationState || 'NOT_STARTED']}
-                        </span>
-                    </Typography>
-                </div>
-                <div className="row">
-                    <Typography className="col-3 p-2 border bg-light" variant="body1" gutterBottom>
-                        Наличие программа ЧПУ:
-                    </Typography>
-                    <Typography className="col-2 p-2 border text-center" variant="body1" gutterBottom>
-                        {item.isProgramWritten ? "Да" : "Нет"}
-                    </Typography>
-                </div>
-                <div className="row">
-                    <Typography className="col-3 p-2 border bg-light" variant="body1" gutterBottom>
-                        Станок ЧПУ:
-                    </Typography>
-                    <Typography className="col-2 p-2 border text-center" variant="body1" gutterBottom>
-                        {item.machineId} список опций
-                    </Typography>
-                </div>
-                <div className="row">
-                    <Typography className="col-3 p-2 border bg-light" variant="body1" gutterBottom>
-                        Материал:
-                    </Typography>
-                    <Typography className="col-2 p-2 border text-center" variant="body1" gutterBottom>
-                        {item.material?.materialType}
-                    </Typography>
-                </div>
-                <div className="row">
-                    <Typography className="col-3 p-2 border bg-light" variant="body1" gutterBottom>
-                        Тип изделия
-                    </Typography>
-                    <Typography className="col-2 p-2 border text-center" variant="body1" gutterBottom>
-                        {item.productType}
-                    </Typography>
-                </div>
-            </div>
-
+            <ItemPositionInfo
+                item={item}
+            />
 
             <Grid2 container spacing={2}>
                 <Grid2 size={3}>
@@ -207,7 +248,8 @@ export const ItemPage = (props: ItemPageProps) => {
                         id="filled-number"
                         label="Кол-во"
                         type="number"
-                        defaultValue={item.quantity}
+                        value={formData.quantity}
+                        onChange={(e) => handleFieldChange('quantity', Number(e.target.value))}
                         slotProps={{
                             inputLabel: {
                                 shrink: true,
@@ -220,7 +262,8 @@ export const ItemPage = (props: ItemPageProps) => {
                         id="filled-number"
                         label="Отгружено"
                         type="number"
-                        defaultValue={item.quantityShipped}
+                        value={formData.quantityShipped}
+                        onChange={(e) => handleFieldChange('quantityShipped', Number(e.target.value))}
                         slotProps={{
                             inputLabel: {
                                 shrink: true,
@@ -233,7 +276,8 @@ export const ItemPage = (props: ItemPageProps) => {
                         id="filled-price"
                         label="Цена"
                         type="number"
-                        defaultValue={item.pricePerProduct}
+                        value={formData.pricePerProduct}
+                        onChange={(e) => handleFieldChange('pricePerProduct', Number(e.target.value))}
                         slotProps={{
                             input: {
                                 endAdornment: <InputAdornment position="end">₽</InputAdornment>,
@@ -246,7 +290,8 @@ export const ItemPage = (props: ItemPageProps) => {
                         id="filled-total-price"
                         label="Стоимость"
                         type="number"
-                        defaultValue={item.totalPrice}
+                        value={totalPrice}
+                        onChange={handleTotalPriceChange}
                         slotProps={{
                             input: {
                                 endAdornment: <InputAdornment position="end">₽</InputAdornment>,
@@ -255,8 +300,11 @@ export const ItemPage = (props: ItemPageProps) => {
                     />
                 </Grid2>
             </Grid2>
-            <Button className={"mt-5"} variant="contained" disabled={true}>
+            <Button className={"mt-5"} variant="contained" disabled={!isChanged} onClick={handleSave}>
                 Сохранить
+            </Button>
+            <Button className={"mt-5 ms-2"} variant="contained" disabled={!isChanged} onClick={handleCancel}>
+                Отменить
             </Button>
             <CustomSnackbar
                 open={snackbarOpen}

@@ -62,7 +62,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
         })
     }, [fetchOrderData, orderId]);
 
-    const handleChangePayment = async () => {
+    const handleChangeOrderInfo = async () => {
         await fetchOrderData()
     };
 
@@ -81,7 +81,12 @@ export const OrderPage = ({className}: OrderPageProps) => {
                 <div className="p-3 mb-3">
                     <p className="text-start mt-1 mb-1 fs-3">{order?.orderNumber} {t("от")} {order?.createdDate}</p>
                 </div>
-                    <ActionOption/>
+                <ActionOption
+                    actions={[
+                        t("Удалить"),
+                        t("Сменить статус")
+                    ]}
+                />
             </div>
 
             {stateKey && <OrderProgressBar
@@ -90,7 +95,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
             />}
             {iaWarning && (
                 <div className="row">
-                <div className="col-6">
+                    <div className="col-6">
                         <Alert
                             additional={["alert-warning"]}
                             message={"Сумма введенных платеже превышает общую сумму заказа"}/>
@@ -124,7 +129,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
                             orderId={orderId}
                             counterpartyId={order.counterparty?.id}
                             payments={payments}
-                            onPaymentChanged={handleChangePayment}
+                            onPaymentChanged={handleChangeOrderInfo}
                         />
                     )}
                     {activeTab === 'tasks' && (
@@ -136,7 +141,9 @@ export const OrderPage = ({className}: OrderPageProps) => {
                     {activeTab === 'itemPage' && selectedItem && ( // Проверяем, выбран ли элемент
                         <ItemPage
                             className={cls.OrderPage}
-                            item={selectedItem} // Передаем выбранный элемент
+                            item={selectedItem}
+                            orderId={orderId}
+                            onItemChanged={handleChangeOrderInfo}
                         />
                     )}
                 </div>

@@ -3,16 +3,23 @@ import {useTranslation} from "react-i18next";
 
 interface ActionOptionProps {
     className?: string;
+    actions: string[];
+    initLabel?: string;
 }
 
-export const ActionOption = ({className}: ActionOptionProps) => {
+export const ActionOption = (props: ActionOptionProps) => {
     const {t} = useTranslation("order");
+    const {
+        className,
+        actions,
+        initLabel,
+    } = props;
 
     const handleChange = () => {}
 
     return (
         <FormControl className={className} sx={{ m: 2, minWidth: 145}}>
-            <InputLabel id="demo-simple-select-label">{t("Действие")}</InputLabel>
+            <InputLabel id="simple-select-label">{t("Действие")}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -20,8 +27,9 @@ export const ActionOption = ({className}: ActionOptionProps) => {
                 label={t("Действие")}
                 onChange={handleChange}
             >
-                <MenuItem value={"Delete"}>{t("Удалить")}</MenuItem>
-                <MenuItem value={"ChangeState"}>{t("Сменить статус")}</MenuItem>
+                {actions.map((action) => (
+                    <MenuItem value={action}>{action}</MenuItem>
+                ))}
             </Select>
         </FormControl>
     );
