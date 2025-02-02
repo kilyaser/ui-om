@@ -118,8 +118,10 @@ export const OrderPage = ({className}: OrderPageProps) => {
 
                             <ItemInfo
                                 className={cls.OrderPage}
+                                orderId={orderId}
                                 orderItems={order.orderItems || []}
                                 onTabChange={handleTabChange}
+                                onChangeItem={handleChangeOrderInfo}
                             />
                             <ItemInfoFooter order={order}/>
                         </>

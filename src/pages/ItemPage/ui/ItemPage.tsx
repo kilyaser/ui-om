@@ -65,7 +65,7 @@ export const ItemPage = (props: ItemPageProps) => {
             quantity: item.quantity,
             quantityShipped: item.quantityShipped,
             productId: item.product?.productId,
-        });
+            });
         setTotalPrice(item.totalPrice);
     }, [item]);
 
@@ -101,7 +101,6 @@ export const ItemPage = (props: ItemPageProps) => {
             // Обновляем опции, добавляя новые, если они не совпадают с текущим значением
             const currentOption = {label: item.product?.productName || '', id: item.product?.productId};
             const updatedOptions = [currentOption, ...newOptions.filter(option => option.label !== currentOption.label)];
-
             setOptions(updatedOptions);
         } catch (error) {
             console.error(error);
@@ -116,9 +115,11 @@ export const ItemPage = (props: ItemPageProps) => {
                 {label: newProduct.productName || "", id: newProduct.productId}
             ]);
             handleSnackbarOpen(`Продукт "${newProduct.productName}" успешно добавлен.`, 'success');
+            handleFieldChange('productId', newProduct.productId);
         } catch (error) {
             console.error("Error creating product:", error);
             handleSnackbarOpen('Ошибка при добавлении продукта.', 'error');
+            setIsChanged(false);
         }
     };
 
@@ -140,6 +141,9 @@ export const ItemPage = (props: ItemPageProps) => {
         } else if (newValue?.inputValue) {
             // Если выбрана опция "Добавить"
             handleCreateProduct(newValue.inputValue);
+        } else if (newValue) {
+            // Если выбрана существующая опция
+            handleFieldChange('productId', newValue.id); // Обновляем productId
         }
     };
 
@@ -161,7 +165,6 @@ export const ItemPage = (props: ItemPageProps) => {
                 productId: formData.productId,
             }, orderId);
             const items = updatedItems.orderItems || [];
-            // Предполагаем, что updatedItems - это массив обновленных элементов
             const updatedItem = items.find(item => item.id === formData.itemId);
             if (updatedItem) {
                 onItemChanged();
@@ -182,6 +185,7 @@ export const ItemPage = (props: ItemPageProps) => {
             quantityShipped: item.quantityShipped,
             productId: item.product?.productId,
         });
+        setOptions([{ label: item.product?.productName || "", id: item.product?.productId }]);
         setIsChanged(false); // Сбрасываем флаг изменения
         setTotalPrice(item.totalPrice);
     };

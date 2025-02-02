@@ -2,16 +2,22 @@
 import cls from "./IntemInfo.module.scss";
 import {useTranslation} from "react-i18next";
 import {classNames} from "../../../shared/lib/classNames";
-import {UiOrderItem, UiOrderItemPreparationState} from "../../../clients/generated/commonApi/models";
 import {manyFormat} from "../../../shared/lib/manyFormat";
-import {Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
 import {ActiveTab} from "../ui/OrderPage";
 import {ItemPreparationState} from "../../type";
+import {Add} from "@mui/icons-material";
+import {ItemForm} from "../../../shared/ui/ItemForm";
+import RemoveIcon from '@mui/icons-material/Remove';
+import {useState} from "react";
+import {UiOrderItem, UiOrderItemPreparationState} from "../../../clients/generated/commonApi/models";
 
 interface ItemInfoProps {
     className?: string;
+    orderId: string;
     orderItems: UiOrderItem[];
     onTabChange: (tab: ActiveTab, item?: UiOrderItem) => void; // Функция для изменения активного таба
+    onChangeItem: () => void
 }
 
 
@@ -25,9 +31,22 @@ export const ItemInfo = (props: ItemInfoProps) => {
     const {t} = useTranslation("order");
     const {
         className,
+        orderId,
         orderItems,
         onTabChange,
+        onChangeItem,
     } = props
+
+    const [isItemFormVisible, setItemFormVisible] = useState(false);
+
+    const onChangeItems = async () => {
+        onChangeItem();
+    }
+
+    const toggleItemForm = () => {
+        setItemFormVisible(prev => !prev);
+    }
+
 
     return (
         <div className={classNames("", {}, [className])}>
@@ -61,6 +80,19 @@ export const ItemInfo = (props: ItemInfoProps) => {
                         ))}
                     </div>
                 </div>
+            )}
+            <Button
+                className={"mb-2"}
+                startIcon={isItemFormVisible ? <RemoveIcon/> : <Add/>}
+                onClick={toggleItemForm}
+            >
+                 <Typography variant="button">Добавить позицию</Typography>
+            </Button>
+            {isItemFormVisible && (
+                <ItemForm
+                    orderId={orderId}
+                    onItemChange={onChangeItems}
+                />
             )}
         </div>
     );
