@@ -3,12 +3,14 @@ import {WorkSpacePage} from "../../../pages/WorkSpace";
 import {DashBoardPage} from "../../../pages/DashBoard";
 import {NotFoundPage} from "../../../pages/NotFoundPage";
 import {OrderPage} from "../../../pages/OrderPage";
+import {CounterpartiesPage} from "../../../pages/CounterpartiesPage";
 
 
 export enum AppRoutes {
     WORKSPACE = 'workspace',
     DASHBOARD = 'dashboard',
     ORDER = 'order',
+    COUNTERPARTIES = 'counterparties',
     // TASKS = 'tasks',
     //последний
     NOT_FOUND = 'not_found',
@@ -18,6 +20,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.WORKSPACE]: '/',
     [AppRoutes.DASHBOARD]: '/dashboard',
     [AppRoutes.ORDER]: '/order/:orderId',
+    [AppRoutes.COUNTERPARTIES]: '/counterparties',
     // [AppRoutes.TASKS]: '/tasks',
     //последний
     [AppRoutes.NOT_FOUND]: '*',
@@ -35,6 +38,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.ORDER]: {
         path: RoutePath.order,
         element: <OrderPage/>
+    },
+    [AppRoutes.COUNTERPARTIES]: {
+        path: RoutePath.counterparties,
+        element: <CounterpartiesPage/>
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,

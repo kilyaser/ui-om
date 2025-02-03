@@ -49,7 +49,7 @@ export interface UiOrder {
    * id заказа.
    * @maxLength 36
    */
-  orderId?: string;
+  orderId: string;
   orderItems?: UiOrderItem[];
   /**
    * Наименование заказа.

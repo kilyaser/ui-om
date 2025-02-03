@@ -19,7 +19,7 @@ export interface UiOrderItem {
   /** Дата завершения изготовления. */
   completionDate?: string;
   /** Идентификор позиции заказа. */
-  id?: string;
+  id: string;
   isProgramWritten?: boolean;
   isVatInclude?: boolean;
   /** id станка. */

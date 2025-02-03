@@ -26,7 +26,7 @@ export interface UiPayment {
    * id платежа.
    * @maxLength 36
    */
-  paymentId?: string;
+  paymentId: string;
   /**
    * Сумма платежа.
    * @minimum 0

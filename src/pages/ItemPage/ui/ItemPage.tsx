@@ -224,7 +224,6 @@ export const ItemPage = (props: ItemPageProps) => {
     const handleTotalPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
         setTotalPrice(value);
-        // Здесь можно добавить логику для обновления formData, если необходимо
     };
 
     return (

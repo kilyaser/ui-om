@@ -37,7 +37,8 @@ const WorkSpacePage = () => {
         t("Сумма"),
         t("Статус"),
         t("ГОЗ"),
-        t("Дата завершеня")
+        t("Дата создания"),
+        t("Дата завершения")
     ]
 
     useEffect(() => {
@@ -84,6 +85,7 @@ const WorkSpacePage = () => {
                             </span>
                         </td>
                         <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
+                        <td>{order.createdDate}</td>
                         <td>{order.completionDate}</td>
                     </>
                 )}

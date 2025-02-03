@@ -14,7 +14,7 @@ export interface UiProduct {
    * id изделия
    * @maxLength 36
    */
-  productId?: string;
+  productId: string;
   /**
    * Наименование изделия
    * @maxLength 255

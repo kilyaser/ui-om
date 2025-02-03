@@ -16,7 +16,7 @@ export interface UiTask {
    */
   description?: string;
   /** Идентификатор задачи. */
-  id?: string;
+  id: string;
   /** Признак завершения задачи. */
   isCompleted?: boolean;
 }
