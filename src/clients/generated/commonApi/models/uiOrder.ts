@@ -40,11 +40,11 @@ export interface UiOrder {
    */
   currentSum?: number;
   /** Сумма долга. */
-  debtSum?: number;
+  debtSum: number;
   governmentOrder?: boolean;
   isVatInclude?: boolean;
   /** Дата последнего изменения. */
-  modifiedDate?: string;
+  modifiedDate: string;
   /**
    * id заказа.
    * @maxLength 36
@@ -69,7 +69,7 @@ export interface UiOrder {
   payments?: UiPaymentShort[];
   tasks?: UiTask[];
   /** Сумма НДС. */
-  vat?: number;
+  vat: number;
   vatInclude?: boolean;
   /**
    * Ссылка на рабочую папку.

@@ -8,6 +8,7 @@ import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Pagination} from "../../../shared/ui/Pagination";
 import {OrderState} from "../../type";
 import cls from "./WorkSpagePage.module.scss";
+import {WorkSpaceHeader} from "./WorkSpaceHeader.tsx";
 
 const orderStateColors = {
     NEW: cls.blue,
@@ -42,29 +43,33 @@ const WorkSpacePage = () => {
     ]
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const data: PageUiOrderShort = await orderService.getOrdersPage(pageRequest);
-                setOrders(data.content || []);
-                setTotalPages(data.totalPages || 0);
-            } catch (error) {
-                setError('Ошибка при загрузке заказов:');
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchOrders();
+        refreshOrders();
     }, [pageRequest]);
+
+    const refreshOrders = async () => {
+        setLoading(true); // Устанавливаем состояние загрузки
+        try {
+            const data: PageUiOrderShort = await orderService.getOrdersPage(pageRequest);
+            setOrders(data.content || []);
+            setTotalPages(data.totalPages || 0);
+        } catch (error) {
+            setError('Ошибка при загрузке заказов:');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (loading) return <div>Загрузка...</div>;
     if (error) return <div>{error}</div>;
 
     return (
-        <div>
+        <div className={"container-fluid"}>
+            <WorkSpaceHeader
+                onOrderCreated={refreshOrders}
+            />
             <Table
-                className={"table"}
+                className={"table rounded-3"}
                 columns={columns}
                 data={orders}
                 renderRow={(order, index) => (

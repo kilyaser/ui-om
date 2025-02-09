@@ -41,6 +41,7 @@ export * from './searchRequest';
 export * from './sortObject';
 export * from './taskCompletedRequest';
 export * from './technologistFieldsPatch';
+export * from './uiCounterparties';
 export * from './uiCounterparty';
 export * from './uiCounterpartyShort';
 export * from './uiMachine';

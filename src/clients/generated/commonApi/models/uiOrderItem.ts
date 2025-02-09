@@ -26,21 +26,33 @@ export interface UiOrderItem {
   machineId?: string;
   material?: UiMaterial;
   /** Статус готовности изделия. */
-  preparationState?: UiOrderItemPreparationState;
-  /** Стоимость на одно изделие. */
-  pricePerProduct?: number;
+  preparationState: UiOrderItemPreparationState;
+  /**
+   * Стоимость на одно изделие.
+   * @minimum 0
+   */
+  pricePerProduct: number;
   product?: UiProduct;
   /** Тип изделия. */
-  productType?: UiOrderItemProductType;
+  productType: UiOrderItemProductType;
   programWritten?: boolean;
-  /** Колличество изделий. */
-  quantity?: number;
+  /**
+   * Колличество изделий.
+   * @minimum 0
+   */
+  quantity: number;
   /** Колличество отгруженных позиций. */
-  quantityShipped?: number;
+  quantityShipped: number;
   technologist?: UiTechnologist;
-  /** Общая стоимость изделия. */
-  totalPrice?: number;
-  /** Сумма НДС. */
-  vat?: number;
+  /**
+   * Общая стоимость изделия.
+   * @minimum 0
+   */
+  totalPrice: number;
+  /**
+   * Сумма НДС.
+   * @minimum 0
+   */
+  vat: number;
   vatInclude?: boolean;
 }

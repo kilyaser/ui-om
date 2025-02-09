@@ -32,5 +32,5 @@ export interface UiPayment {
    * @minimum 0
    * @maximum 9223372036854776000
    */
-  paymentSum?: number;
+  paymentSum: number;
 }

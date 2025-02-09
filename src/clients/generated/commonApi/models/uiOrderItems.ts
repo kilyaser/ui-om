@@ -15,6 +15,6 @@ export interface UiOrderItems {
    * id заказа.
    * @maxLength 36
    */
-  orderId?: string;
+  orderId: string;
   orderItems?: UiOrderItem[];
 }

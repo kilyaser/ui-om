@@ -34,9 +34,15 @@ export interface OrderItemFieldsPatch {
   productId?: string;
   /** Тип изделия. */
   productType?: OrderItemFieldsPatchProductType;
-  /** Колличество изделий. */
+  /**
+   * Колличество изделий.
+   * @minimum 0
+   */
   quantity?: number;
-  /** Колличество отгруженных позиций. */
+  /**
+   * Колличество отгруженных позиций.
+   * @minimum 0
+   */
   quantityShipped?: number;
   technologistId?: string;
 }

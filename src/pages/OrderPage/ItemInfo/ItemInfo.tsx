@@ -11,18 +11,18 @@ import {ItemForm} from "../../../shared/ui/ItemForm";
 import RemoveIcon from '@mui/icons-material/Remove';
 import {useState} from "react";
 import {
-    DeleteOrderItemRequest,
+    DeleteOrderItemRequest, UiOrder,
     UiOrderItem,
     UiOrderItemPreparationState
 } from "../../../clients/generated/commonApi/models";
 import DeleteIcon from "@mui/icons-material/Delete";
 import orderItemService from "../../../services/order-item-service/OrderItemService";
-import {CustomSnackbar} from "../../../shared/ui/Snackbar/ui/CustomSnackbar.tsx";
+import {CustomSnackbar} from "../../../shared/ui/Snackbar/ui/CustomSnackbar";
+import {ItemInfoFooter} from "../ItemInfoFooter/ItemInfoFooter";
 
 interface ItemInfoProps {
     className?: string;
-    orderId: string;
-    orderItems: UiOrderItem[];
+    order: UiOrder;
     onTabChange: (tab: ActiveTab, item?: UiOrderItem) => void; // Функция для изменения активного таба
     onChangeItem: () => void
 }
@@ -38,11 +38,12 @@ export const ItemInfo = (props: ItemInfoProps) => {
     const {t} = useTranslation("order");
     const {
         className,
-        orderId,
-        orderItems,
+        order,
         onTabChange,
         onChangeItem,
     } = props
+
+    const orderItems = order.orderItems;
 
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -70,7 +71,7 @@ export const ItemInfo = (props: ItemInfoProps) => {
 
     const handleDeleteSelected = async () => {
         const req: DeleteOrderItemRequest = {
-            orderId: orderId,
+            orderId: order.orderId,
             deleteItemIds: selectedItems,
         }
         try {
@@ -130,28 +131,30 @@ export const ItemInfo = (props: ItemInfoProps) => {
                                 </Typography>
                             </div>
                         ))}
+                        <ItemInfoFooter order={order}/>
                     </div>
                 </div>
             )}
-            <div className={"mb-2"}>
-                <Button
-                    startIcon={isItemFormVisible ? <RemoveIcon/> : <Add/>}
-                    onClick={toggleItemForm}
-                >
-                    <Typography variant="button">Добавить позицию</Typography>
-                </Button>
-                <Tooltip title={t("Удалить")}>
-                    <IconButton
-                        disabled={selectedItems.length === 0}
-                        onClick={handleDeleteSelected}>
-                        <DeleteIcon fontSize="small"/>
-                    </IconButton>
-                </Tooltip>
-            </div>
+
+                <div className={"mb-2"}>
+                    <Button
+                        startIcon={isItemFormVisible ? <RemoveIcon/> : <Add/>}
+                        onClick={toggleItemForm}
+                    >
+                        <Typography variant="button">Добавить позицию</Typography>
+                    </Button>
+                    <Tooltip title={t("Удалить")}>
+                        <IconButton
+                            disabled={selectedItems.length === 0}
+                            onClick={handleDeleteSelected}>
+                            <DeleteIcon fontSize="small"/>
+                        </IconButton>
+                    </Tooltip>
+                </div>
 
             {isItemFormVisible && (
                 <ItemForm
-                    orderId={orderId}
+                    orderId={order.orderId}
                     onItemChange={onChangeItems}
                 />
             )}

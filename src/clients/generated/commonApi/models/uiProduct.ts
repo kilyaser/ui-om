@@ -19,5 +19,5 @@ export interface UiProduct {
    * Наименование изделия
    * @maxLength 255
    */
-  productName?: string;
+  productName: string;
 }

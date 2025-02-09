@@ -101,8 +101,8 @@ export const ItemForm = (props: ItemFormProps) => {
             handleCreateProduct(newValue.inputValue);
         } else if(newValue) {
             setSelectedProduct({
-                productName: newValue.inputValue,
-                productId: newValue.id
+                productName: newValue.inputValue || "",
+                productId: newValue.id || ""
             });   // Сохраняем выбранный продукт
             setIsChanged(true);
         }

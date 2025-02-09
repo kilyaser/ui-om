@@ -9,7 +9,6 @@ import {OrderInfo} from "../OrderInfo/OrderInfo";
 import {ItemInfo} from "../ItemInfo/ItemInfo.tsx";
 import {PaymentsInfo} from "../PaymentsInfo/PaymentsInfo";
 import {TaskInfo} from "../TaskInfo/TaskInfo";
-import {ItemInfoFooter} from "../ItemInfoFooter/ItemInfoFooter";
 import {NavTab} from "../NavTab/NavTab";
 import {Alert} from "../../../shared/ui/Alert/ui/Alert";
 import OrderProgressBar from "../OrderProgressBar/OrderProgressBar";
@@ -118,12 +117,10 @@ export const OrderPage = ({className}: OrderPageProps) => {
 
                             <ItemInfo
                                 className={cls.OrderPage}
-                                orderId={orderId}
-                                orderItems={order.orderItems || []}
+                                order={order}
                                 onTabChange={handleTabChange}
                                 onChangeItem={handleChangeOrderInfo}
                             />
-                            <ItemInfoFooter order={order}/>
                         </>
                     )}
                     {activeTab === 'payments' && (
