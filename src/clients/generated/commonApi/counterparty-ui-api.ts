@@ -29,7 +29,7 @@ import type {
   CreateCounterpartyRequest,
   FilterRequest,
   PageRequest,
-  PageUiCounterpartyShort,
+  PageUiCounterparty,
   SearchRequest,
   UiCounterparties,
   UiCounterparty,
@@ -214,7 +214,7 @@ export const getCounterpartyPage = (
 ) => {
       
       
-      return apiInstance<PageUiCounterpartyShort>(
+      return apiInstance<PageUiCounterparty>(
       {url: `/api/v1/ui/counterparties/page`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: pageRequest, signal
@@ -269,7 +269,7 @@ export const findCounterpartyByFilter = (
 ) => {
       
       
-      return apiInstance<PageUiCounterpartyShort>(
+      return apiInstance<PageUiCounterparty>(
       {url: `/api/v1/ui/counterparties/find`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: filterRequest, signal

@@ -9,6 +9,7 @@ import {Pagination} from "../../../shared/ui/Pagination";
 import {OrderState} from "../../type";
 import cls from "./WorkSpagePage.module.scss";
 import {WorkSpaceHeader} from "./WorkSpaceHeader.tsx";
+import {manyFormat} from "../../../shared/lib/manyFormat.ts";
 
 const orderStateColors = {
     NEW: cls.blue,
@@ -84,7 +85,7 @@ const WorkSpacePage = () => {
                         </td>
                         <td>{order.orderName}</td>
                         <td>{order.counterpartyName}</td>
-                        <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
+                        <td>{manyFormat(order.currentSum)}</td>
                         <td>
                             <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState || "NEW"]}`}>
                                 {order.orderState && OrderState[order.orderState]

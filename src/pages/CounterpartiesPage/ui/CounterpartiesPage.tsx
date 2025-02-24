@@ -1,15 +1,9 @@
-import {classNames} from "../../../shared/lib/classNames";
+import {CounterpartyTable} from "../../../shared/ui/counterpartyTable";
 
-interface CounterpartiesPageProps {
-    className?: string;
-}
-
-export const CounterpartiesPage = ({className}: CounterpartiesPageProps) => {
+export const CounterpartiesPage = () => {
 
     return (
-        <div className={classNames("", {}, [className])}>
-            В разработке.
-        </div>
+        <CounterpartyTable/>
     );
 };
 

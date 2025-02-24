@@ -32,6 +32,7 @@ export * from './orderItemRequest';
 export * from './orderItemRequestPreparationState';
 export * from './orderItemRequestProductType';
 export * from './pageRequest';
+export * from './pageUiCounterparty';
 export * from './pageUiCounterpartyShort';
 export * from './pageUiOrderShort';
 export * from './pageUiPaymentShort';
