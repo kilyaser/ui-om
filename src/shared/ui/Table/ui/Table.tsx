@@ -1,5 +1,6 @@
 
 import {classNames} from "../../../lib/classNames";
+import cls from "./Table.module.scss";
 
 interface TableProps<T> {
     className?: string;
@@ -29,7 +30,7 @@ export const Table = <T,>(props: TableProps<T>) => {
             <tbody>
                 {data.length > 0 ? (
                     data.map((item, index) => (
-                        <tr key={index}>
+                        <tr className={cls.pointer} key={index}>
                             {renderRow(item, index)}
                         </tr>
                     ))

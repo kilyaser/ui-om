@@ -1,11 +1,10 @@
-import {
-    PageRequest, PageUiCounterparty,
-    type UiCounterparty
-} from "../../../../clients/generated/commonApi/models";
+import {PageRequest, PageUiCounterparty, type UiCounterparty} from "../../../../clients/generated/commonApi/models";
 import {useEffect, useMemo, useState} from "react";
 import counterpartyService from "../../../../services/counterparty-service/CounterpartyService";
 import {Pagination} from "../../Pagination";
 import {Table} from "../../Table";
+import {RoutePath} from "../../../config/routeConfig/routeConfig";
+import {Link} from "react-router-dom";
 
 export const CounterpartyTable = () => {
     const [counterparties, setCounterparties] = useState<UiCounterparty[]>([]);
@@ -50,21 +49,41 @@ export const CounterpartyTable = () => {
     return (
         <div className={"container-fluid"}>
             <Table
-                className={"table rounded-3"}
+                className={`table rounded-3`}
                 columns={columns}
                 data={counterparties}
                 renderRow={(counterparty, index) => (
                     <>
-                        <th scope="row">{index + 1 + currentPage * 20}</th>
+                        <th scope="row">
+                            <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {index + 1 + currentPage * 20}
+                            </Link>
+                        </th>
                         <td>
-                            {/*<Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}*/}
-                            {/*      style={{textDecoration: 'none', color: 'inherit'}}>*/}
-                                {counterparty.name}
-                            {/*</Link>*/}
+                            <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                            {counterparty.name}
+                            </Link>
                         </td>
-                        <td>{counterparty.inn}</td>
-                        <td>{counterparty.email}</td>
-                        <td>{counterparty.phone}</td>
+                        <td>
+                            <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                            {counterparty.inn}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                            {counterparty.email}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                            {counterparty.phone}
+                            </Link>
+                        </td>
                     </>
                 )}
             />

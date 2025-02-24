@@ -83,18 +83,53 @@ const WorkSpacePage = () => {
                                 {order.orderNumber}
                             </Link>
                         </td>
-                        <td>{order.orderName}</td>
-                        <td>{order.counterpartyName}</td>
-                        <td>{manyFormat(order.currentSum)}</td>
                         <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.orderName}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.counterpartyName}
+                            </Link>
+                        </td>
+
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {manyFormat(order.currentSum)}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
                             <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState || "NEW"]}`}>
                                 {order.orderState && OrderState[order.orderState]
                                     ? OrderState[order.orderState] : ''}
                             </span>
+                                </Link>
+
                         </td>
-                        <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
-                        <td>{order.createdDate}</td>
-                        <td>{order.completionDate}</td>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.isGovernmentOrder ? 'Да' : 'Нет'}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.createdDate}
+                            </Link>
+                        </td>
+                        <td>
+                            <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
+                                  style={{textDecoration: 'none', color: 'inherit'}}>
+                                {order.completionDate}
+                            </Link>
+                        </td>
                     </>
                 )}
             />

@@ -4,6 +4,7 @@ import {DashBoardPage} from "../../../pages/DashBoard";
 import {NotFoundPage} from "../../../pages/NotFoundPage";
 import {OrderPage} from "../../../pages/OrderPage";
 import {CounterpartiesPage} from "../../../pages/CounterpartiesPage";
+import {CounterpartyPage} from "../../../pages/CounterpartyPage";
 
 
 export enum AppRoutes {
@@ -11,6 +12,7 @@ export enum AppRoutes {
     DASHBOARD = 'dashboard',
     ORDER = 'order',
     COUNTERPARTIES = 'counterparties',
+    COUNTERPARTY = 'counterparty',
     // TASKS = 'tasks',
     //последний
     NOT_FOUND = 'not_found',
@@ -21,6 +23,8 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.DASHBOARD]: '/dashboard',
     [AppRoutes.ORDER]: '/order/:orderId',
     [AppRoutes.COUNTERPARTIES]: '/counterparties',
+    [AppRoutes.COUNTERPARTY]: '/counterparty/:counterpartyId',
+
     // [AppRoutes.TASKS]: '/tasks',
     //последний
     [AppRoutes.NOT_FOUND]: '*',
@@ -42,6 +46,10 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     [AppRoutes.COUNTERPARTIES]: {
         path: RoutePath.counterparties,
         element: <CounterpartiesPage/>
+    },
+    [AppRoutes.COUNTERPARTY]: {
+        path: RoutePath.counterparty,
+        element: <CounterpartyPage/>
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
