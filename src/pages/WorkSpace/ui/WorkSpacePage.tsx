@@ -34,6 +34,7 @@ const WorkSpacePage = () => {
     const columns = [
         "#",
         t("Номер заказа"),
+        t("Наименование заказа"),
         t("Наименование контрагента"),
         t("Сумма"),
         t("Статус"),
@@ -81,6 +82,7 @@ const WorkSpacePage = () => {
                                 {order.orderNumber}
                             </Link>
                         </td>
+                        <td>{order.orderName}</td>
                         <td>{order.counterpartyName}</td>
                         <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
                         <td>

@@ -25,7 +25,10 @@ export interface OrderItemFieldsPatch {
   materialId?: string;
   /** Статус готовности изделия. */
   preparationState?: OrderItemFieldsPatchPreparationState;
-  /** Стоимость на одно изделие. */
+  /**
+   * Стоимость на одно изделие.
+   * @minimum 0
+   */
   pricePerProduct?: number;
   /**
    * id изделия
@@ -44,5 +47,4 @@ export interface OrderItemFieldsPatch {
    * @minimum 0
    */
   quantityShipped?: number;
-  technologistId?: string;
 }

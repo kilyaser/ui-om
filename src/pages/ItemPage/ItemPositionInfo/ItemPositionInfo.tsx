@@ -53,7 +53,8 @@ export const ItemPositionInfo = (props: ItemPositionInfoProps) => {
                         Станок ЧПУ:
                     </Typography>
                     <Typography className="col-2 p-2 border text-center" variant="body1" gutterBottom>
-                        {item.machineId} список опций
+                        Список опций станков
+                    {/*    item.machines*/}
                     </Typography>
                     <div className="col-1 p-2">
                         <IconButton color="primary">

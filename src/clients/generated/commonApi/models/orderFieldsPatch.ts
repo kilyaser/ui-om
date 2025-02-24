@@ -30,9 +30,4 @@ export interface OrderFieldsPatch {
    * @maxLength 255
    */
   orderName?: string;
-  /**
-   * Ссылка на рабочую папку.
-   * @maxLength 255
-   */
-  workFolderLink?: string;
 }

@@ -6,6 +6,8 @@
  * OpenAPI spec version: 1.0.0
  */
 import type { UiMachineMachineType } from './uiMachineMachineType';
+import type { UiOrderShort } from './uiOrderShort';
+import type { UiOrderItem } from './uiOrderItem';
 
 /**
  * UiMachine
@@ -15,7 +17,8 @@ export interface UiMachine {
    * Идентификатор станка с ЧПУ.
    * @maxLength 36
    */
-  id?: string;
+  id: string;
+  isOccupied?: boolean;
   /** Тип станка с ЧПУ. */
   machineType?: UiMachineMachineType;
   /**
@@ -23,4 +26,7 @@ export interface UiMachine {
    * @maxLength 255
    */
   name?: string;
+  occupied?: boolean;
+  order?: UiOrderShort;
+  orderItem?: UiOrderItem;
 }

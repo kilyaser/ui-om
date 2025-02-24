@@ -25,20 +25,21 @@ export interface OrderItemRequest {
   preparationState?: OrderItemRequestPreparationState;
   /** Стоимость за одну позицию. */
   pricePerProduct?: number;
-  /** Id изделие (детали) */
+  /**
+   * Id изделие (детали)
+   * @maxLength 36
+   */
   productId: string;
-  /** Тип изделия. */
+  /**
+   * Тип изделия.
+   * @maxLength 255
+   */
   productType?: OrderItemRequestProductType;
   programWritten?: boolean;
   /** Количество изделий. */
   quantity?: number;
   /** Колличество отгруженных позиций. */
   quantityShipped?: number;
-  /**
-   * ID Технолога.
-   * @maxLength 36
-   */
-  technologistId?: string;
   /** Стоимсть всей позиции. */
   totalPrice?: number;
   vatInclude?: boolean;

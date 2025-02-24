@@ -44,6 +44,14 @@ export const OrderInfo = (props: OrderInfoProps) => {
                     </div>
                     <div className="row mb-1">
                         <Typography className="col-2 p-1 border bg-light font-monospace fs-6">
+                            <strong>{t("Наименование заказа")}:</strong>
+                        </Typography>
+                        <Typography className="col-2 p-1 border font-monospace fs-6 text-center">
+                            <span>{order.orderName}</span>
+                        </Typography>
+                    </div>
+                    <div className="row mb-1">
+                        <Typography className="col-2 p-1 border bg-light font-monospace fs-6">
                             <strong>{t("ГОЗ")}:</strong>
                         </Typography>
                         <Typography className="col-2 p-1 border text-center">

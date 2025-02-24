@@ -22,7 +22,7 @@ export interface UiOrderShort {
   /** Дата создания заказа. */
   createdDate?: string;
   /**
-   * Сумма заказа.
+   * Сумма заказа с НДС.
    * @minimum 0
    * @maximum 9223372036854776000
    */
@@ -35,6 +35,11 @@ export interface UiOrderShort {
    */
   orderId: string;
   /**
+   * Наименование заказа.
+   * @maxLength 255
+   */
+  orderName?: string;
+  /**
    * Номер заказа.
    * @maxLength 255
    */
@@ -44,4 +49,10 @@ export interface UiOrderShort {
    * @maxLength 255
    */
   orderState?: UiOrderShortOrderState;
+  /**
+   * Сумма заказа без НДС.
+   * @minimum 0
+   * @maximum 9223372036854776000
+   */
+  totalPrice?: number;
 }

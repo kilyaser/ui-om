@@ -5,6 +5,7 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
+import type { UiContract } from './uiContract';
 import type { UiCounterpartyShort } from './uiCounterpartyShort';
 import type { UiOrderItem } from './uiOrderItem';
 import type { UiOrderOrderState } from './uiOrderOrderState';
@@ -28,13 +29,14 @@ export interface UiOrder {
    * @maxLength 19
    */
   completionDate?: string;
+  contract?: UiContract;
   counterparty?: UiCounterpartyShort;
   /** Наименование контрагента */
   counterpartyName?: string;
   /** Дата создания заказа. */
   createdDate?: string;
   /**
-   * Сумма заказа.
+   * Сумма заказа с НДС.
    * @minimum 0
    * @maximum 9223372036854776000
    */
@@ -68,12 +70,13 @@ export interface UiOrder {
   orderState?: UiOrderOrderState;
   payments?: UiPaymentShort[];
   tasks?: UiTask[];
+  /**
+   * Сумма заказа без НДС.
+   * @minimum 0
+   * @maximum 9223372036854776000
+   */
+  totalPrice?: number;
   /** Сумма НДС. */
   vat: number;
   vatInclude?: boolean;
-  /**
-   * Ссылка на рабочую папку.
-   * @maxLength 255
-   */
-  workFolderLink?: string;
 }

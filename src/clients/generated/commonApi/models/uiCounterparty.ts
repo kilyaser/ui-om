@@ -5,11 +5,13 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
+import type { UiContract } from './uiContract';
 
 /**
  * UiCounterparty
  */
 export interface UiCounterparty {
+  contracts?: UiContract[];
   /**
    * е-mail контрагента.
    * @maxLength 255

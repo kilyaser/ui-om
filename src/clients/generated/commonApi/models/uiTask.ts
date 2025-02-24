@@ -11,12 +11,20 @@
  */
 export interface UiTask {
   /**
+   * Дата завершения задачи
+   * @maxLength 10
+   */
+  completedDate?: string;
+  /**
    * Описание задачи.
    * @maxLength 255
    */
-  description?: string;
-  /** Идентификатор задачи. */
+  description: string;
+  /**
+   * Идентификатор задачи.
+   * @maxLength 36
+   */
   id: string;
   /** Признак завершения задачи. */
-  isCompleted?: boolean;
+  isCompleted: boolean;
 }

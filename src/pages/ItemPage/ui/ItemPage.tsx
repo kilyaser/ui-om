@@ -12,6 +12,7 @@ import orderItemService from "../../../services/order-item-service/OrderItemServ
 import {useEffect, useState} from "react";
 import {CustomSnackbar} from "../../../shared/ui/Snackbar/ui/CustomSnackbar";
 import {ItemPositionInfo} from "../ItemPositionInfo/ItemPositionInfo";
+import {manyFormat} from "../../../shared/lib/manyFormat";
 
 interface OptionType {
     label: string;
@@ -47,6 +48,8 @@ export const ItemPage = (props: ItemPageProps) => {
 
     // Состояние для отслеживания изменений
     const [totalPrice, setTotalPrice] = useState(item.totalPrice);
+    const [vatSum, setVatSum] = useState(item.vat);
+    const [totalSumWithVat, setTotalSumWithVat] = useState(item.totalPrice);
     const [isChanged, setIsChanged] = useState(false);
     const [formData, setFormData] = useState<OrderItemFieldsPatch>({
         itemId: item.id || "",
@@ -55,6 +58,8 @@ export const ItemPage = (props: ItemPageProps) => {
         quantityShipped: item.quantityShipped,
         productId: item.product?.productId,
     });
+    const isVatIncluded = item.vatInclude;
+    const vatRate = 20;
 
     // useEffect для обновления состояния при изменении item
     useEffect(() => {
@@ -67,13 +72,31 @@ export const ItemPage = (props: ItemPageProps) => {
             productId: item.product?.productId,
             });
         setTotalPrice(item.totalPrice);
+        setVatSum(item.vat);
+        setTotalSumWithVat(item.currentSum)
     }, [item]);
 
     // useEffect для вычисления totalPrice
     useEffect(() => {
         const calculatedTotalPrice = (formData.pricePerProduct || 0) * (formData.quantity || 0);
+        const calculatedVatSum = calculateVatSum(calculatedTotalPrice);
         setTotalPrice(calculatedTotalPrice);
+        setVatSum(calculatedVatSum);
+        setTotalSumWithVat(calculateTotalPriceWitchVat(calculatedTotalPrice));
     }, [formData.pricePerProduct, formData.quantity])
+
+    const calculateVatSum = (totalPrice: number) => {
+        const divisor = isVatIncluded ? 120 : 100;
+        const vatSum = (totalPrice / divisor) * vatRate;
+        return parseFloat(vatSum.toFixed(2));
+    }
+
+    const calculateTotalPriceWitchVat = (totalPrice: number) => {
+        const totalPriceWithVat = isVatIncluded
+            ? totalPrice
+            : (totalPrice / 100 * vatRate) + totalPrice;
+        return parseFloat(totalPriceWithVat.toFixed(2));
+    }
 
     const handleSnackbarOpen = (message: string, severity: 'success' | 'error') => {
         setSnackbarMessage(message);
@@ -231,7 +254,6 @@ export const ItemPage = (props: ItemPageProps) => {
             <ItemPositionInfo
                 item={item}
             />
-
             <Grid2 container spacing={2}>
                 <Grid2 size={3}>
                     <Autocomplete
@@ -303,6 +325,20 @@ export const ItemPage = (props: ItemPageProps) => {
                     />
                 </Grid2>
             </Grid2>
+            <div className="mt-5 ms-3">
+                <div className="row">
+                    <div className="col-2 p-1 font-monospace fs-6">НДС 20%:</div>
+                    <div className="col-1">
+                        {manyFormat(vatSum)}
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-2 p-1 font-monospace fs-6"><strong>Всего, вкл. НДС 20%:</strong></div>
+                    <div className="col-1">
+                        <strong>{manyFormat(totalSumWithVat)}</strong>
+                    </div>
+                </div>
+            </div>
             <Button className={"mt-5"} variant="contained" disabled={!isChanged} onClick={handleSave}>
                 Сохранить
             </Button>
