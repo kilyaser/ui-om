@@ -7,6 +7,18 @@ import {Link} from "react-router-dom";
 import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Pagination} from "../../../shared/ui/Pagination";
 import {OrderState} from "../../type";
+import cls from "./WorkSpagePage.module.scss";
+import {WorkSpaceHeader} from "./WorkSpaceHeader.tsx";
+import {manyFormat} from "../../../shared/lib/manyFormat.ts";
+
+const orderStateColors = {
+    NEW: cls.blue,
+    IN_WORK: cls.blue,
+    READY: cls.blue,
+    SHIPPED: cls.blue,
+    COMPLETED: cls.green,
+    CANCELLED: cls.red,
+};
 
 const WorkSpacePage = () => {
     const {t} = useTranslation("order");
@@ -23,37 +35,43 @@ const WorkSpacePage = () => {
     const columns = [
         "#",
         t("Номер заказа"),
+        t("Наименование заказа"),
         t("Наименование контрагента"),
         t("Сумма"),
         t("Статус"),
         t("ГОЗ"),
-        t("Дата завершеня")
+        t("Дата создания"),
+        t("Дата завершения")
     ]
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const data: PageUiOrderShort = await orderService.getOrdersPage(pageRequest);
-                setOrders(data.content || []);
-                setTotalPages(data.totalPages || 0);
-            } catch (error) {
-                setError('Ошибка при загрузке заказов:');
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchOrders();
+        refreshOrders();
     }, [pageRequest]);
+
+    const refreshOrders = async () => {
+        setLoading(true); // Устанавливаем состояние загрузки
+        try {
+            const data: PageUiOrderShort = await orderService.getOrdersPage(pageRequest);
+            setOrders(data.content || []);
+            setTotalPages(data.totalPages || 0);
+        } catch (error) {
+            setError('Ошибка при загрузке заказов:');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (loading) return <div>Загрузка...</div>;
     if (error) return <div>{error}</div>;
 
     return (
-        <div>
+        <div className={"container-fluid"}>
+            <WorkSpaceHeader
+                onOrderCreated={refreshOrders}
+            />
             <Table
-                className={"table"}
+                className={"table rounded-3"}
                 columns={columns}
                 data={orders}
                 renderRow={(order, index) => (
@@ -65,12 +83,17 @@ const WorkSpacePage = () => {
                                 {order.orderNumber}
                             </Link>
                         </td>
+                        <td>{order.orderName}</td>
                         <td>{order.counterpartyName}</td>
-                        <td>{new Intl.NumberFormat('ru-RU').format(order.currentSum ?? 0)}</td>
-                        <td>{order.orderState && OrderState[order.orderState]
-                            ? OrderState[order.orderState] : ''}
+                        <td>{manyFormat(order.currentSum)}</td>
+                        <td>
+                            <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState || "NEW"]}`}>
+                                {order.orderState && OrderState[order.orderState]
+                                    ? OrderState[order.orderState] : ''}
+                            </span>
                         </td>
                         <td>{order.isGovernmentOrder ? 'Да' : 'Нет'}</td>
+                        <td>{order.createdDate}</td>
                         <td>{order.completionDate}</td>
                     </>
                 )}

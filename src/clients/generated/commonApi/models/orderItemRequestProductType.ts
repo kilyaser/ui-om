@@ -8,6 +8,7 @@
 
 /**
  * Тип изделия.
+ * @maxLength 255
  */
 export type OrderItemRequestProductType = typeof OrderItemRequestProductType[keyof typeof OrderItemRequestProductType];
 

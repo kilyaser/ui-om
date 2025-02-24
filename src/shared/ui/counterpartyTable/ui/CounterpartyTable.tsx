@@ -1,0 +1,78 @@
+import {
+    PageRequest, PageUiCounterparty,
+    type UiCounterparty
+} from "../../../../clients/generated/commonApi/models";
+import {useEffect, useMemo, useState} from "react";
+import counterpartyService from "../../../../services/counterparty-service/CounterpartyService";
+import {Pagination} from "../../Pagination";
+import {Table} from "../../Table";
+
+export const CounterpartyTable = () => {
+    const [counterparties, setCounterparties] = useState<UiCounterparty[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [currentPage, setCurrentPage] = useState<number>(0); // Текущая страница
+    const [totalPages, setTotalPages] = useState<number>(0); // Общее количество страниц
+    const pageRequest: PageRequest = useMemo(() => ({
+        page: currentPage,
+        size: 20,
+    }), [currentPage]);
+
+    const columns = [
+        "№",
+        "Наименование контрагента",
+        "ИНН",
+        "e-mail",
+        "Телефон"
+    ]
+
+    useEffect(() => {
+        refreshCounterparties();
+    }, [pageRequest]);
+
+    const refreshCounterparties = async () => {
+        setLoading(true); // Устанавливаем состояние загрузки
+        try {
+            const data: PageUiCounterparty = await counterpartyService.getCounterparties(pageRequest);
+            setCounterparties(data.content || []);
+            setTotalPages(data.totalPages || 0);
+        } catch (error) {
+            setError('Ошибка при загрузке заказов:');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) return <div>Загрузка...</div>;
+    if (error) return <div>{error}</div>;
+
+    return (
+        <div className={"container-fluid"}>
+            <Table
+                className={"table rounded-3"}
+                columns={columns}
+                data={counterparties}
+                renderRow={(counterparty, index) => (
+                    <>
+                        <th scope="row">{index + 1 + currentPage * 20}</th>
+                        <td>
+                            {/*<Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}*/}
+                            {/*      style={{textDecoration: 'none', color: 'inherit'}}>*/}
+                                {counterparty.name}
+                            {/*</Link>*/}
+                        </td>
+                        <td>{counterparty.inn}</td>
+                        <td>{counterparty.email}</td>
+                        <td>{counterparty.phone}</td>
+                    </>
+                )}
+            />
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+            />
+        </div>
+    );
+};

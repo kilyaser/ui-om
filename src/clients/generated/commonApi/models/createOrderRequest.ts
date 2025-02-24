@@ -22,17 +22,14 @@ export interface CreateOrderRequest {
    * @maxLength 36
    */
   counterpartyId: string;
-  governmentOrder?: boolean;
-  isGovernmentOrder?: boolean;
+  /** Признак государственного заказа */
+  isGovernmentOrder: boolean;
+  /** Признак включения НДС в стоимсть */
+  isVatInclude?: boolean;
   itemRequests?: OrderItemRequest[];
   /**
    * Наименование заказа
    * @maxLength 255
    */
   orderName?: string;
-  /**
-   * Ссылка на рабочую директорию
-   * @maxLength 255
-   */
-  workFolderLink?: string;
 }

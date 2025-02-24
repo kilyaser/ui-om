@@ -16,7 +16,7 @@ import type {
 import type {
   AddOrderItemsRequest,
   DeleteOrderItemRequest,
-  UiOrder,
+  UiOrderItems,
   UpdateOrderItemRequest
 } from './models'
 import { apiInstance } from '../../../shared/api/instance';
@@ -33,7 +33,7 @@ export const updateOrderItems = (
  ) => {
       
       
-      return apiInstance<UiOrder>(
+      return apiInstance<UiOrderItems>(
       {url: `/api/v1/ui/items`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: updateOrderItemRequest
@@ -88,7 +88,7 @@ export const addOrderItems = (
 ) => {
       
       
-      return apiInstance<UiOrder>(
+      return apiInstance<UiOrderItems>(
       {url: `/api/v1/ui/items`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: addOrderItemsRequest, signal
@@ -142,7 +142,7 @@ export const deleteOrderItems = (
  ) => {
       
       
-      return apiInstance<UiOrder>(
+      return apiInstance<void>(
       {url: `/api/v1/ui/items`, method: 'DELETE',
       headers: {'Content-Type': 'application/json', },
       data: deleteOrderItemRequest

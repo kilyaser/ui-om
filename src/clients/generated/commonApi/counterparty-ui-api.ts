@@ -29,7 +29,9 @@ import type {
   CreateCounterpartyRequest,
   FilterRequest,
   PageRequest,
-  PageUiCounterpartyShort,
+  PageUiCounterparty,
+  SearchRequest,
+  UiCounterparties,
   UiCounterparty,
   UpdateCounterpartyRequest
 } from './models'
@@ -149,6 +151,61 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
+ * Поиск контрагентов по наименованию
+ */
+export const searchCounterparty = (
+    searchRequest: BodyType<SearchRequest>,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiCounterparties>(
+      {url: `/api/v1/ui/counterparties/search`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: searchRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getSearchCounterpartyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchCounterparty>>, TError,{data: BodyType<SearchRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof searchCounterparty>>, TError,{data: BodyType<SearchRequest>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof searchCounterparty>>, {data: BodyType<SearchRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  searchCounterparty(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SearchCounterpartyMutationResult = NonNullable<Awaited<ReturnType<typeof searchCounterparty>>>
+    export type SearchCounterpartyMutationBody = BodyType<SearchRequest>
+    export type SearchCounterpartyMutationError = unknown
+
+    export const useSearchCounterparty = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchCounterparty>>, TError,{data: BodyType<SearchRequest>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof searchCounterparty>>,
+        TError,
+        {data: BodyType<SearchRequest>},
+        TContext
+      > => {
+
+      const mutationOptions = getSearchCounterpartyMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    /**
  * Получить страницу контрагентов
  */
 export const getCounterpartyPage = (
@@ -157,7 +214,7 @@ export const getCounterpartyPage = (
 ) => {
       
       
-      return apiInstance<PageUiCounterpartyShort>(
+      return apiInstance<PageUiCounterparty>(
       {url: `/api/v1/ui/counterparties/page`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: pageRequest, signal
@@ -204,7 +261,7 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
- * Поиск контрагентов по наименованию
+ * Поиск контрагентов по наименованию с пагинацией
  */
 export const findCounterpartyByFilter = (
     filterRequest: BodyType<FilterRequest>,
@@ -212,7 +269,7 @@ export const findCounterpartyByFilter = (
 ) => {
       
       
-      return apiInstance<PageUiCounterpartyShort>(
+      return apiInstance<PageUiCounterparty>(
       {url: `/api/v1/ui/counterparties/find`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: filterRequest, signal

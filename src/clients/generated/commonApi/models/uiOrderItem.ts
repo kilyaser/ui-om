@@ -5,11 +5,11 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
+import type { UiMachine } from './uiMachine';
 import type { UiMaterial } from './uiMaterial';
 import type { UiOrderItemPreparationState } from './uiOrderItemPreparationState';
 import type { UiProduct } from './uiProduct';
 import type { UiOrderItemProductType } from './uiOrderItemProductType';
-import type { UiTechnologist } from './uiTechnologist';
 
 /**
  * UiOrderItem
@@ -18,29 +18,30 @@ import type { UiTechnologist } from './uiTechnologist';
 export interface UiOrderItem {
   /** Дата завершения изготовления. */
   completionDate?: string;
+  /** Общая стоимость изделия c НДС. */
+  currentSum: number;
   /** Идентификор позиции заказа. */
-  id?: string;
+  id: string;
   isProgramWritten?: boolean;
   isVatInclude?: boolean;
   /** id станка. */
-  machineId?: string;
+  machines?: UiMachine[];
   material?: UiMaterial;
   /** Статус готовности изделия. */
-  preparationState?: UiOrderItemPreparationState;
+  preparationState: UiOrderItemPreparationState;
   /** Стоимость на одно изделие. */
-  pricePerProduct?: number;
+  pricePerProduct: number;
   product?: UiProduct;
   /** Тип изделия. */
-  productType?: UiOrderItemProductType;
+  productType: UiOrderItemProductType;
   programWritten?: boolean;
   /** Колличество изделий. */
-  quantity?: number;
+  quantity: number;
   /** Колличество отгруженных позиций. */
-  quantityShipped?: number;
-  technologist?: UiTechnologist;
-  /** Общая стоимость изделия. */
-  totalPrice?: number;
+  quantityShipped: number;
+  /** Общая стоимость изделия без НДС. */
+  totalPrice: number;
   /** Сумма НДС. */
-  vat?: number;
+  vat: number;
   vatInclude?: boolean;
 }

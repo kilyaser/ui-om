@@ -21,11 +21,11 @@ export const Sidebar = memo(({className}: SidebarProps) => {
 
     return (
         <div
-            className={classNames(cls.Sidebar, {[cls.collapsed]: collapsed}, [className])}
+            className={classNames(cls.Sidebar, {[cls.collapsed]: collapsed}, [className, "mt-2"])}
         >
             <Button
                 onClick={onToggle}
-                className={cls.collapseBtn}
+                className={`${cls.collapseBtn} border p-2`}
                 square={true}
             >
                 {collapsed ? ">" : "<"}

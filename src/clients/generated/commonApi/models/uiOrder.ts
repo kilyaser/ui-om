@@ -5,6 +5,7 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
+import type { UiContract } from './uiContract';
 import type { UiCounterpartyShort } from './uiCounterpartyShort';
 import type { UiOrderItem } from './uiOrderItem';
 import type { UiOrderOrderState } from './uiOrderOrderState';
@@ -28,28 +29,29 @@ export interface UiOrder {
    * @maxLength 19
    */
   completionDate?: string;
+  contract?: UiContract;
   counterparty?: UiCounterpartyShort;
   /** Наименование контрагента */
   counterpartyName?: string;
   /** Дата создания заказа. */
   createdDate?: string;
   /**
-   * Сумма заказа.
+   * Сумма заказа с НДС.
    * @minimum 0
    * @maximum 9223372036854776000
    */
   currentSum?: number;
   /** Сумма долга. */
-  debtSum?: number;
+  debtSum: number;
   governmentOrder?: boolean;
   isVatInclude?: boolean;
   /** Дата последнего изменения. */
-  modifiedDate?: string;
+  modifiedDate: string;
   /**
    * id заказа.
    * @maxLength 36
    */
-  orderId?: string;
+  orderId: string;
   orderItems?: UiOrderItem[];
   /**
    * Наименование заказа.
@@ -68,12 +70,13 @@ export interface UiOrder {
   orderState?: UiOrderOrderState;
   payments?: UiPaymentShort[];
   tasks?: UiTask[];
-  /** Сумма НДС. */
-  vat?: number;
-  vatInclude?: boolean;
   /**
-   * Ссылка на рабочую папку.
-   * @maxLength 255
+   * Сумма заказа без НДС.
+   * @minimum 0
+   * @maximum 9223372036854776000
    */
-  workFolderLink?: string;
+  totalPrice?: number;
+  /** Сумма НДС. */
+  vat: number;
+  vatInclude?: boolean;
 }

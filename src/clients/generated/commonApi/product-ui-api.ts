@@ -30,7 +30,9 @@ import type {
   FilterRequest,
   PageRequest,
   PageUiProduct,
+  SearchRequest,
   UiProduct,
+  UiProducts,
   UpdateProductRequest
 } from './models'
 import { apiInstance } from '../../../shared/api/instance';
@@ -149,6 +151,61 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
+ * Поиск изделий по наименованию
+ */
+export const searchProducts = (
+    searchRequest: BodyType<SearchRequest>,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiProducts>(
+      {url: `/api/v1/ui/products/search`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: searchRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getSearchProductsMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchProducts>>, TError,{data: BodyType<SearchRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof searchProducts>>, TError,{data: BodyType<SearchRequest>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof searchProducts>>, {data: BodyType<SearchRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  searchProducts(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type SearchProductsMutationResult = NonNullable<Awaited<ReturnType<typeof searchProducts>>>
+    export type SearchProductsMutationBody = BodyType<SearchRequest>
+    export type SearchProductsMutationError = unknown
+
+    export const useSearchProducts = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof searchProducts>>, TError,{data: BodyType<SearchRequest>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof searchProducts>>,
+        TError,
+        {data: BodyType<SearchRequest>},
+        TContext
+      > => {
+
+      const mutationOptions = getSearchProductsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    /**
  * Получить страницу изделний
  */
 export const getProductPage = (
@@ -204,7 +261,7 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
- * Поиск изделий по наименованию
+ * Поиск изделий по наименованию с пагинацией
  */
 export const findProductByFilter = (
     filterRequest: BodyType<FilterRequest>,

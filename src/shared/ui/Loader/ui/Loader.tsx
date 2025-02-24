@@ -1,14 +1,14 @@
 
-import cls from "./Loader.module.scss";
-import {classNames} from "../../../lib/classNames";
 
-interface LoaderProps {
-    className?: string;
-}
+import {CircularProgress} from "@mui/material";
 
-export const Loader = ({className = ""}: LoaderProps) => {
+
+export const Loader = () => {
     return (
-        <span className={classNames(cls.loader, {}, [className])}>
-        </span>
+        <div className="position-relative">
+            <div className="position-absolute top-50 start-50 translate-middle">
+                <CircularProgress/>
+            </div>
+        </div>
     );
 };

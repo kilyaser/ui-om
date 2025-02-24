@@ -14,15 +14,15 @@ export interface UiCounterpartyShort {
    * id контрагента
    * @maxLength 36
    */
-  id?: string;
+  id: string;
   /**
    * ИНН Контрагента
    * @maxLength 255
    */
-  inn?: string;
+  inn: string;
   /**
    * Краткое наименование контрагента
    * @maxLength 255
    */
-  name?: string;
+  name: string;
 }

@@ -14,7 +14,7 @@ export interface UiMaterial {
    * id материала.
    * @maxLength 36
    */
-  id?: string;
+  id: string;
   /**
    * Тип материала.
    * @maxLength 255
