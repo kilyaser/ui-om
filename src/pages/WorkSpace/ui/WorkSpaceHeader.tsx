@@ -1,5 +1,5 @@
-import {classNames} from "../../../shared/lib/classNames.ts";
-import {Button} from "@mui/material";
+import {classNames} from "../../../shared/lib/classNames";
+import {Box, Button} from "@mui/material";
 import {useCallback, useState} from "react";
 import {OrderModal} from "../../../shared/ui/OrderModal";
 
@@ -20,7 +20,11 @@ export const WorkSpaceHeader = ({className, onOrderCreated}: WorkSpaceHeaderProp
         setIsOpen(true);
     }, [])
     return (
-        <div className={classNames("mb-5 mt-2 bg-light p-2", {}, [className])}>
+        <Box className={classNames("mb-5 mt-2 p-2", {}, [className])}
+            sx={{
+                bgcolor: '#f3fbfe'
+            }}
+        >
             <div className="d-flex justify-content-between p-2">
                 <div>
                     <p className="fs-2">Заказы</p>
@@ -38,6 +42,6 @@ export const WorkSpaceHeader = ({className, onOrderCreated}: WorkSpaceHeaderProp
                     />
                 </div>
             </div>
-        </div>
+        </Box>
     );
 };
