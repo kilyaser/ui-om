@@ -29,6 +29,7 @@ import type {
   ChangeOrderSateParams,
   CreateOrderRequest,
   PageRequest,
+  PageUiOrder,
   PageUiOrderShort,
   UiOrder,
   UpdateOrderRequest
@@ -399,7 +400,7 @@ export const getAllOrdersByCounterparty = (
 ) => {
       
       
-      return apiInstance<PageUiOrderShort>(
+      return apiInstance<PageUiOrder>(
       {url: `/api/v1/ui/orders/${counterpartyId}`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: pageRequest, signal

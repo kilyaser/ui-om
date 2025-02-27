@@ -105,7 +105,7 @@ const WorkSpacePage = () => {
                         <td>
                             <Link to={RoutePath.order.replace(":orderId", `${order.orderId}`)}
                                   style={{textDecoration: 'none', color: 'inherit'}}>
-                            <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState || "NEW"]}`}>
+                            <span className={`${cls.WorkSpace} ${orderStateColors[order.orderState]}`}>
                                 {order.orderState && OrderState[order.orderState]
                                     ? OrderState[order.orderState] : ''}
                             </span>

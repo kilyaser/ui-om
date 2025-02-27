@@ -32,9 +32,9 @@ export interface UiOrder {
   contract?: UiContract;
   counterparty?: UiCounterpartyShort;
   /** Наименование контрагента */
-  counterpartyName?: string;
+  counterpartyName: string;
   /** Дата создания заказа. */
-  createdDate?: string;
+  createdDate: string;
   /**
    * Сумма заказа с НДС.
    * @minimum 0
@@ -67,7 +67,7 @@ export interface UiOrder {
    * Статус заказа.
    * @maxLength 255
    */
-  orderState?: UiOrderOrderState;
+  orderState: UiOrderOrderState;
   payments?: UiPaymentShort[];
   tasks?: UiTask[];
   /**

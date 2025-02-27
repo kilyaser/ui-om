@@ -1,10 +1,11 @@
 import {
     type CreateOrderRequest,
-    PageRequest,
+    PageRequest, type PageUiOrder,
     type PageUiOrderShort,
     type UiOrder
 } from "../../clients/generated/commonApi/models";
 import {ordersApi} from "../../clients/generated";
+
 
 class OrderService {
 
@@ -29,6 +30,15 @@ class OrderService {
     async createOrder(req: CreateOrderRequest): Promise<UiOrder> {
         try {
             return await ordersApi.createOrder(req);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async getAllOrdersByCounterparty(counterpartyId: string, pageRequest: PageRequest): Promise<PageUiOrder> {
+        try {
+            return await ordersApi.getAllOrdersByCounterparty(counterpartyId, pageRequest);
         } catch (error) {
             console.error(error);
             throw error;

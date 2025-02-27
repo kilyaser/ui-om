@@ -34,6 +34,7 @@ export * from './orderItemRequestProductType';
 export * from './pageRequest';
 export * from './pageUiCounterparty';
 export * from './pageUiCounterpartyShort';
+export * from './pageUiOrder';
 export * from './pageUiOrderShort';
 export * from './pageUiPaymentShort';
 export * from './pageUiProduct';

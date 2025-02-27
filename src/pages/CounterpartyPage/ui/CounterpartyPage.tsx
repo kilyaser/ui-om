@@ -1,9 +1,10 @@
-import {classNames} from "../../../shared/lib/classNames";
 import {useParams} from "react-router-dom";
 import {useCallback, useEffect, useState} from "react";
 import {UiCounterparty} from "../../../clients/generated/commonApi/models";
 import counterpartyService from "../../../services/counterparty-service/CounterpartyService";
 import {Box} from "@mui/material";
+import {CounterpartyInfo} from "./CounterpartyInfo.tsx";
+import {CounterpartyContracts} from "./CounterpartyContracts.tsx";
 
 
 interface CounterpartyPageProps {
@@ -53,81 +54,30 @@ export const CounterpartyPage = (props: CounterpartyPageProps) => {
     if (error) return <div>{error}</div>;
 
     return (
-        <div className={classNames("", {}, [className])}>
-            {counterparty ? (
-                <div className="container-fluid">
-                    <p className={"fw-bold"}>{counterparty.name}</p>
-                    <hr/>
-                    <Box className="d-flex justify-content-center">
-                        <Box
-                            sx={{
-                                width: "25%"
-                            }}
-                        >
-                            <div className="ms-2 mt-2">Телефон</div>
-                            <Box
-                                component="section"
-                                sx={{
-                                    p: 2,
-                                    bgcolor: '#f3fbfe'
-                                }}
-                            >
-                                <div>{counterparty.phone ?
-                                    (<div>{counterparty.phone}</div>)
-                                    : (<div>
-                                        <span className="text-muted ">Нет данных</span>
-                                    </div>)}</div>
-                            </Box>
-                        </Box>
-                        <Box
-                            className="ms-3"
-                            sx={{
-                                width: "25%"
-                            }}
-                        >
-                            <div className="ms-2 mb-2">Почта</div>
-                            <Box
-                                component="section"
-                                sx={{
-                                     p: 2,
-                                    bgcolor: '#f3fbfe'
-                                }}
-                            >
-                                {counterparty.email ?
-                                    (<div>{counterparty.email}</div>)
-                                    : (<div>
-                                        <span className="text-muted ">Нет данных</span>
-                                    </div>)}
-                            </Box>
-                        </Box>
-                        <Box
-                            className="ms-3"
-                            sx={{
-                                width: "25%"
-                            }}
-                        >
-                            <div className="ms-2 mb-2">ИНН</div>
-                            <Box
-                                component="section"
-                                sx={{
-                                    p: 2,
-                                    bgcolor: '#f3fbfe'
-                                }}
-                            >
-                                {counterparty.inn ?
-                                    (<div>{counterparty.inn}</div>)
-                                    : (<div>
-                                        <span className="text-muted ">Нет данных</span>
-                                    </div>)}
-                            </Box>
-                        </Box>
-                    </Box>
-                </div>
+        <div>
+            <p className={"fw-bold"}>{counterparty?.name}</p>
+            <hr/>
+            <div>
+                <Box
+                    component="section"
+                    sx={{
+                        p: 2,
+                        // bgcolor: '#f3fbfe'
+                    }}
+                >
+                    <CounterpartyInfo
+                        className={className}
+                        counterparty={counterparty}/>
+                </Box>
 
-            ) : (<div>
-                <span className="text-muted">Контрагент не найден</span>
-            </div>)}
+                <p className={"fw-bold"}>Заказы</p>
+                <hr/>
+                <CounterpartyContracts
+                    counterpartyId={counterpartyId}
+                />
+            </div>
         </div>
+
     );
 };
 

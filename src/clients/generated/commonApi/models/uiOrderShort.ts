@@ -18,9 +18,9 @@ export interface UiOrderShort {
    */
   completionDate?: string;
   /** Наименование контрагента */
-  counterpartyName?: string;
+  counterpartyName: string;
   /** Дата создания заказа. */
-  createdDate?: string;
+  createdDate: string;
   /**
    * Сумма заказа с НДС.
    * @minimum 0
@@ -48,7 +48,7 @@ export interface UiOrderShort {
    * Статус заказа.
    * @maxLength 255
    */
-  orderState?: UiOrderShortOrderState;
+  orderState: UiOrderShortOrderState;
   /**
    * Сумма заказа без НДС.
    * @minimum 0
