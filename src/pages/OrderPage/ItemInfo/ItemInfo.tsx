@@ -1,6 +1,5 @@
 
 import cls from "./IntemInfo.module.scss";
-import {useTranslation} from "react-i18next";
 import {classNames} from "../../../shared/lib/classNames";
 import {manyFormat} from "../../../shared/lib/manyFormat";
 import {Button, Checkbox, IconButton, Tooltip, Typography} from "@mui/material";
@@ -35,7 +34,6 @@ const ItemStateColor: Record<UiOrderItemPreparationState, string> = {
 }
 
 export const ItemInfo = (props: ItemInfoProps) => {
-    const {t} = useTranslation("order");
     const {
         className,
         order,
@@ -102,12 +100,12 @@ export const ItemInfo = (props: ItemInfoProps) => {
                         <p className="font-monospace fs-5">Позиции заказа</p>
                         <div className="row mb-2">
                             <Typography className="col-1 p-1 order-first text-center bg-light font-monospace fs-6">№</Typography>
-                            <Typography className="col-4 p-1 bg-light font-monospace fs-6">{t("Наименование")}</Typography>
-                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{t("Статус")}</Typography>
-                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{t("Кол-во")}</Typography>
-                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{t("Отгружено")}</Typography>
-                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{t("Цена")}, ₽</Typography>
-                            <Typography className="col-2 p-1 order-last text-center bg-light font-monospace fs-6">{t("Сумма")}</Typography>
+                            <Typography className="col-4 p-1 bg-light font-monospace fs-6">{"Наименование"}</Typography>
+                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{"Статус"}</Typography>
+                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{"Кол-во"}</Typography>
+                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{"Отгружено"}</Typography>
+                            <Typography className="col-1 p-1 text-center bg-light font-monospace fs-6">{"Цена"}, ₽</Typography>
+                            <Typography className="col-2 p-1 order-last text-center bg-light font-monospace fs-6">{"Сумма"}</Typography>
                         </div>
                         {orderItems.map((item, index) => (
                             <div className={`row mt-2 ${cls.pointer}`} key={item.id}>
@@ -143,7 +141,7 @@ export const ItemInfo = (props: ItemInfoProps) => {
                     >
                         <Typography variant="button">Добавить позицию</Typography>
                     </Button>
-                    <Tooltip title={t("Удалить")}>
+                    <Tooltip title={"Удалить"}>
                         <IconButton
                             disabled={selectedItems.length === 0}
                             onClick={handleDeleteSelected}>

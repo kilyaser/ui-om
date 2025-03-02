@@ -1,18 +1,19 @@
 import {classNames} from "../../../lib/classNames";
 import {Autocomplete, FormControlLabel, Switch, TextField, Typography} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import counterpartyService from "../../../../services/counterparty-service/CounterpartyService";
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import cls from "./OrderFrom.module.scss";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {Dayjs} from "dayjs";
-import {type CreateOrderRequest} from "../../../../clients/generated/commonApi/models";
+import {type CreateOrderRequest, UiCounterparty} from "../../../../clients/generated/commonApi/models";
 import {orderService} from "../../../../services";
 
 interface OrderFromProps {
     className?: string;
     onClose: () => void;
     onOrderCreated: () => void;
+    counterparty?: UiCounterparty;
 }
 
 interface OptionType {
@@ -27,9 +28,12 @@ export const OrderFrom = (props: OrderFromProps) => {
         className,
         onClose,
         onOrderCreated,
+        counterparty,
     } = props;
 
-    const [options, setOptions] = useState<OptionType[]>([]);
+    const [options, setOptions] = useState<OptionType[]>([
+        {label: counterparty?.name || "", id: counterparty?.id || ""},
+    ]);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [completionDate, setCompletionDate] = useState<Dayjs | null>(null);
@@ -38,6 +42,11 @@ export const OrderFrom = (props: OrderFromProps) => {
     const [isGovernmentOrder, setIsGovernmentOrder] = useState<boolean>(false);
     const [includeVAT, setIncludeVAT] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (counterparty) {
+            setSelectedCounterparty(counterparty.id);
+        }
+    }, [counterparty]);
 
     const handleSearchCounterparty = async (search: string) => {
         setIsLoading(true);
@@ -146,6 +155,7 @@ export const OrderFrom = (props: OrderFromProps) => {
                         <Autocomplete
                             className="mt-2"
                             options={options}
+                            defaultValue={options[0]}
                             onInputChange={(_, newInputValue) => handleInputChange(newInputValue)}
                             onChange={(_, newValue) => handleValueChange(newValue)}
                             getOptionLabel={getOptionLabel}
@@ -200,7 +210,7 @@ export const OrderFrom = (props: OrderFromProps) => {
                         type="button"
                         className="btn btn-primary"
                         onClick={handleCreateOrder}
-                    >
+                      >
                         Создать
                     </button>
                 </div>

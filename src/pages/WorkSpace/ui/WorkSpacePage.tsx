@@ -8,8 +8,9 @@ import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Pagination} from "../../../shared/ui/Pagination";
 import {OrderState} from "../../type";
 import cls from "./WorkSpagePage.module.scss";
-import {WorkSpaceHeader} from "./WorkSpaceHeader.tsx";
-import {manyFormat} from "../../../shared/lib/manyFormat.ts";
+import {WorkSpaceHeader} from "./WorkSpaceHeader";
+import {manyFormat} from "../../../shared/lib/manyFormat";
+import {ErrorDisplay} from "../../../shared/ui/ErrorDisplay";
 
 const orderStateColors = {
     NEW: cls.blue,
@@ -24,7 +25,7 @@ const WorkSpacePage = () => {
     const {t} = useTranslation("order");
     const [orders, setOrders] = useState<UiOrderShort[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<Error | null>(null);
     const [currentPage, setCurrentPage] = useState<number>(0); // Текущая страница
     const [totalPages, setTotalPages] = useState<number>(0); // Общее количество страниц
     const pageRequest: PageRequest = useMemo(() => ({
@@ -55,15 +56,16 @@ const WorkSpacePage = () => {
             setOrders(data.content || []);
             setTotalPages(data.totalPages || 0);
         } catch (error) {
-            setError('Ошибка при загрузке заказов:');
-            console.error(error);
+            if (error instanceof Error) {
+                setError(error);
+            }
         } finally {
             setLoading(false);
         }
     };
 
     if (loading) return <div>Загрузка...</div>;
-    if (error) return <div>{error}</div>;
+    if (error) return <ErrorDisplay error={error}/>;
 
     return (
         <div className={"container-fluid"}>

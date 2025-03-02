@@ -1,12 +1,14 @@
 import {classNames} from "../../../lib/classNames";
 import {Modal} from "../../Modul/ui/Modal";
 import {OrderFrom} from "../../OrderForm";
+import {UiCounterparty} from "../../../../clients/generated/commonApi/models";
 
 interface OrderModalProps {
     className?: string;
     isOpen: boolean;
     onClose: () => void;
     onOrderCreated: () => void;
+    counterparty?: UiCounterparty;
 }
 
 export const OrderModal = (props: OrderModalProps) => {
@@ -15,6 +17,7 @@ export const OrderModal = (props: OrderModalProps) => {
         isOpen,
         onClose,
         onOrderCreated,
+        counterparty,
     } = props;
     return (
         <Modal
@@ -26,6 +29,7 @@ export const OrderModal = (props: OrderModalProps) => {
             <OrderFrom
                 onClose={onClose}
                 onOrderCreated={onOrderCreated}
+                counterparty={counterparty}
             />
         </Modal>
     );

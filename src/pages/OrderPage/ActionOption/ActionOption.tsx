@@ -1,34 +1,38 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useTranslation} from "react-i18next";
 
 interface ActionOptionProps {
     className?: string;
     actions: string[];
     initLabel?: string;
+    label: string;
+    onValueChange: (value: string) => void;
 }
 
 export const ActionOption = (props: ActionOptionProps) => {
-    const {t} = useTranslation("order");
     const {
         className,
         actions,
         initLabel,
+        label,
+        onValueChange,
     } = props;
 
-    const handleChange = () => {}
+    const handleChange = (value: string) => {
+        onValueChange(value);
+    }
 
     return (
-        <FormControl className={className} sx={{ m: 2, minWidth: 145}}>
-            <InputLabel id="simple-select-label">{t("Действие")}</InputLabel>
+        <FormControl className={className} sx={{ minWidth: 145}}>
+            <InputLabel id="simple-select-label">{label}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={""}
-                label={t("Действие")}
-                onChange={handleChange}
+                value={initLabel}
+                label={label}
+                onChange={e => handleChange(e.target.value)}
             >
                 {actions.map((action) => (
-                    <MenuItem value={action}>{action}</MenuItem>
+                    <MenuItem key={action} value={action}>{action}</MenuItem>
                 ))}
             </Select>
         </FormControl>

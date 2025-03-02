@@ -21,8 +21,7 @@ interface OrderPageProps {
     className?: string;
 }
 
-export type ActiveTab = 'info' | 'payments' | 'tasks' | 'itemPage'
-
+export type ActiveTab = 'info' | 'payments' | 'tasks' | 'itemPage';
 
 export const OrderPage = ({className}: OrderPageProps) => {
     const {orderId = ""} = useParams(); // Получаем orderId из параметров URL
@@ -70,6 +69,10 @@ export const OrderPage = ({className}: OrderPageProps) => {
         setSelectedItem(item || null); // Устанавливаем выбранный элемент
     };
 
+    const onActionSelected = (value: string) => {
+        console.log(value);
+    }
+
 
     if (loading) return <div>Загрузка...</div>;
     if (error) return <div>{error}</div>;
@@ -81,10 +84,14 @@ export const OrderPage = ({className}: OrderPageProps) => {
                     <p className="text-start mt-1 mb-1 fs-3">{order?.orderNumber} {t("от")} {order?.createdDate}</p>
                 </div>
                 <ActionOption
+                    className="m-2"
                     actions={[
-                        t("Удалить"),
-                        t("Сменить статус")
+                        "Удалить",
+                        "Сменить статус"
                     ]}
+                    initLabel=""
+                    label="Действие"
+                    onValueChange={onActionSelected}
                 />
             </div>
 

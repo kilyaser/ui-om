@@ -92,141 +92,6 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
- * Получить договоры по контрагенты
- */
-export const getByCounterparty = (
-    counterpartyId: string,
- signal?: AbortSignal
-) => {
-      
-      
-      return apiInstance<UiContracts>(
-      {url: `/api/v1/ui/contracts/${counterpartyId}`, method: 'GET', signal
-    },
-      );
-    }
-  
-
-export const getGetByCounterpartyQueryKey = (counterpartyId: string,) => {
-    return [`/api/v1/ui/contracts/${counterpartyId}`] as const;
-    }
-
-    
-export const getGetByCounterpartyQueryOptions = <TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-) => {
-
-const {query: queryOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetByCounterpartyQueryKey(counterpartyId);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByCounterparty>>> = ({ signal }) => getByCounterparty(counterpartyId, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(counterpartyId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
-}
-
-export type GetByCounterpartyQueryResult = NonNullable<Awaited<ReturnType<typeof getByCounterparty>>>
-export type GetByCounterpartyQueryError = unknown
-
-
-export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getByCounterparty>>,
-          TError,
-          TData
-        > , 'initialData'
-      >, }
-
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getByCounterparty>>,
-          TError,
-          TData
-        > , 'initialData'
-      >, }
-
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-
-export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
-
-  const queryOptions = getGetByCounterpartyQueryOptions(counterpartyId,options)
-
-  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-export const getGetByCounterpartySuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-) => {
-
-const {query: queryOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetByCounterpartyQueryKey(counterpartyId);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByCounterparty>>> = ({ signal }) => getByCounterparty(counterpartyId, signal);
-
-      
-
-      
-
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
-}
-
-export type GetByCounterpartySuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getByCounterparty>>>
-export type GetByCounterpartySuspenseQueryError = unknown
-
-
-export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-
-export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
- counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
-
-  const queryOptions = getGetByCounterpartySuspenseQueryOptions(counterpartyId,options)
-
-  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-/**
  * Поиск договора по ID
  */
 export const getContract = (
@@ -351,6 +216,141 @@ export function useGetContractSuspense<TData = Awaited<ReturnType<typeof getCont
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
   const queryOptions = getGetContractSuspenseQueryOptions(contractId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
+ * Получить договоры по контрагенты
+ */
+export const getByCounterparty = (
+    counterpartyId: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiContracts>(
+      {url: `/api/v1/ui/contracts/counterparty/${counterpartyId}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetByCounterpartyQueryKey = (counterpartyId: string,) => {
+    return [`/api/v1/ui/contracts/counterparty/${counterpartyId}`] as const;
+    }
+
+    
+export const getGetByCounterpartyQueryOptions = <TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetByCounterpartyQueryKey(counterpartyId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByCounterparty>>> = ({ signal }) => getByCounterparty(counterpartyId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(counterpartyId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetByCounterpartyQueryResult = NonNullable<Awaited<ReturnType<typeof getByCounterparty>>>
+export type GetByCounterpartyQueryError = unknown
+
+
+export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getByCounterparty>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getByCounterparty>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetByCounterparty<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetByCounterpartyQueryOptions(counterpartyId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGetByCounterpartySuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetByCounterpartyQueryKey(counterpartyId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByCounterparty>>> = ({ signal }) => getByCounterparty(counterpartyId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetByCounterpartySuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getByCounterparty>>>
+export type GetByCounterpartySuspenseQueryError = unknown
+
+
+export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetByCounterpartySuspense<TData = Awaited<ReturnType<typeof getByCounterparty>>, TError = unknown>(
+ counterpartyId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByCounterparty>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetByCounterpartySuspenseQueryOptions(counterpartyId,options)
 
   const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 

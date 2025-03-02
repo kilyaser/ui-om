@@ -3,19 +3,18 @@ import {useCallback, useEffect, useState} from "react";
 import {UiCounterparty} from "../../../clients/generated/commonApi/models";
 import counterpartyService from "../../../services/counterparty-service/CounterpartyService";
 import {Box} from "@mui/material";
-import {CounterpartyInfo} from "./CounterpartyInfo.tsx";
-import {CounterpartyContracts} from "./CounterpartyContracts.tsx";
+import {CounterpartyInfo} from "./CounterpartyInfo";
+import {CounterpartyOrders} from "./CounterpartyOrders";
+import {CounterpartyContracts} from "./CounterpartyContracts";
 
 
 interface CounterpartyPageProps {
     className?: string;
-
 }
 
 export const CounterpartyPage = (props: CounterpartyPageProps) => {
     const {
         className,
-
     } = props;
 
     const {counterpartyId = ""} = useParams();
@@ -23,7 +22,6 @@ export const CounterpartyPage = (props: CounterpartyPageProps) => {
     const [counterparty, setCounterparty] = useState<UiCounterparty | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
 
     const fetchCounterparty = useCallback(async () => {
         try {
@@ -44,11 +42,7 @@ export const CounterpartyPage = (props: CounterpartyPageProps) => {
         loadedCounterparty().catch(error => {
             console.error(error);
         })
-    })
-
-    const handleChangeCounterparty = async () => {
-        await fetchCounterparty();
-    }
+    }, [fetchCounterparty, counterpartyId]);
 
     if (loading) return <div>Загрузка...</div>;
     if (error) return <div>{error}</div>;
@@ -69,15 +63,20 @@ export const CounterpartyPage = (props: CounterpartyPageProps) => {
                         className={className}
                         counterparty={counterparty}/>
                 </Box>
-
-                <p className={"fw-bold"}>Заказы</p>
+                <p className={"fw-bold"}>Контракты</p>
                 <hr/>
                 <CounterpartyContracts
                     counterpartyId={counterpartyId}
                 />
+                <p className={"fw-bold"}>Заказы</p>
+                <hr/>
+                {counterparty && (
+                    <CounterpartyOrders
+                        counterparty={counterparty}
+                    />
+                )}
             </div>
         </div>
-
     );
 };
 

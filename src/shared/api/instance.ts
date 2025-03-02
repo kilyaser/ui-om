@@ -68,7 +68,7 @@ export const apiInstance = async <T>({
     }
 
     if (!response.ok) {
-        throw new Error(`Network response was not ok: ${response.statusText}`);
+        throw new Error(`${response.status}`);
     }
 
     return response.status === 204 ? null : response.json();
