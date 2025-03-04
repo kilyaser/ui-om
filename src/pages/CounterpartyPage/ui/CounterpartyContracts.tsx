@@ -62,7 +62,7 @@ export const CounterpartyContracts = (props: CounterpartyContractsProps) => {
                 {contracts.length > 0 ? (
                         contracts.map((contract) => (
                             (
-                                <div className="container-fluid mt-5">
+                                <div key={contract.contractId} className="container-fluid mt-5">
                                     <Box className="d-flex justify-content-center">
                                         <Box
                                             sx={{

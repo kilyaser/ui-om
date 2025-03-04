@@ -1,13 +1,13 @@
 import {classNames} from "../../../lib/classNames";
 import {Autocomplete, FormControlLabel, Switch, TextField, Typography} from "@mui/material";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import counterpartyService from "../../../../services/counterparty-service/CounterpartyService";
 import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import cls from "./OrderFrom.module.scss";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {Dayjs} from "dayjs";
 import {type CreateOrderRequest, UiCounterparty} from "../../../../clients/generated/commonApi/models";
-import {orderService} from "../../../../services";
+import {contractsService, orderService} from "../../../../services";
 
 interface OrderFromProps {
     className?: string;
@@ -34,6 +34,8 @@ export const OrderFrom = (props: OrderFromProps) => {
     const [options, setOptions] = useState<OptionType[]>([
         {label: counterparty?.name || "", id: counterparty?.id || ""},
     ]);
+    const [contractOptions, setContractOptions] = useState<OptionType[]>([])
+    const [selectedContractId, setSelectedContractId] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [completionDate, setCompletionDate] = useState<Dayjs | null>(null);
@@ -42,11 +44,35 @@ export const OrderFrom = (props: OrderFromProps) => {
     const [isGovernmentOrder, setIsGovernmentOrder] = useState<boolean>(false);
     const [includeVAT, setIncludeVAT] = useState<boolean>(false);
 
+    const fetchContracts = useCallback(async () => {
+        try {
+            if (selectedCounterparty) {
+                const data = await contractsService.getContractsByCounterpartyId(selectedCounterparty);
+                setContractOptions(data.contracts?.map(contract => ({
+                    label: contract.contractNumber,
+                    id: contract.contractId
+                }))|| []);
+            }
+        } catch (error) {
+            console.log(error);
+            setError("Ошибка при загрузки контрактов");
+        }
+    }, [selectedCounterparty]);
+
     useEffect(() => {
         if (counterparty) {
             setSelectedCounterparty(counterparty.id);
         }
     }, [counterparty]);
+
+    useEffect(() => {
+        if (selectedCounterparty) {
+            fetchContracts().catch(error => {
+                console.error(error);
+            });
+        }
+    }, [selectedCounterparty, fetchContracts]);
+
 
     const handleSearchCounterparty = async (search: string) => {
         setIsLoading(true);
@@ -73,6 +99,12 @@ export const OrderFrom = (props: OrderFromProps) => {
         }
     };
 
+    const handleContractSelected = (newValue: OptionType | null) => {
+        if (newValue) {
+            setSelectedContractId(newValue.id);
+        }
+    }
+
     // Метод для получения метки опции
     const getOptionLabel = (option: OptionType | string): string => {
         if (typeof option === 'string') {
@@ -98,6 +130,7 @@ export const OrderFrom = (props: OrderFromProps) => {
             isVatInclude: includeVAT,
             itemRequests: [], // Добавьте ваши элементы заказа здесь
             orderName,
+            contractId: selectedContractId ?? undefined,
         };
 
         try {
@@ -163,6 +196,13 @@ export const OrderFrom = (props: OrderFromProps) => {
                             freeSolo
                             loading={isLoading}
                             renderOption={renderOption}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            options={contractOptions}
+                            className="mt-2"
+                            onChange={(_, newValue) => handleContractSelected(newValue)}
+                            renderInput={(params) => <TextField {...params} label="Договора" />}
                         />
                     </div>
                     {error && <Typography color="error">{error}</Typography>}

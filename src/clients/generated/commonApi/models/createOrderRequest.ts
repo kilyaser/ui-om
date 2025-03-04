@@ -18,6 +18,11 @@ export interface CreateOrderRequest {
    */
   completionDate?: string;
   /**
+   * Id договора
+   * @maxLength 36
+   */
+  contractId?: string;
+  /**
    * Id контрагента заказчик
    * @maxLength 36
    */
