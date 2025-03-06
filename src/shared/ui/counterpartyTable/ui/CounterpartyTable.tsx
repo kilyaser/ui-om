@@ -5,6 +5,7 @@ import {Pagination} from "../../Pagination";
 import {Table} from "../../Table";
 import {RoutePath} from "../../../config/routeConfig/routeConfig";
 import {Link} from "react-router-dom";
+import {CounterpartiesPageHeader} from "../../../../pages/CounterpartiesPage/ui/CounterpartiesPageHeader";
 
 export const CounterpartyTable = () => {
     const [counterparties, setCounterparties] = useState<UiCounterparty[]>([]);
@@ -48,6 +49,9 @@ export const CounterpartyTable = () => {
 
     return (
         <div className={"container-fluid"}>
+            <CounterpartiesPageHeader
+                onCounterpartyCreated={refreshCounterparties}
+            />
             <Table
                 className={`table rounded-3`}
                 columns={columns}
@@ -63,25 +67,25 @@ export const CounterpartyTable = () => {
                         <td>
                             <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
                                   style={{textDecoration: 'none', color: 'inherit'}}>
-                            {counterparty.name}
+                                {counterparty.name}
                             </Link>
                         </td>
                         <td>
                             <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
                                   style={{textDecoration: 'none', color: 'inherit'}}>
-                            {counterparty.inn}
+                                {counterparty.inn}
                             </Link>
                         </td>
                         <td>
                             <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
                                   style={{textDecoration: 'none', color: 'inherit'}}>
-                            {counterparty.email}
+                                {counterparty.email}
                             </Link>
                         </td>
                         <td>
                             <Link to={RoutePath.counterparty.replace(":counterpartyId", `${counterparty.id}`)}
                                   style={{textDecoration: 'none', color: 'inherit'}}>
-                            {counterparty.phone}
+                                {counterparty.phone}
                             </Link>
                         </td>
                     </>

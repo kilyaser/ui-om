@@ -17,7 +17,7 @@ interface ContractFormProps {
     counterpartyId: string
 }
 
-type FieldValue = string | number | Dayjs | undefined;
+type FieldValue = string | number | undefined;
 
 export const ContractForm = (props: ContractFormProps) => {
     const {

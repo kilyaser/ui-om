@@ -1,4 +1,5 @@
 import {
+    type CreateCounterpartyRequest,
     PageRequest, type PageUiCounterparty,
     SearchRequest,
     type UiCounterparties, UiCounterparty
@@ -28,6 +29,15 @@ class CounterpartyService {
     async getCounterpartyById(id: string): Promise<UiCounterparty> {
         try {
             return await counterpartyApi.getCounterparty(id);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async createCounterparty(req: CreateCounterpartyRequest): Promise<UiCounterparty> {
+        try {
+            return await counterpartyApi.createCounterparty(req);
         } catch (error) {
             console.error(error);
             throw error;

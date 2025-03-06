@@ -74,9 +74,9 @@ export const CounterpartyOrders = (props: CounterpartyOrdersProps) => {
 
     return (
         <div>
-            <div className="container mb-2">
+            <div className="container-fluid mb-2">
                 <div className="position-relative">
-                <div className="d-flex">
+                <div className="d-flex justify-content-center">
                     {orders.length > 0 ? (
                         orders.map((order) => (
                                 <Box key={order.orderId} className={`${cls.card} ms-4`}>

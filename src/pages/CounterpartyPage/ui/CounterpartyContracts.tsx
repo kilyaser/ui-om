@@ -57,7 +57,7 @@ export const CounterpartyContracts = (props: CounterpartyContractsProps) => {
     if (error) return <div>{error}</div>;
 
     return (
-        <div className={classNames("container mb-2", {}, [className])}>
+        <div className={classNames("container-fluid mb-2", {}, [className])}>
             <div className="position-relative">
                 {contracts.length > 0 ? (
                         contracts.map((contract) => (
