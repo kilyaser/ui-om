@@ -1,9 +1,5 @@
-import {Box, Button, Card, CardActions, CardContent, Tooltip, Typography} from "@mui/material";
-import {
-    PageRequest,
-    type PageUiOrder, UiCounterparty,
-    type UiOrder
-} from "../../../clients/generated/commonApi/models";
+import {Box, Button, Card, CardActions, CardContent, Typography} from "@mui/material";
+import {PageRequest, type PageUiOrder, UiCounterparty, type UiOrder} from "../../../clients/generated/commonApi/models";
 import {orderService} from "../../../services";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {Pagination} from "../../../shared/ui/Pagination";
@@ -13,6 +9,7 @@ import {RoutePath} from "../../../shared/config/routeConfig/routeConfig";
 import {Link} from "react-router-dom";
 import {manyFormat} from "../../../shared/lib/manyFormat";
 import {OrderModal} from "../../../shared/ui/OrderModal";
+import {AddButton} from "../../../shared/ui/AddButton";
 
 
 interface CounterpartyOrdersProps {
@@ -76,25 +73,26 @@ export const CounterpartyOrders = (props: CounterpartyOrdersProps) => {
         <div>
             <div className="container-fluid mb-2">
                 <div className="position-relative">
-                <div className="d-flex justify-content-center">
-                    {orders.length > 0 ? (
-                        orders.map((order) => (
+                    <div className="d-flex justify-content-center">
+                        {orders.length > 0 ? (
+                            orders.map((order) => (
                                 <Box key={order.orderId} className={`${cls.card} ms-4`}>
-                                    <Card sx={{ minWidth: 275 }}>
+                                    <Card sx={{minWidth: 275}}>
                                         <CardContent>
                                             <Typography
                                                 className="fs-5"
                                                 gutterBottom
-                                                sx={{ color: 'text.secondary', fontSize: 14 }}
+                                                sx={{color: 'text.secondary', fontSize: 14}}
                                             >
                                                 {order.orderNumber}
-                                                <span className={`${cls.state} ${orderStateColors[order.orderState]} ms-2 fs-6`}>{OrderState[order.orderState]}</span>
+                                                <span
+                                                    className={`${cls.state} ${orderStateColors[order.orderState]} ms-2 fs-6`}>{OrderState[order.orderState]}</span>
                                             </Typography>
 
-                                            <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+                                            <Typography sx={{color: 'text.secondary', mb: 1.5}}>
                                                 {order.orderName || "Без наименования"}
                                             </Typography>
-                                            <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
+                                            <Typography sx={{color: 'text.secondary', mb: 1.5}}>
                                                 Договор: {order.contract?.contractNumber || "Без договора"}
                                             </Typography>
                                             <div className="d-flex justify-content-between">
@@ -123,25 +121,16 @@ export const CounterpartyOrders = (props: CounterpartyOrdersProps) => {
                                     </Card>
                                 </Box>
                             ))
-                    ) : (
-                        <p className="text-muted">Заказы не найдены</p>
-                    )}
-                </div>
-                <div className="position-absolute top-0 end-0">
-                    <Tooltip title={"Создать заказ"}>
-                        <button
-                            className="btn btn-primary rounded-circle"
-                            type="submit"
-                            onClick={onShow}
-                        >
-                            <span className="h4">
-                                +
-                            </span>
-                        </button>
-                    </Tooltip>
-                </div>
+                        ) : (
+                            <p className="text-muted">Заказы не найдены</p>
+                        )}
+                    </div>
+                    <AddButton
+                        onShow={onShow}
+                        tooltipTitle={"Создать заказ"}
+                    />
 
-            </div>
+                </div>
             </div>
             <Pagination
                 className="mt-4"

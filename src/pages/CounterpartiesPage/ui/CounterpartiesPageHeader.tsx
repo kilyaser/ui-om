@@ -1,7 +1,7 @@
 import {classNames} from "../../../shared/lib/classNames";
 import {useCallback, useState} from "react";
 import {Box, Button} from "@mui/material";
-import {CounterpartyModal} from "../../../shared/ui/CounterpartyModal/ui";
+import {CounterpartyModal} from "../../../shared/ui/CounterpartyModal";
 
 interface CounterpartiesPageHeaderProps {
     className?: string;

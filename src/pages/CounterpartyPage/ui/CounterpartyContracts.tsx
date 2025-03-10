@@ -2,8 +2,9 @@ import {classNames} from "../../../shared/lib/classNames";
 import {useCallback, useEffect, useState} from "react";
 import {type UiContract, UiContracts} from "../../../clients/generated/commonApi/models";
 import {contractsService} from "../../../services";
-import {Box, Tooltip} from "@mui/material";
+import {Box} from "@mui/material";
 import {ContractModal} from "../../../shared/ui/ContractModal";
+import {AddButton} from "../../../shared/ui/AddButton";
 
 
 interface CounterpartyContractsProps {
@@ -155,19 +156,10 @@ export const CounterpartyContracts = (props: CounterpartyContractsProps) => {
                         <span className="text-muted">Контракты не найдены</span>
                     </div>
                 }
-                <div className="position-absolute top-0 end-0">
-                    <Tooltip title={"Создать договор"}>
-                        <button
-                            className="btn btn-primary rounded-circle"
-                            type="submit"
-                            onClick={onShow}
-                        >
-                            <span className="h4">
-                                +
-                            </span>
-                        </button>
-                    </Tooltip>
-                </div>
+                <AddButton
+                    onShow={onShow}
+                    tooltipTitle={"Создать договор"}
+                />
             </div>
             <ContractModal
                 isOpen={isOpen}

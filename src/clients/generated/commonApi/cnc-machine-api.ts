@@ -28,11 +28,147 @@ import type {
 import type {
   CreateMachineRequest,
   UiMachine,
+  UiMachines,
   UpdateMachineRequest
 } from './models'
 import { apiInstance } from '../../../shared/api/instance';
 import type { BodyType } from '../../../shared/api/instance';
 
+
+
+
+/**
+ * Получение списка оборудования
+ */
+export const getAllMachines = (
+    
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiMachines>(
+      {url: `/api/v1/ui/machines`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetAllMachinesQueryKey = () => {
+    return [`/api/v1/ui/machines`] as const;
+    }
+
+    
+export const getGetAllMachinesQueryOptions = <TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAllMachinesQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllMachines>>> = ({ signal }) => getAllMachines(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetAllMachinesQueryResult = NonNullable<Awaited<ReturnType<typeof getAllMachines>>>
+export type GetAllMachinesQueryError = unknown
+
+
+export function useGetAllMachines<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAllMachines>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAllMachines<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAllMachines>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAllMachines<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetAllMachines<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetAllMachinesQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGetAllMachinesSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAllMachinesQueryKey();
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllMachines>>> = ({ signal }) => getAllMachines(signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetAllMachinesSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getAllMachines>>>
+export type GetAllMachinesSuspenseQueryError = unknown
+
+
+export function useGetAllMachinesSuspense<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAllMachinesSuspense<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAllMachinesSuspense<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetAllMachinesSuspense<TData = Awaited<ReturnType<typeof getAllMachines>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAllMachines>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetAllMachinesSuspenseQueryOptions(options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
 
 
 

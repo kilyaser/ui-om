@@ -1,10 +1,9 @@
 
 import {classNames} from "../../../../shared/lib/classNames";
 import cls from "./SidebarItem.module.scss";
-import {useTranslation} from "react-i18next";
 import {memo} from "react";
-import {AppLink} from "../../../../shared/ui/AppLink/AppLink.tsx";
-import {SidebarItemType} from "../Sidebar/model/item.ts";
+import {AppLink} from "../../../../shared/ui/AppLink/AppLink";
+import {SidebarItemType} from "../Sidebar/model/item";
 
 interface SidebarItemProps {
     item: SidebarItemType;
@@ -12,7 +11,6 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = memo(({item, collapsed}: SidebarItemProps) => {
-    const {t} = useTranslation();
 
     return (
         <AppLink
@@ -21,7 +19,7 @@ export const SidebarItem = memo(({item, collapsed}: SidebarItemProps) => {
         >
             <item.Icon className={cls.icon}/>
             <span className={cls.link}>
-                {t(item.text)}
+                {item.text}
             </span>
         </AppLink>
     );

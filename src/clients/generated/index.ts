@@ -1,5 +1,4 @@
 export * as adminConstraintApi from "./commonApi/admin-constraint-api";
-export * as cncMachineApi from "./commonApi/cnc-machine-controller";
 export * as counterpartyApi from "./commonApi/counterparty-ui-api";
 export * as materialApi from "./commonApi/material-ui-api";
 export * as ordersApi from "./commonApi/order-ui-api";
@@ -8,3 +7,4 @@ export * as paymentApi from "./commonApi/payment-ui-api";
 export * as productApi from "./commonApi/product-ui-api";
 export * as taskApi from "./commonApi/task-ui-api";
 export * as contractApi from "./commonApi/contract-ui-api";
+export * as machineApi from "./commonApi/cnc-machine-api";

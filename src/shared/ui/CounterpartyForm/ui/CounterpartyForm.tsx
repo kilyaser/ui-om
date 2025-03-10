@@ -59,7 +59,7 @@ export const CounterpartyForm = (props: CounterpartyFormProps) => {
                 <div className="modal-geader">
                     <div className="d-flex justify-content-between modal-header">
                         <div>
-                            <h1 className="modal-title fs-5 d-block">Форма создания Договора</h1>
+                            <h1 className="modal-title fs-5 d-block">Форма создания Контрагента</h1>
                         </div>
                         <div>
                             <button type="button"

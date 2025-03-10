@@ -2,6 +2,7 @@ import {RoutePath} from "../../../../../shared/config/routeConfig/routeConfig";
 import DashBoardIcon from "../../../../../shared/icons/dashboard.svg?react";
 import WorkSpaceIcon from "../../../../../shared/icons/ordersIcon.svg?react";
 import CounterpartyIcon from "../../../../../shared/icons/counterparties.svg?react";
+import MachinesIcon from "../../../../../shared/icons/factory.svg?react";
 
 export interface SidebarItemType {
     path: string;
@@ -24,5 +25,10 @@ export const SidebarItemsList: SidebarItemType[] = [
         path: RoutePath.counterparties,
         Icon: CounterpartyIcon,
         text: 'Контрагенты'
+    },
+    {
+        path: RoutePath.machines,
+        Icon: MachinesIcon,
+        text: 'Оборудование'
     }
 ];

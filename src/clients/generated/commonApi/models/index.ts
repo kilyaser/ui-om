@@ -53,6 +53,7 @@ export * from './uiCounterparty';
 export * from './uiCounterpartyShort';
 export * from './uiMachine';
 export * from './uiMachineMachineType';
+export * from './uiMachines';
 export * from './uiMaterial';
 export * from './uiOrder';
 export * from './uiOrderItem';

@@ -20,7 +20,7 @@ export interface UiMachine {
   id: string;
   isOccupied?: boolean;
   /** Тип станка с ЧПУ. */
-  machineType?: UiMachineMachineType;
+  machineType: UiMachineMachineType;
   /**
    * Наименование станка с ЧПУ.
    * @maxLength 255
