@@ -7,6 +7,7 @@ import machineService from "../../../../services/machines-service/MachinesServic
 import CheckIcon from '@mui/icons-material/Check';
 import orderItemService from "../../../../services/order-item-service/OrderItemService";
 import ClearIcon from '@mui/icons-material/Clear';
+import {CustomSnackbar} from "../../Snackbar/ui/CustomSnackbar";
 
 interface ItemPositionPartProps {
     item: UiOrderItem;
@@ -33,6 +34,17 @@ export const ItemMachinePosition = (props: ItemPositionPartProps) => {
     const [error, setError] = useState<string | null>(null);
     const [isEdit, setIsEdit] = useState(false);
     const [machines, setMachines] = useState<UiMachineShort[]>(item.machines || [])
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
+    };
+    const handleSnackbarOpen = (message: string, severity: 'success' | 'error') => {
+        setSnackbarMessage(message);
+        setSnackbarSeverity(severity);
+        setSnackbarOpen(true);
+    };
 
     const fetchMachines = useCallback(async () => {
         try {
@@ -82,8 +94,10 @@ export const ItemMachinePosition = (props: ItemPositionPartProps) => {
             await orderItemService.establishMachines(req);
             handleEdit();
             fetchOccupiedMachines();
+            handleSnackbarOpen(`Назначение станка(ов) успешно изменено на позицию: ${item.product?.productName}`, "success");
         } catch (error) {
             console.error(error);
+            handleSnackbarOpen(`Ошибка при назначении станка ${error}`, "error");
         }
     };
 
@@ -186,6 +200,12 @@ export const ItemMachinePosition = (props: ItemPositionPartProps) => {
                     </div>
                 )
             }
+            <CustomSnackbar
+                open={snackbarOpen}
+                message={snackbarMessage}
+                severity={snackbarSeverity}
+                onClose={handleSnackbarClose}
+            />
         </div>
     );
 };
