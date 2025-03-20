@@ -5,7 +5,7 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
-import type { UiMachine } from './uiMachine';
+import type { UiMachineShort } from './uiMachineShort';
 import type { UiMaterial } from './uiMaterial';
 import type { UiOrderItemPreparationState } from './uiOrderItemPreparationState';
 import type { UiProduct } from './uiProduct';
@@ -25,7 +25,7 @@ export interface UiOrderItem {
   isProgramWritten?: boolean;
   isVatInclude?: boolean;
   /** id станка. */
-  machines?: UiMachine[];
+  machines?: UiMachineShort[];
   material?: UiMaterial;
   /** Статус готовности изделия. */
   preparationState: UiOrderItemPreparationState;

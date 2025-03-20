@@ -468,4 +468,138 @@ const {mutation: mutationOptions} = options ?? {};
 
       return useMutation(mutationOptions);
     }
+    /**
+ * Полчить список занятных станков по id позиции заказа
+ */
+export const getByOrderItemId = (
+    itemId: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiMachines>(
+      {url: `/api/v1/ui/machines/order-item/${itemId}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetByOrderItemIdQueryKey = (itemId: string,) => {
+    return [`/api/v1/ui/machines/order-item/${itemId}`] as const;
+    }
+
     
+export const getGetByOrderItemIdQueryOptions = <TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetByOrderItemIdQueryKey(itemId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByOrderItemId>>> = ({ signal }) => getByOrderItemId(itemId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(itemId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetByOrderItemIdQueryResult = NonNullable<Awaited<ReturnType<typeof getByOrderItemId>>>
+export type GetByOrderItemIdQueryError = unknown
+
+
+export function useGetByOrderItemId<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getByOrderItemId>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByOrderItemId<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getByOrderItemId>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByOrderItemId<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetByOrderItemId<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetByOrderItemIdQueryOptions(itemId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGetByOrderItemIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetByOrderItemIdQueryKey(itemId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getByOrderItemId>>> = ({ signal }) => getByOrderItemId(itemId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetByOrderItemIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getByOrderItemId>>>
+export type GetByOrderItemIdSuspenseQueryError = unknown
+
+
+export function useGetByOrderItemIdSuspense<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByOrderItemIdSuspense<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetByOrderItemIdSuspense<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetByOrderItemIdSuspense<TData = Awaited<ReturnType<typeof getByOrderItemId>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getByOrderItemId>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetByOrderItemIdSuspenseQueryOptions(itemId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+

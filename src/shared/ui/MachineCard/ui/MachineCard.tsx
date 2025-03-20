@@ -17,13 +17,12 @@ export const machineType: Record<UiMachineMachineType, string> = {
 export const MachineCard = (props: MachineCardProps) => {
     const {className, machine} = props;
 
-    const cardBackgroundColor = machine.isOccupied ? "#ffebee" : "#ecfbf3";
-    const cardBorderColor = machine.isOccupied ? "#b71c1c" : "#0a6236";
-
+    const cardBackgroundColor = machine.occupied ? "#ffebee" : "#ecfbf3";
+    const cardBorderColor = machine.occupied ? "#b71c1c" : "#0a6236";
 
     return (
         <Box key={machine.id} className={`${cls.card} ${className} ms-4`}>
-            <Card sx={{minWidth: 275, backgroundColor: cardBackgroundColor, border: `1px solid ${cardBorderColor}`}}>
+            <Card sx={{minWidth: 300, minHeight: 275, backgroundColor: cardBackgroundColor, border: `1px solid ${cardBorderColor}`}}>
                 <CardContent>
                     <Typography
                         className="fs-5"
@@ -37,28 +36,28 @@ export const MachineCard = (props: MachineCardProps) => {
                         Тип: {machineType[machine.machineType]}
                     </Typography>
                     <div className="row">
-                        <div className="col-7">
+                        <div className="col-6">
                             <Typography sx={{color: cardBorderColor, mb: 1.5}}>
                                 Заказ в работе:
                             </Typography>
                         </div>
-                        <div className="col-5">
+                        <div className="col-6">
                             <Typography sx={{color: cardBorderColor, mb: 1.5}}>
-                                {machine.isOccupied
+                                {machine.occupied
                                     ? (<span>{machine.order?.orderNumber}</span>)
                                     : (<span>свободен</span>)}
                             </Typography>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-7">
+                        <div className="col-6">
                             <Typography sx={{color: cardBorderColor, mb: 1.5}}>
                                 Позиция в работе
                             </Typography>
                         </div>
-                        <div className="col-5">
+                        <div className="col-6">
                             <Typography sx={{color: cardBorderColor, mb: 1.5}}>
-                                {machine.isOccupied
+                                {machine.occupied
                                     ? (<span>{machine.orderItem?.product?.productName}</span>)
                                     : (<span>свободен</span>)}
                             </Typography>
@@ -66,7 +65,7 @@ export const MachineCard = (props: MachineCardProps) => {
                     </div>
                 </CardContent>
                 <CardActions>
-                    {machine.isOccupied ? (
+                    {machine.occupied ? (
                         <Link
                             to={RoutePath.order.replace(":orderId", `${machine.order?.orderId}`)}
                             style={{textDecoration: 'none', color: 'inherit'}}>

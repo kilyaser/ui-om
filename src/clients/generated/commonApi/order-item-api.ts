@@ -16,6 +16,8 @@ import type {
 import type {
   AddOrderItemsRequest,
   DeleteOrderItemRequest,
+  UiEstablishMachineRequest,
+  UiOrderItem,
   UiOrderItems,
   UpdateOrderItemRequest
 } from './models'
@@ -185,6 +187,57 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getDeleteOrderItemsMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    export const establishMachines = (
+    uiEstablishMachineRequest: BodyType<UiEstablishMachineRequest>,
+ ) => {
+      
+      
+      return apiInstance<UiOrderItem>(
+      {url: `/api/v1/ui/items/machine/establish`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: uiEstablishMachineRequest
+    },
+      );
+    }
+  
+
+
+export const getEstablishMachinesMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof establishMachines>>, TError,{data: BodyType<UiEstablishMachineRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof establishMachines>>, TError,{data: BodyType<UiEstablishMachineRequest>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof establishMachines>>, {data: BodyType<UiEstablishMachineRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  establishMachines(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type EstablishMachinesMutationResult = NonNullable<Awaited<ReturnType<typeof establishMachines>>>
+    export type EstablishMachinesMutationBody = BodyType<UiEstablishMachineRequest>
+    export type EstablishMachinesMutationError = unknown
+
+    export const useEstablishMachines = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof establishMachines>>, TError,{data: BodyType<UiEstablishMachineRequest>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof establishMachines>>,
+        TError,
+        {data: BodyType<UiEstablishMachineRequest>},
+        TContext
+      > => {
+
+      const mutationOptions = getEstablishMachinesMutationOptions(options);
 
       return useMutation(mutationOptions);
     }

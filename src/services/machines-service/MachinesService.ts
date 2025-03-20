@@ -22,6 +22,15 @@ class MachineService {
             throw error;
         }
     }
+
+    async getOccupiedMachineByItemId(id: string): Promise<UiMachines> {
+        try {
+            return await machineApi.getByOrderItemId(id);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 const machineService = new MachineService();

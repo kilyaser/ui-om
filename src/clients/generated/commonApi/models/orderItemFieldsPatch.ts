@@ -19,8 +19,6 @@ export interface OrderItemFieldsPatch {
   isVatInclude?: boolean;
   /** Идентификор позиции заказа. */
   itemId: string;
-  /** id станка. */
-  machineId?: string;
   /** Id материала. */
   materialId?: string;
   /** Статус готовности изделия. */

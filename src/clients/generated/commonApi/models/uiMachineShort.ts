@@ -5,28 +5,22 @@
  * API order-manager
  * OpenAPI spec version: 1.0.0
  */
-import type { UiMachineMachineType } from './uiMachineMachineType';
-import type { UiOrderShort } from './uiOrderShort';
-import type { UiOrderItem } from './uiOrderItem';
+import type { UiMachineShortMachineType } from './uiMachineShortMachineType';
 
 /**
  * UiMachine
  */
-export interface UiMachine {
+export interface UiMachineShort {
   /**
    * Идентификатор станка с ЧПУ.
    * @maxLength 36
    */
   id: string;
-  isOccupied?: boolean;
   /** Тип станка с ЧПУ. */
-  machineType: UiMachineMachineType;
+  machineType: UiMachineShortMachineType;
   /**
    * Наименование станка с ЧПУ.
    * @maxLength 255
    */
   name: string;
-  occupied?: boolean;
-  order?: UiOrderShort;
-  orderItem?: UiOrderItem;
 }

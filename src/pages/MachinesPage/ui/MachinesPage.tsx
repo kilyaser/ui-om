@@ -60,7 +60,7 @@ export const MachinesPage = ({className}: MachinesPageProps) => {
                     <p>No machines found.</p>
                 )}
             </div>
-            <div className="mt-4 position-relative">
+            <div className="mt-5 position-relative">
                 <AddButton
                     onShow={onShow}
                     tooltipTitle={"Добавить станок"}

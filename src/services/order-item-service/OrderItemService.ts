@@ -1,7 +1,7 @@
 import {ordersItemApi} from "../../clients/generated";
 import {
     AddOrderItemsRequest,
-    DeleteOrderItemRequest, OrderItemFieldsPatch,
+    DeleteOrderItemRequest, OrderItemFieldsPatch, UiEstablishMachineRequest,
     type UiOrderItems, UpdateOrderItemRequest,
 } from "../../clients/generated/commonApi/models";
 
@@ -33,6 +33,15 @@ class OrderItemService {
                 patch: [patch],
             }
             return await ordersItemApi.updateOrderItems(req);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async establishMachines(req: UiEstablishMachineRequest) {
+        try {
+            return await ordersItemApi.establishMachines(req);
         } catch (error) {
             console.log(error);
             throw error;

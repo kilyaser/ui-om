@@ -87,7 +87,7 @@ export const MachineForm = (props: MachineFormProps) => {
                 <div className="modal-geader">
                     <div className="d-flex justify-content-between modal-header">
                         <div>
-                            <h1 className="modal-title fs-5 d-block">Форма создания Контрагента</h1>
+                            <h1 className="modal-title fs-5 d-block">Форма добавление Станка</h1>
                         </div>
                         <div>
                             <button type="button"
