@@ -1,7 +1,7 @@
 import {ordersItemApi} from "../../clients/generated";
 import {
     AddOrderItemsRequest,
-    DeleteOrderItemRequest, OrderItemFieldsPatch, UiEstablishMachineRequest,
+    DeleteOrderItemRequest, OrderItemFieldsPatch, UiEstablishMachineRequest, UiOrderItem,
     type UiOrderItems, UpdateOrderItemRequest,
 } from "../../clients/generated/commonApi/models";
 
@@ -42,6 +42,15 @@ class OrderItemService {
     async establishMachines(req: UiEstablishMachineRequest) {
         try {
             return await ordersItemApi.establishMachines(req);
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async getItemById(id: string): Promise<UiOrderItem> {
+        try {
+            return await ordersItemApi.findById(id)
         } catch (error) {
             console.log(error);
             throw error;

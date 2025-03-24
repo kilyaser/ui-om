@@ -13,6 +13,7 @@ import {
 interface ItemPositionInfoProps {
     className?: string;
     item: UiOrderItem;
+    onChangeItem: () => void
 }
 
 const ItemStateColor: Record<UiOrderItemPreparationState, string> = {
@@ -25,6 +26,7 @@ export const ItemPositionInfo = (props: ItemPositionInfoProps) => {
     const {
         item,
         className,
+        onChangeItem
     } = props;
 
     return (
@@ -41,7 +43,10 @@ export const ItemPositionInfo = (props: ItemPositionInfoProps) => {
                     </Typography>
                 </div>
                 <ItemProgramWrittenPosition isProgramWritten={item.isProgramWritten === true} />
-                <ItemMachinePosition item={item}/>
+                <ItemMachinePosition
+                    item={item}
+                    onChangeItem={onChangeItem}
+                />
                 <ItemMaterialPosition materialType={item.material?.materialType}/>
                 <ItemProductTypePosition productType={item.productType}/>
             </div>

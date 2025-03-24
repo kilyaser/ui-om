@@ -42,14 +42,18 @@ export const OrderPage = ({className}: OrderPageProps) => {
         try {
             const data: UiOrder = await orderService.getOrderById(orderId);
             setOrder(data); // Устанавливаем данные о заказе в состояние
-            setPayments(data.payments || []); // Устанавливаем платежи
+            setPayments(data.payments || []);
+            const updatedSelectedItem = selectedItem
+                ? data.orderItems?.find(item => item.id === selectedItem.id)
+                : null;
+            setSelectedItem(updatedSelectedItem || null);
         } catch (err) {
             setError('Ошибка при загрузке информации о заказе'); // Устанавливаем сообщение об ошибке
             console.error(err);
         } finally {
             setLoading(false); // Завершаем состояние загрузки
         }
-    }, [orderId]);
+    }, [orderId, selectedItem?.id]);
 
     useEffect(() => {
         const loadOrder = async () => {

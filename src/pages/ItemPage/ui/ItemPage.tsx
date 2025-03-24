@@ -30,7 +30,7 @@ interface ItemPageProps {
 type FieldValue = string | number | undefined;
 
 export const ItemPage = (props: ItemPageProps) => {
-    // const {t} = useTranslation();
+
     const {
         className,
         item,
@@ -253,6 +253,7 @@ export const ItemPage = (props: ItemPageProps) => {
         <div className={classNames("", {}, [className])}>
             <ItemPositionInfo
                 item={item}
+                onChangeItem={onItemChanged}
             />
             <Grid2 container spacing={2}>
                 <Grid2 size={3}>

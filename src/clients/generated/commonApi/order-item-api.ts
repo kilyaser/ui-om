@@ -6,12 +6,24 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
-  useMutation
+  useMutation,
+  useQuery,
+  useSuspenseQuery
 } from '@tanstack/react-query'
 import type {
+  DataTag,
+  DefinedInitialDataOptions,
+  DefinedUseQueryResult,
   MutationFunction,
+  QueryFunction,
+  QueryKey,
+  UndefinedInitialDataOptions,
   UseMutationOptions,
-  UseMutationResult
+  UseMutationResult,
+  UseQueryOptions,
+  UseQueryResult,
+  UseSuspenseQueryOptions,
+  UseSuspenseQueryResult
 } from '@tanstack/react-query'
 import type {
   AddOrderItemsRequest,
@@ -241,4 +253,135 @@ const {mutation: mutationOptions} = options ?? {};
 
       return useMutation(mutationOptions);
     }
+    export const findById = (
+    itemId: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiOrderItem>(
+      {url: `/api/v1/ui/items/${itemId}`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getFindByIdQueryKey = (itemId: string,) => {
+    return [`/api/v1/ui/items/${itemId}`] as const;
+    }
+
     
+export const getFindByIdQueryOptions = <TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getFindByIdQueryKey(itemId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof findById>>> = ({ signal }) => findById(itemId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(itemId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type FindByIdQueryResult = NonNullable<Awaited<ReturnType<typeof findById>>>
+export type FindByIdQueryError = unknown
+
+
+export function useFindById<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useFindById<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findById>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useFindById<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useFindById<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getFindByIdQueryOptions(itemId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getFindByIdSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getFindByIdQueryKey(itemId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof findById>>> = ({ signal }) => findById(itemId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type FindByIdSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof findById>>>
+export type FindByIdSuspenseQueryError = unknown
+
+
+export function useFindByIdSuspense<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useFindByIdSuspense<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useFindByIdSuspense<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useFindByIdSuspense<TData = Awaited<ReturnType<typeof findById>>, TError = unknown>(
+ itemId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof findById>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getFindByIdSuspenseQueryOptions(itemId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+

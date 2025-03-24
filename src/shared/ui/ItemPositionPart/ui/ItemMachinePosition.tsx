@@ -11,6 +11,7 @@ import {CustomSnackbar} from "../../Snackbar/ui/CustomSnackbar";
 
 interface ItemPositionPartProps {
     item: UiOrderItem;
+    onChangeItem: () => void
 }
 
 interface OptionType {
@@ -23,7 +24,8 @@ interface OptionType {
 
 export const ItemMachinePosition = (props: ItemPositionPartProps) => {
     const {
-        item
+        item,
+        onChangeItem,
     } = props;
 
     const [machinesOptions, setMachinesOptions] = useState<OptionType[]>([]);
@@ -94,6 +96,7 @@ export const ItemMachinePosition = (props: ItemPositionPartProps) => {
             await orderItemService.establishMachines(req);
             handleEdit();
             fetchOccupiedMachines();
+            onChangeItem()
             handleSnackbarOpen(`Назначение станка(ов) успешно изменено на позицию: ${item.product?.productName}`, "success");
         } catch (error) {
             console.error(error);
