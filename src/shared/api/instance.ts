@@ -53,8 +53,11 @@ export const apiInstance = async <T>({
     if (!noAuthEndpoint.includes(url)) {
         (finalHeaders as Record<string, string>)['Authorization'] = `Bearer ${accessToken}`;
     }
+
+    const queryString = params ? `?${new URLSearchParams(params).toString()}` : '';
+    const fullUrl = `${baseURL}${url}${queryString}`;
     const response = await fetch(
-        `${baseURL}${url}` + new URLSearchParams(params),
+        fullUrl,
         {
             method,
             headers: finalHeaders,

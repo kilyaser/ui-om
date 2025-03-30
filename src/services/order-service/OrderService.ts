@@ -1,8 +1,9 @@
 import {
+    type ChangeStateParams, ChangeStateToState,
     type CreateOrderRequest,
     PageRequest, type PageUiOrder,
     type PageUiOrderShort,
-    type UiOrder
+    type UiOrder, UiOrderAvailableStateAction
 } from "../../clients/generated/commonApi/models";
 import {ordersApi} from "../../clients/generated";
 
@@ -39,6 +40,29 @@ class OrderService {
     async getAllOrdersByCounterparty(counterpartyId: string, pageRequest: PageRequest): Promise<PageUiOrder> {
         try {
             return await ordersApi.getAllOrdersByCounterparty(counterpartyId, pageRequest);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async getAvailableOrderStates(orderId: string): Promise<UiOrderAvailableStateAction> {
+        try {
+            return await ordersApi.getAvailableAction(orderId);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async changeState(orderId: string, state: keyof typeof ChangeStateToState) {
+
+        try {
+            const param: ChangeStateParams = {
+                toState: ChangeStateToState[state]
+            };
+            console.log("changeState", orderId, param);
+            return await ordersApi.changeState(orderId, param);
         } catch (error) {
             console.error(error);
             throw error;

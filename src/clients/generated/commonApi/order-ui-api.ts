@@ -26,12 +26,13 @@ import type {
   UseSuspenseQueryResult
 } from '@tanstack/react-query'
 import type {
-  ChangeOrderSateParams,
+  ChangeStateParams,
   CreateOrderRequest,
   PageRequest,
   PageUiOrder,
   PageUiOrderShort,
   UiOrder,
+  UiOrderAvailableStateAction,
   UpdateOrderRequest
 } from './models'
 import { apiInstance } from '../../../shared/api/instance';
@@ -146,6 +147,171 @@ const {mutation: mutationOptions} = options ?? {};
       > => {
 
       const mutationOptions = getCreateOrderMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    /**
+ * Изменить статус заказа
+ */
+export const changeState = (
+    orderId: string,
+    params: ChangeStateParams,
+ ) => {
+      
+      
+      return apiInstance<UiOrder>(
+      {url: `/api/v1/ui/orders/${orderId}/state`, method: 'PUT',
+        params
+    },
+      );
+    }
+  
+
+
+export const getChangeStateMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changeState>>, TError,{orderId: string;params: ChangeStateParams}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof changeState>>, TError,{orderId: string;params: ChangeStateParams}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof changeState>>, {orderId: string;params: ChangeStateParams}> = (props) => {
+          const {orderId,params} = props ?? {};
+
+          return  changeState(orderId,params,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ChangeStateMutationResult = NonNullable<Awaited<ReturnType<typeof changeState>>>
+    
+    export type ChangeStateMutationError = unknown
+
+    export const useChangeState = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changeState>>, TError,{orderId: string;params: ChangeStateParams}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof changeState>>,
+        TError,
+        {orderId: string;params: ChangeStateParams},
+        TContext
+      > => {
+
+      const mutationOptions = getChangeStateMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    /**
+ * Получиение всех заказав по Контрегенту
+ */
+export const getAllOrdersByCounterparty = (
+    counterpartyId: string,
+    pageRequest: BodyType<PageRequest>,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<PageUiOrder>(
+      {url: `/api/v1/ui/orders/${counterpartyId}`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: pageRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getGetAllOrdersByCounterpartyMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, {counterpartyId: string;data: BodyType<PageRequest>}> = (props) => {
+          const {counterpartyId,data} = props ?? {};
+
+          return  getAllOrdersByCounterparty(counterpartyId,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type GetAllOrdersByCounterpartyMutationResult = NonNullable<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>>
+    export type GetAllOrdersByCounterpartyMutationBody = BodyType<PageRequest>
+    export type GetAllOrdersByCounterpartyMutationError = unknown
+
+    export const useGetAllOrdersByCounterparty = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof getAllOrdersByCounterparty>>,
+        TError,
+        {counterpartyId: string;data: BodyType<PageRequest>},
+        TContext
+      > => {
+
+      const mutationOptions = getGetAllOrdersByCounterpartyMutationOptions(options);
+
+      return useMutation(mutationOptions);
+    }
+    /**
+ * Получение страницы заказов
+ */
+export const getOrdersPage = (
+    pageRequest: BodyType<PageRequest>,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<PageUiOrderShort>(
+      {url: `/api/v1/ui/orders/page`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: pageRequest, signal
+    },
+      );
+    }
+  
+
+
+export const getGetOrdersPageMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext> => {
+const {mutation: mutationOptions} = options ?? {};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getOrdersPage>>, {data: BodyType<PageRequest>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  getOrdersPage(data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type GetOrdersPageMutationResult = NonNullable<Awaited<ReturnType<typeof getOrdersPage>>>
+    export type GetOrdersPageMutationBody = BodyType<PageRequest>
+    export type GetOrdersPageMutationError = unknown
+
+    export const useGetOrdersPage = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext>, }
+): UseMutationResult<
+        Awaited<ReturnType<typeof getOrdersPage>>,
+        TError,
+        {data: BodyType<PageRequest>},
+        TContext
+      > => {
+
+      const mutationOptions = getGetOrdersPageMutationOptions(options);
 
       return useMutation(mutationOptions);
     }
@@ -285,60 +451,6 @@ export function useGetOrderByIdSuspense<TData = Awaited<ReturnType<typeof getOrd
 
 
 /**
- * Изменить позицию заказа
- */
-export const changeOrderSate = (
-    orderId: string,
-    params: ChangeOrderSateParams,
- ) => {
-      
-      
-      return apiInstance<UiOrder>(
-      {url: `/api/v1/ui/orders/${orderId}`, method: 'PUT',
-        params
-    },
-      );
-    }
-  
-
-
-export const getChangeOrderSateMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changeOrderSate>>, TError,{orderId: string;params: ChangeOrderSateParams}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof changeOrderSate>>, TError,{orderId: string;params: ChangeOrderSateParams}, TContext> => {
-const {mutation: mutationOptions} = options ?? {};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof changeOrderSate>>, {orderId: string;params: ChangeOrderSateParams}> = (props) => {
-          const {orderId,params} = props ?? {};
-
-          return  changeOrderSate(orderId,params,)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type ChangeOrderSateMutationResult = NonNullable<Awaited<ReturnType<typeof changeOrderSate>>>
-    
-    export type ChangeOrderSateMutationError = unknown
-
-    export const useChangeOrderSate = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof changeOrderSate>>, TError,{orderId: string;params: ChangeOrderSateParams}, TContext>, }
-): UseMutationResult<
-        Awaited<ReturnType<typeof changeOrderSate>>,
-        TError,
-        {orderId: string;params: ChangeOrderSateParams},
-        TContext
-      > => {
-
-      const mutationOptions = getChangeOrderSateMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
-    /**
  * Удаление заказа по id
  */
 export const deleteOrder = (
@@ -391,114 +503,137 @@ const {mutation: mutationOptions} = options ?? {};
       return useMutation(mutationOptions);
     }
     /**
- * Получиение всех заказав по Контрегенту
+ * Получить доступные статусы заказа для установки
  */
-export const getAllOrdersByCounterparty = (
-    counterpartyId: string,
-    pageRequest: BodyType<PageRequest>,
+export const getAvailableAction = (
+    orderId: string,
  signal?: AbortSignal
 ) => {
       
       
-      return apiInstance<PageUiOrder>(
-      {url: `/api/v1/ui/orders/${counterpartyId}`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: pageRequest, signal
+      return apiInstance<UiOrderAvailableStateAction>(
+      {url: `/api/v1/ui/orders/${orderId}/action`, method: 'GET', signal
     },
       );
     }
   
 
-
-export const getGetAllOrdersByCounterpartyMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext> => {
-const {mutation: mutationOptions} = options ?? {};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, {counterpartyId: string;data: BodyType<PageRequest>}> = (props) => {
-          const {counterpartyId,data} = props ?? {};
-
-          return  getAllOrdersByCounterparty(counterpartyId,data,)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type GetAllOrdersByCounterpartyMutationResult = NonNullable<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>>
-    export type GetAllOrdersByCounterpartyMutationBody = BodyType<PageRequest>
-    export type GetAllOrdersByCounterpartyMutationError = unknown
-
-    export const useGetAllOrdersByCounterparty = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getAllOrdersByCounterparty>>, TError,{counterpartyId: string;data: BodyType<PageRequest>}, TContext>, }
-): UseMutationResult<
-        Awaited<ReturnType<typeof getAllOrdersByCounterparty>>,
-        TError,
-        {counterpartyId: string;data: BodyType<PageRequest>},
-        TContext
-      > => {
-
-      const mutationOptions = getGetAllOrdersByCounterpartyMutationOptions(options);
-
-      return useMutation(mutationOptions);
+export const getGetAvailableActionQueryKey = (orderId: string,) => {
+    return [`/api/v1/ui/orders/${orderId}/action`] as const;
     }
-    /**
- * Получение страницы заказов
- */
-export const getOrdersPage = (
-    pageRequest: BodyType<PageRequest>,
- signal?: AbortSignal
-) => {
-      
-      
-      return apiInstance<PageUiOrderShort>(
-      {url: `/api/v1/ui/orders/page`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: pageRequest, signal
-    },
-      );
-    }
-  
 
-
-export const getGetOrdersPageMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext>, }
-): UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext> => {
-const {mutation: mutationOptions} = options ?? {};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof getOrdersPage>>, {data: BodyType<PageRequest>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  getOrdersPage(data,)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type GetOrdersPageMutationResult = NonNullable<Awaited<ReturnType<typeof getOrdersPage>>>
-    export type GetOrdersPageMutationBody = BodyType<PageRequest>
-    export type GetOrdersPageMutationError = unknown
-
-    export const useGetOrdersPage = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof getOrdersPage>>, TError,{data: BodyType<PageRequest>}, TContext>, }
-): UseMutationResult<
-        Awaited<ReturnType<typeof getOrdersPage>>,
-        TError,
-        {data: BodyType<PageRequest>},
-        TContext
-      > => {
-
-      const mutationOptions = getGetOrdersPageMutationOptions(options);
-
-      return useMutation(mutationOptions);
-    }
     
+export const getGetAvailableActionQueryOptions = <TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAvailableActionQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAvailableAction>>> = ({ signal }) => getAvailableAction(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(orderId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetAvailableActionQueryResult = NonNullable<Awaited<ReturnType<typeof getAvailableAction>>>
+export type GetAvailableActionQueryError = unknown
+
+
+export function useGetAvailableAction<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAvailableAction>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAvailableAction<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getAvailableAction>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAvailableAction<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetAvailableAction<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetAvailableActionQueryOptions(orderId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGetAvailableActionSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetAvailableActionQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getAvailableAction>>> = ({ signal }) => getAvailableAction(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetAvailableActionSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getAvailableAction>>>
+export type GetAvailableActionSuspenseQueryError = unknown
+
+
+export function useGetAvailableActionSuspense<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAvailableActionSuspense<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetAvailableActionSuspense<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetAvailableActionSuspense<TData = Awaited<ReturnType<typeof getAvailableAction>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getAvailableAction>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetAvailableActionSuspenseQueryOptions(orderId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+

@@ -13,9 +13,9 @@ import {NavTab} from "../NavTab/NavTab";
 import {Alert} from "../../../shared/ui/Alert/ui/Alert";
 import OrderProgressBar from "../OrderProgressBar/OrderProgressBar";
 import {OrderState} from "../../type";
-import {useTranslation} from "react-i18next";
 import {ActionOption} from "../ActionOption/ActionOption";
 import {ItemPage} from "../../ItemPage";
+import {OrderStateModal} from "../../../shared/ui/OrderStateModal";
 
 interface OrderPageProps {
     className?: string;
@@ -36,7 +36,15 @@ export const OrderPage = ({className}: OrderPageProps) => {
     const totalOrderAmount = order?.currentSum || 0;
     const iaWarning = isAlertVisible && totalPayments > totalOrderAmount && totalPayments > 0;// Сумма платежей
     const stateKey = order?.orderState;
-    const {t} = useTranslation("order");
+    const [isOpen, setIsOpen] = useState(false);
+
+    const onClose = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
+    const onShow = useCallback(() => {
+        setIsOpen(true);
+    }, []);
 
     const fetchOrderData = useCallback(async () => {
         try {
@@ -74,9 +82,10 @@ export const OrderPage = ({className}: OrderPageProps) => {
     };
 
     const onActionSelected = (value: string) => {
-        console.log(value);
+       if (value === "Сменить статус") {
+           onShow();
+       }
     }
-
 
     if (loading) return <div>Загрузка...</div>;
     if (error) return <div>{error}</div>;
@@ -85,7 +94,7 @@ export const OrderPage = ({className}: OrderPageProps) => {
         <div className={classNames(cls.OrderPage, {}, [className, "container-fluid"])}>
             <div className="d-flex justify-content-between shadow-none rounded bg-light align-items-center">
                 <div className="p-3 mb-3">
-                    <p className="text-start mt-1 mb-1 fs-3">{order?.orderNumber} {t("от")} {order?.createdDate}</p>
+                    <p className="text-start mt-1 mb-1 fs-3">{order?.orderNumber} от {order?.createdDate}</p>
                 </div>
                 <ActionOption
                     className="m-2"
@@ -160,6 +169,12 @@ export const OrderPage = ({className}: OrderPageProps) => {
             ) : (
                 <div>Заказ не найден.</div>
             )}
+            <OrderStateModal
+                orderId={orderId}
+                isOpen={isOpen}
+                onClose={onClose}
+                onStateChange={handleChangeOrderInfo}
+            />
         </div>
     );
 };
