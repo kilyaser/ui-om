@@ -63,6 +63,7 @@ export * from './uiMaterial';
 export * from './uiOrder';
 export * from './uiOrderAvailableStateAction';
 export * from './uiOrderAvailableStateActionAvailableStateItem';
+export * from './uiOrderConstraint';
 export * from './uiOrderItem';
 export * from './uiOrderItemPreparationState';
 export * from './uiOrderItemProductType';

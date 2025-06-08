@@ -33,6 +33,7 @@ import type {
   PageUiOrderShort,
   UiOrder,
   UiOrderAvailableStateAction,
+  UiOrderConstraint,
   UpdateOrderRequest
 } from './models'
 import { apiInstance } from '../../../shared/api/instance';
@@ -502,7 +503,139 @@ const {mutation: mutationOptions} = options ?? {};
 
       return useMutation(mutationOptions);
     }
-    /**
+    export const getConstraints = (
+    orderId: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<UiOrderConstraint>(
+      {url: `/api/v1/ui/orders/${orderId}/constraints`, method: 'GET', signal
+    },
+      );
+    }
+  
+
+export const getGetConstraintsQueryKey = (orderId: string,) => {
+    return [`/api/v1/ui/orders/${orderId}/constraints`] as const;
+    }
+
+    
+export const getGetConstraintsQueryOptions = <TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetConstraintsQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints>>> = ({ signal }) => getConstraints(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(orderId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetConstraintsQueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints>>>
+export type GetConstraintsQueryError = unknown
+
+
+export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getConstraints>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getConstraints>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetConstraintsQueryOptions(orderId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGetConstraintsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetConstraintsQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints>>> = ({ signal }) => getConstraints(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GetConstraintsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints>>>
+export type GetConstraintsSuspenseQueryError = unknown
+
+
+export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGetConstraintsSuspenseQueryOptions(orderId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+/**
  * Получить доступные статусы заказа для установки
  */
 export const getAvailableAction = (

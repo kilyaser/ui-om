@@ -32,7 +32,7 @@ import { apiInstance } from '../../../shared/api/instance';
 /**
  * Получить информацию об ограничениях.
  */
-export const getConstraints = (
+export const getConstraints1 = (
     
  signal?: AbortSignal
 ) => {
@@ -45,64 +45,64 @@ export const getConstraints = (
     }
   
 
-export const getGetConstraintsQueryKey = () => {
+export const getGetConstraints1QueryKey = () => {
     return [`/api/v1/ui/admin/constraints`] as const;
     }
 
     
-export const getGetConstraintsQueryOptions = <TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export const getGetConstraints1QueryOptions = <TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetConstraintsQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getGetConstraints1QueryKey();
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints>>> = ({ signal }) => getConstraints(signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints1>>> = ({ signal }) => getConstraints1(signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
-export type GetConstraintsQueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints>>>
-export type GetConstraintsQueryError = unknown
+export type GetConstraints1QueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints1>>>
+export type GetConstraints1QueryError = unknown
 
 
-export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>> & Pick<
+export function useGetConstraints1<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getConstraints>>,
+          Awaited<ReturnType<typeof getConstraints1>>,
           TError,
           TData
         > , 'initialData'
       >, }
 
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>> & Pick<
+export function useGetConstraints1<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getConstraints>>,
+          Awaited<ReturnType<typeof getConstraints1>>,
           TError,
           TData
         > , 'initialData'
       >, }
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export function useGetConstraints1<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
-export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export function useGetConstraints1<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
-  const queryOptions = getGetConstraintsQueryOptions(options)
+  const queryOptions = getGetConstraints1QueryOptions(options)
 
   const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 
@@ -113,47 +113,47 @@ export function useGetConstraints<TData = Awaited<ReturnType<typeof getConstrain
 
 
 
-export const getGetConstraintsSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export const getGetConstraints1SuspenseQueryOptions = <TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>( options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 ) => {
 
 const {query: queryOptions} = options ?? {};
 
-  const queryKey =  queryOptions?.queryKey ?? getGetConstraintsQueryKey();
+  const queryKey =  queryOptions?.queryKey ?? getGetConstraints1QueryKey();
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints>>> = ({ signal }) => getConstraints(signal);
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getConstraints1>>> = ({ signal }) => getConstraints1(signal);
 
       
 
       
 
-   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
 }
 
-export type GetConstraintsSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints>>>
-export type GetConstraintsSuspenseQueryError = unknown
+export type GetConstraints1SuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof getConstraints1>>>
+export type GetConstraints1SuspenseQueryError = unknown
 
 
-export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
-
-  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export function useGetConstraints1Suspense<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
-export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export function useGetConstraints1Suspense<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGetConstraints1Suspense<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
 
-export function useGetConstraintsSuspense<TData = Awaited<ReturnType<typeof getConstraints>>, TError = unknown>(
-  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints>>, TError, TData>>, }
+export function useGetConstraints1Suspense<TData = Awaited<ReturnType<typeof getConstraints1>>, TError = unknown>(
+  options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof getConstraints1>>, TError, TData>>, }
 
   ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
 
-  const queryOptions = getGetConstraintsSuspenseQueryOptions(options)
+  const queryOptions = getGetConstraints1SuspenseQueryOptions(options)
 
   const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
 

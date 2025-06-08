@@ -3,7 +3,7 @@ import {
     type CreateOrderRequest,
     PageRequest, type PageUiOrder,
     type PageUiOrderShort,
-    type UiOrder, UiOrderAvailableStateAction
+    type UiOrder, UiOrderAvailableStateAction, UiOrderConstraint
 } from "../../clients/generated/commonApi/models";
 import {ordersApi} from "../../clients/generated";
 
@@ -63,6 +63,15 @@ class OrderService {
             };
             console.log("changeState", orderId, param);
             return await ordersApi.changeState(orderId, param);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    async getConstraints(id: string): Promise<UiOrderConstraint> {
+        try {
+            return await ordersApi.getConstraints(id);
         } catch (error) {
             console.error(error);
             throw error;
