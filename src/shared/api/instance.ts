@@ -6,11 +6,18 @@ const noAuthEndpoint = ["/api/v1/auth/authenticate"];
 const getTokens = () => {
     const accessToken = localStorage.getItem(ACCESS_TOKEN); // или другой способ хранения токена
     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-    return { accessToken, refreshToken };
+    return {accessToken, refreshToken};
 };
 
+const getAcceptHeader = (responseType: string) => {
+    if (responseType === "blob") {
+        return 'application/pdf'
+    }
+    return 'application/json';
+}
+
 const refreshAccessToken = async () => {
-    const { refreshToken } = getTokens();
+    const {refreshToken} = getTokens();
 
     const response = await fetch(`${baseURL}/api/v1/auth/refresh-token`, {
         method: 'GET', // Измените метод на GET
@@ -35,6 +42,7 @@ export const apiInstance = async <T>({
                                          data,
                                          headers,
                                          signal,
+                                         responseType = "json",
                                      }: {
     url: string;
     method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
@@ -44,10 +52,11 @@ export const apiInstance = async <T>({
     headers?: HeadersInit;
     responseType?: string;
 }): Promise<T> => {
-    const { accessToken } = getTokens();
+    const {accessToken} = getTokens();
     const finalHeaders: HeadersInit = {
         ...headers,
         'Content-Type': 'application/json',
+        'Accept': getAcceptHeader(responseType),
     };
 
     if (!noAuthEndpoint.includes(url)) {
@@ -67,11 +76,15 @@ export const apiInstance = async <T>({
     );
     if (response.status === 401) { // Если токен истек
         await refreshAccessToken(); // Попробуем обновить токен
-        return apiInstance<T>({ url, method, params, data, headers, signal }); // Повторите запрос
+        return apiInstance<T>({url, method, params, data, headers, signal}); // Повторите запрос
     }
 
     if (!response.ok) {
         throw new Error(`${response.status}`);
+    }
+
+    if (responseType === "blob") {
+        return response.blob() as Promise<T>
     }
 
     return response.status === 204 ? null : response.json();

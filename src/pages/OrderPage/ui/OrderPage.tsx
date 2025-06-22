@@ -16,6 +16,7 @@ import {OrderState} from "../../type";
 import {ActionOption} from "../ActionOption/ActionOption";
 import {ItemPage} from "../../ItemPage";
 import {OrderStateModal} from "../../../shared/ui/OrderStateModal";
+import DownloadPdfButton from "../DownloadPdfButton/DownloadPdfButton.tsx";
 
 interface OrderPageProps {
     className?: string;
@@ -130,10 +131,13 @@ export const OrderPage = ({className}: OrderPageProps) => {
                 <div className="container-fluid mt-3">
                     {activeTab === 'info' && (
                         <>
-                            <OrderInfo
-                                className={cls.OrderPage}
-                                order={order}
-                            />
+                            <div>
+                                <OrderInfo
+                                    className={cls.OrderPage}
+                                    order={order}
+                                />
+                                <DownloadPdfButton orderId={orderId} orderNumber={order.orderNumber}/>
+                            </div>
 
                             <ItemInfo
                                 className={cls.OrderPage}

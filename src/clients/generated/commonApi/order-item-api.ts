@@ -202,7 +202,10 @@ const {mutation: mutationOptions} = options ?? {};
 
       return useMutation(mutationOptions);
     }
-    export const establishMachines = (
+    /**
+ * Назначит станок на позицию заказа для производства
+ */
+export const establishMachines = (
     uiEstablishMachineRequest: BodyType<UiEstablishMachineRequest>,
  ) => {
       

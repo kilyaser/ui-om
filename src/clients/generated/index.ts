@@ -8,3 +8,4 @@ export * as productApi from "./commonApi/product-ui-api";
 export * as taskApi from "./commonApi/task-ui-api";
 export * as contractApi from "./commonApi/contract-ui-api";
 export * as machineApi from "./commonApi/cnc-machine-api";
+export * as reportApi from "./commonApi/report-ui-api";

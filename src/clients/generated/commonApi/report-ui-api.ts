@@ -162,3 +162,136 @@ export function useGenerateOrderReportSuspense<TData = Awaited<ReturnType<typeof
 
 
 
+export const generateOrderPdf = (
+    orderId: string,
+ signal?: AbortSignal
+) => {
+      
+      
+      return apiInstance<Blob>(
+      {url: `/api/v1/ui/orders/${orderId}/pdf`, method: 'GET',
+        responseType: 'blob', signal
+    },
+      );
+    }
+  
+
+export const getGenerateOrderPdfQueryKey = (orderId: string,) => {
+    return [`/api/v1/ui/orders/${orderId}/pdf`] as const;
+    }
+
+    
+export const getGenerateOrderPdfQueryOptions = <TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGenerateOrderPdfQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof generateOrderPdf>>> = ({ signal }) => generateOrderPdf(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(orderId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GenerateOrderPdfQueryResult = NonNullable<Awaited<ReturnType<typeof generateOrderPdf>>>
+export type GenerateOrderPdfQueryError = unknown
+
+
+export function useGenerateOrderPdf<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof generateOrderPdf>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGenerateOrderPdf<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof generateOrderPdf>>,
+          TError,
+          TData
+        > , 'initialData'
+      >, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGenerateOrderPdf<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGenerateOrderPdf<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGenerateOrderPdfQueryOptions(orderId,options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+export const getGenerateOrderPdfSuspenseQueryOptions = <TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+) => {
+
+const {query: queryOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGenerateOrderPdfQueryKey(orderId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof generateOrderPdf>>> = ({ signal }) => generateOrderPdf(orderId, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, ...queryOptions} as UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData> & { queryKey: DataTag<QueryKey, TData> }
+}
+
+export type GenerateOrderPdfSuspenseQueryResult = NonNullable<Awaited<ReturnType<typeof generateOrderPdf>>>
+export type GenerateOrderPdfSuspenseQueryError = unknown
+
+
+export function useGenerateOrderPdfSuspense<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options: { query:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGenerateOrderPdfSuspense<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+export function useGenerateOrderPdfSuspense<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> }
+
+export function useGenerateOrderPdfSuspense<TData = Awaited<ReturnType<typeof generateOrderPdf>>, TError = unknown>(
+ orderId: string, options?: { query?:Partial<UseSuspenseQueryOptions<Awaited<ReturnType<typeof generateOrderPdf>>, TError, TData>>, }
+
+  ):  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> } {
+
+  const queryOptions = getGenerateOrderPdfSuspenseQueryOptions(orderId,options)
+
+  const query = useSuspenseQuery(queryOptions) as  UseSuspenseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
